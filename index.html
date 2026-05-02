@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Famous Vine Montessori | ✨ Raising Seed of Honour</title>
+  <link rel="stylesheet" href="static/css/fv.css">
+
+<!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo"> 
+      <img src="static/images/logo.webp" alt="FV logo">
+      <h1>🌱 FAMOUS VINE <span style="color:#ffb347;">MONTESSORI</span></h1>    
+      <strong>✨ Raising Seed of Honour ✨</strong>
+    </div>
+
+    <button class="menu-toggle" id="mobileMenuBtn" aria-label="Toggle Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <ul class="nav-links" id="navList">
+      <li><button class="nav-btn active" data-page="home"><i class="fas fa-home"></i> Home</button></li>
+      <li><button class="nav-btn" data-page="advert"><i class="fas fa-bullhorn"></i> Advert</button></li>
+      <li><button class="nav-btn" data-page="projects"><i class="fas fa-flask"></i> Projects</button></li>
+      <li><a href="templates/gallery.html"><button class="nav-btn"><i class="fas fa-images"></i> Gallery</button></a></li>
+      <li><button class="nav-btn" data-page="media"><i class="fas fa-video"></i> Media</button></li>
+      <li><button class="nav-btn" data-page="contact"><i class="fas fa-address-card"></i> Contact</button></li>
+    </ul>
+  </div>
+</header>
+
+<main id="dynamicContent" class="dynamic-content">
+  <!-- JS will dynamically inject the selected page content here -->
+  <div class="section-card" style="text-align:center; padding:60px 20px;">
+    <i class="fas fa-spinner fa-pulse" style="font-size: 3rem; color:#3a8c4a;"></i>
+    <p>Loading a Supercalifragilisticexpialidocious school experience...</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>&copy; <span id="currentYear"></span> Famous Vine Montessori School</p> 
+    
+    <p>
+      <a href="https://www.google.com/maps/search/?api=1&query=No.+4+Philip+Street,+Paradise+Estate,+Rumuohwa,+Eneka,+Port+Harcourt,+Nigeria" 
+         target="_blank" style="color:inherit; text-decoration:none;">
+         <i class="fas fa-map-marker-alt"></i> No. 4 Philip Street, Paradise Estate, Rumuohwa, Eneka, Port Harcourt, Rivers State, Nigeria
+      </a>
+    </p>
+
+    <p style="margin-top: 8px;">
+      <a href="mailto:ezekielsalomy93@gmail.com" style="color:inherit; text-decoration:none;">
+        <i class="fas fa-envelope"></i> ezekielsalomy93@gmail.com
+      </a> | 
+      <a href="tel:+2348134057765" style="color:inherit; text-decoration:none;">
+        <i class="fas fa-phone-alt"></i> +234 813 405 7765
+      </a>
+    </p>
+
+    <p style="margin-top: 8px;">
+       <span onclick="downloadVCard()" style="cursor:pointer; text-decoration:underline;">
+         <i class="fas fa-user-plus"></i> Save Contact
+       </span> | 
+       <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Visit+Famous+Vine+Montessori&details=School+Tour&location=Port+Harcourt" 
+          target="_blank" style="color:inherit; text-decoration:none;">
+          <i class="fas fa-calendar-alt"></i> <span id="timeDisplay">Schedule Visit</span>
+       </a>
+    </p>
+    <p style="margin-top: 8px; font-size:0.8rem;">🌈 Nurturing curious hearts & bright minds — Where every child blooms!</p>
+  </div>
+
+  <a href="https://fofem.github.io"><div class="signature"><img class="sign" src="static/images/forra.webp"  alt="Forra Corporation Logo"/>Web Developer</div></a>
+</footer>
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <span class="close-btn">&times;</span>
+  <img id="lightbox-img" src="" alt="Enlarged View">
+</div>
+
+<script>
+  /* ===============================
+Set dynamic year in footer
+=============================== */
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+  // ----- DYNAMIC PAGE LOADER (single-page multi-section with full replacement, footer remains)
+  // Each section is independent: only the clicked section + footer visible, no scroll-jump mixing.
+
+  // Data for each page: HTML content as template literals (dynamic, fun, child-friendly)
+  const pages = {
+    home: `
+      <div class="section-card">
+        <div class="section-title"><i class="fas fa-seedling"></i> Welcome to Famous Vine Montessori</div>
+        <div class="fun-badge hero-grid"><i class="fas fa-smile-wink"></i> Where learning feels like play!</div>
+
+        <div class="hero-grid">
+          <div class="hero">
+            <p style="font-size:1.2rem; line-height:1.4;">🌟 <strong>Authentic Montessori Education</strong> blending character, creativity, and academic excellence. Our motto <strong style="color:#ff8c42;">“Raising Seed of Honour”</strong> prepares children for life.</p>
+
+            <ul style="margin: 20px 0 0 20px; list-style-type: circle;">
+              <li>🧸 Mixed-age classrooms & self-directed learning</li>
+              <li>🖥️ Basic Science, Technology, and Computer education</li>
+              <li>🎨 Art, music, and gardening enrichment</li>
+              <li>🏅 Award winning competition groups</li>
+              <li>🍎 Safe, loving environment with Montessori certified guides</li>
+            </ul>
+            <button id="enrollJump" class="small-fun" style="margin-top: 28px;"><i class="fas fa-heart"></i> Enroll Today →</button>
+          </div>
+          
+          <div class="slider-container hero-slide" id="homeSlider">          
+            <a href="templates/gallery.html">
+              <img src="static/images/fv001.webp" loading="lazy" class="slide active">
+              <img src="static/images/fv004.webp" loading="lazy" class="slide" alt="Happy children">
+              <img src="static/images/fv028.webp" loading="lazy" class="slide" alt="Happy children">
+              <img src="static/images/fv030.webp" loading="lazy" class="slide" alt="Happy children">
+              <img src="static/images/fv039.webp" loading="lazy" class="slide" alt="Happy children">
+              <img src="static/images/fv042.webp" loading="lazy" class="slide" alt="Happy children">
+              <img src="static/images/fv079.webp" loading="lazy" class="slide" alt="Happy children">
+              <img src="static/images/fv130.webp" loading="lazy" class="slide" alt="Happy children">
+            </a>
+          </div>
+        </div>
+        <div style="margin-top: 48px; background:#fdf8ec; border-radius: 40px; padding: 20px; text-align:center;">
+          <i class="fas fa-quote-left" style="color:#ffb347; font-size:2rem;"></i><strong> . . .</strong>         
+          <i class="fas fa-quote-right" style="color:#ffb347; font-size:2rem;"></i>
+
+          <p style="font-weight:600; font-size:1.1rem;">"Education is a natural process carried out by the child and is not acquired by listening to words but by experiences." <br> — Maria Montessori</p>
+        </div>
+      </div>
+    `,
+    advert: `
+      <div class="section-card">
+        <div class="section-title"><i class="fas fa-megaphone"></i> Special Announcements</div>
+        <div class="fun-badge"><i class="fas fa-gift"></i> Early bird offer – 15% off first term!</div>
+        <div class="grid-cards">
+
+          <div class="child-card"><div class="card-media"><i class="fas fa-child fa-3x"></i></div><div class="card-body"><h3>🎈 2026/27 Admissions Open</h3><p>Limited seats for Nursery & Primary. Register on or before <strong>First Term Resumption</strong> and enjoy discount in registration fee. Registration is ongoing.</p></div></div>
+          <div class="child-card"><div class="card-media"><i class="fas fa-chalkboard-user fa-3x"></i></div><div class="card-body"><h3>📅 Open House – June 12th</h3><p>Come experience a Montessori morning! Fun activities, campus tour, meet our guides.</p></div></div>
+
+          <div class="child-card"><div class="card-media"><i class="fas fa-trophy fa-3x"></i></div><div class="card-body"><h3>🏆 Annual Sports & Family Day</h3><p>Save the date: April 12th. Inter-house relays, talent show, and picnic.</p></div></div>
+
+          <div class="child-card"><div class="card-media"><i class="fas fa-award fa-3x"></i>
+          </div><div class="card-body"><h3>🎨 Games Challenge</h3><p>July session – clay modeling, drama, and digital storytelling. </p></div></div>
+<!---
+---->
+        </div>
+        <div style="margin-top: 32px; background:#ffe2b5; border-radius: 28px; padding: 16px; text-align:center;"><i class="fas fa-clock"></i> Gift items for overall outstanding kids available!</div>
+      </div>
+    `,
+    projects: `
+      <div class="section-card">
+        <div class="section-title"><i class="fas fa-lightbulb"></i> Young Seeds Projects</div>
+        <div class="fun-badge"><i class="fas fa-microscope"></i> Science • Art • Tech • Social Impact</div>
+        <div class="grid-cards">
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x240/e2f0d6/3f7a3f?text=Rainforest+Diorama" alt="diorama"></div><div class="card-body">
+
+          <span style="background:#ffb347; border-radius:30px; padding:5px 12px; font-size:1.0rem;">🌿 Grade 3</span>
+
+          <h3>Eco System Diorama</h3><p>Recycled materials + live plants — understanding biodiversity.</p></div></div>
+
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x240/fae3bc/ab7c3c?text=Literary+Anthology" alt="book"></div><div class="card-body"><span style="background:#ffb347; border-radius:30px; padding:5px 12px; font-size:1.0rem;">📖 Upper Primary</span><h3>"The Honourable Seed"</h3><p>Poems & short stories by our students, now in the school library.</p></div></div>
+
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x240/cfe4c1/4b824b?text=Coding+Game" alt="coding"></div><div class="card-body"><span style="background:#ffb347; border-radius:30px; padding:5px 12px; font-size:1.0rem;">💻 Tech Innovators</span><h3>Save the Forest Game</h3><p>Scratch interactive story about environmental conservation.</p></div></div>
+
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x240/e7cfaa/936e2e?text=Recycled+Fashion" alt="fashion"></div><div class="card-body"><span style="background:#ffb347; border-radius:30px; padding:5px 12px; font-size:1.0rem;">👗 Eco-Fashion Show</span><h3>Trashion Show 2025</h3><p>Outfits made from recycled materials — creativity & sustainability.</p></div></div>
+
+
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x250/d6e8ca/447d46?text=Montessori+Work+Cycle" alt="work"></div><div class="card-body"><p>🧩 Sensorial & Practical Life Activities</p></div></div>
+          
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x250/f8e5bc/b47c44?text=Graduation+Day" alt="graduation"></div><div class="card-body"><p>🎓 Kindergarten Graduation Ceremony 2025</p></div></div>
+          
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x250/e0efcf/508d45?text=Sports+Fun" alt="sports"></div><div class="card-body"><p>⚽ Inter-House Football & Relay Races</p></div></div>
+          
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x250/f7e8ce/c1822e?text=Storytelling+Session" alt="story"></div><div class="card-body"><p>📚 Library Week: Puppet Show & Storytelling</p></div></div>
+          
+          <div class="child-card"><div class="card-media"><img src="https://placehold.co/400x250/cbe5c2/547a3e?text=Gardening+Club" alt="garden"></div><div class="card-body"><p>🌻 Gardening Club: Planting vegetables & flowers</p></div></div>
+        </div>
+      </div>
+    `,
+
+ /***
+    gallery: `
+      <div class="section-card">
+        <div class="section-title"><i class="fas fa-camera-retro"></i> 📸 Our Memories Trove</div>
+        <div class="fun-badge"><i class="fas fa-heart"></i> Saving our moments of laughter, learning, and friendship in time.</div>
+        <div class="holder">
+                  
+            <div class="stage">
+                <div class="gallery" id="gallery"></div>
+            </div>
+
+            <div id="modal">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div style="text-align: center; color: white;">
+                    <img id="modal-img" src="" alt="">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-desc"></p>
+                </div>
+            </div>
+
+          </div>
+        <div style="text-align:center; margin-top:20px; color:#666;">Click any image to enlarge</div>
+      </div>
+    `,
+***/
+
+    media: `
+      <div class="section-card">
+        <div class="section-title"><i class="fas fa-film"></i> Videos & Audio from Our School</div>
+        <div class="fun-badge"><i class="fas fa-music"></i> Watch our performances, listen to our little voices!</div>
+        <h3 style="margin:20px 0 0 0;"><i class="fas fa-video"></i> Fun Videos</h3>
+        <div class="media-row">
+          <div class="media-box"><video controls poster="https://placehold.co/640x360/d4e3ca/558f44?text=School+Play" muted><source src="static/downloads/media/clip.mp4" type="video/mp4"></video><div class="media-caption">🎭 Cultural Day – Traditional Dances (Grade 2 & 3)</div></div>
+
+          <div class="media-box"><video controls poster="https://placehold.co/640x360/eadbbe/ab7c40?text=Science+Fair" muted><source src="static/downloads/media/clip.mp4" type="video/mp4"></video><div class="media-caption">🔬 Science Fair: Volcano & Renewable Energy Models</div></div>
+          
+          <div class="media-box"><video controls poster="https://placehold.co/640x360/cde2bf/43733e?text=Montessori+Classroom" muted><source src="static/downloads/media/clip.mp4" type="video/mp4"></video><div class="media-caption">📚 Morning Work Cycle – Independence in action</div></div>
+        </div>
+        <h3 style="margin:30px 0 0 0;"><i class="fas fa-headphones"></i> Audio Recordings (School Choir & Podcasts)</h3>
+        <div class="media-row">
+          <div class="media-box"><div style="padding:20px; background:#fff1e0;"><i class="fas fa-microphone-alt fa-2x"></i><p><strong>Honour Choir Anthem</strong></p><audio controls src="static/downloads/audio/agent2.mp3"></audio></div><div class="media-caption">🎵 “Seed of Honour” theme song – recorded live at assembly</div></div>
+
+          <div class="media-box"><div style="padding:20px; background:#fff1e0;"><i class="fas fa-podcast fa-2x"></i><p><strong>Kids' Climate Podcast</strong></p><audio controls src="static/downloads/audio/harvest2.mp3"></audio></div><div class="media-caption">🌍 Student-led discussion: How to protect our planet</div></div>
+
+          <div class="media-box"><div style="padding:20px; background:#fff1e0;"><i class="fas fa-book fa-2x"></i><p><strong>Storytime with Ms. Esther</strong></p><audio controls src="static/downloads/audio/los1_01.mp3"></audio></div><div class="media-caption">📖 Nigerian folktale – The Tortoise and the Birds</div></div>
+        </div>
+        <div class="fun-badge" style="margin-top:20px;"><i class="fas fa-cloud-upload-alt"></i> Placeholder media ready for your uploads! (Admin can replace sources)</div>
+      </div>
+    `,
+    contact: `
+      <div class="section-card">
+        <div class="section-title"><i class="fas fa-map-pin"></i> Reach Us & Get in Touch</div>
+        <div class="hero-grid contact-block">
+          <div class="hero">
+            <p><a href="https://www.google.com/maps/search/?api=1&query=No.+4+Philip+Street,+Paradise+Estate,+Rumuohwa,+Eneka,+Port+Harcourt,+Nigeria" 
+               target="_blank" style="color:inherit; text-decoration:none;">
+            <i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> No. 4 Philip Street, Paradise Estate, Rumuohwa, Eneka, Port Harcourt, Rivers State, Nigeria
+            </a></p>
+
+            <p><a href="mailto:ezekielsalomy93@gmail.com" style="color:inherit; text-decoration:none;"><i class="fas fa-envelope"></i> <strong>Email:</strong> ezekielsalomy93@gmail.com</a></p>
+
+            <p><a href="tel:+2348134057765" style="color:inherit; text-decoration:none;"><i class="fas fa-phone-alt"></i> <strong>Phone:</strong> +234 813 405 7765</a></p>      
+
+            <p> <span onclick="downloadVCard()" style="cursor:pointer; text-decoration:underline;"><i class="fas fa-user-graduate"></i> <strong>Proprietress:</strong> Mrs. S. Ezekiel </p>
+
+            <p><i class="fas fa-clock"></i> School Hours: Mon – Fri (7:30 AM – 3:00 PM)</p>
+           
+            <p> <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Visit+Famous+Vine+Montessori&details=School+Tour&location=Port+Harcourt" 
+              target="_blank" style="color:inherit; text-decoration:none;">
+            <i class="fas fa-calendar-alt"></i> <span id="timeDisplay">Schedule Visit</span>
+           </a> </p>
+
+            <i class="fas fa-tree" style="font-size: 4rem; align-items: center; display: flex; margin: 15px 30px 5px 30px; color:#6d9944;"></i>
+
+            <p>🌳 Green & Serene Montessori School</p>
+          </div>
+            
+          <div class="hero-slide"; style="background:#e6dcc9; border-radius: 48px; padding: 20px; min-width: 180px; text-align:center;">
+          
+            <form action="mailto:ezekielsalomy93@gmail.com" method="post" class="comment-form" id="contactForm" enctype="text/plain">
+              <input type="text" name="name" placeholder="Your Name" required>
+              <input type="email" name="email" placeholder="Your Email" required>
+              <textarea name="message" placeholder="Your Message"></textarea>
+              <button id="send" type="submit"><i class="fas fa-paper-plane"></i> Send Message ✨</button>
+            </form>
+            
+          </div>
+
+
+        </div>
+
+        <div class="fun-badge" style="margin-top:20px;"><i class="fas fa-calendar-alt"></i> Schedule an appointment – we’d love to get your feedback!</div>
+      </div>
+    `
+  };
+
+  // Helper to load page dynamically (full content swap, no leftover sections)
+  function loadPage(pageId) {
+    const contentDiv = document.getElementById('dynamicContent');
+    if (pages[pageId]) {
+      contentDiv.innerHTML = pages[pageId];
+      // after content load, attach any dynamic button handlers if needed
+      if (pageId === 'home') {
+        const enrollBtn = document.getElementById('enrollJump');
+        if (enrollBtn) {
+          enrollBtn.addEventListener('click', () => {
+            // navigate to contact page programmatically
+            setActivePage('contact');
+          });
+        }
+
+      }
+
+      // optional: add fun confetti for children (just for delight)
+      if (pageId === 'projects' || pageId === 'gallery') {
+        // subtle playful effect
+        console.log("🌟 exploring creativity!");
+      }
+    } else {
+      contentDiv.innerHTML = `<div class="section-card"><p>Oops! Page not found, but learning never stops 🧸</p></div>`;
+    }
+
+    if (pageId === 'gallery') {
+        initGalleryCarousel();
+    } else {
+        // Stop the interval if we leave the gallery page
+        if (galleryInterval) clearInterval(galleryInterval);
+    }
+
+    // Scroll to top after page change to give fresh view (footer remains, user can scroll)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // set active button style
+  function setActivePage(pageId) {
+    // update nav active class
+    const btns = document.querySelectorAll('.nav-btn');
+    btns.forEach(btn => {
+      const btnPage = btn.getAttribute('data-page');
+      if (btnPage === pageId) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    loadPage(pageId);
+    // update browser URL hash for shareable sections (optional nice touch)
+    window.location.hash = pageId;
+  }
+
+  // event listeners for navigation
+  function bindNavEvents() {
+    const btns = document.querySelectorAll('.nav-btn');
+    btns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const page = btn.getAttribute('data-page');
+        if (page) setActivePage(page);
+      });
+    });
+  }
+
+  // initial load based on hash or default home
+  function initialPage() {
+    bindNavEvents();
+    let hash = window.location.hash.substring(1);
+    if (hash && pages[hash]) {
+      setActivePage(hash);
+    } else {
+      setActivePage('home');
+    }
+  }
+
+  // listen for hash changes (browser back/forward)
+  window.addEventListener('hashchange', () => {
+    let newHash = window.location.hash.substring(1);
+    if (newHash && pages[newHash]) {
+      // update active button
+      const btns = document.querySelectorAll('.nav-btn');
+      btns.forEach(btn => {
+        const btnPage = btn.getAttribute('data-page');
+        if (btnPage === newHash) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      loadPage(newHash);
+    } else if (!newHash) {
+      setActivePage('home');
+    }
+  });
+
+  initialPage();
+</script>
+<script>
+  
+  // Contact Form Submission (Mailto Protocol)
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop default form submission
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Recipient's alternative email for notification
+            const recipientEmail = 'ezekielsalomy93@gmail.com';
+            
+            // Subject line for the email
+            const subject = encodeURIComponent(`🌱 FAMOUS VINE MONTESSORI SCHOOL, Comment from ${name}`);
+            
+            // Email body with details
+            const body = encodeURIComponent(
+                `A new message has been left on your email:\n\n` +
+                `Sender Name: ${name}\n` +
+                `Sender Email: ${email}\n` +
+                `----------------------------------------\n` +
+                `The Message:\n${message}`
+            );
+
+            // Construct the mailto link
+            const mailtoLink = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+
+            // Open the user's default email client
+            window.location.href = mailtoLink;
+            
+            // Optionally clear the form after opening mailto (though user might cancel the email)
+            // setTimeout(() => {
+            //     document.getElementById('contactForm').reset();
+            // }, 1000); 
+
+            alert('Your message is being prepared in your email client. Please send the email to notify Mrs. Ezeikel directly! Thank You.');
+        });
+
+</script>
+<script>
+// Generate vCard on the fly
+function downloadVCard() {
+  const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:Famous Vine Montessori
+TEL;TYPE=WORK,VOICE:+2348134057765
+EMAIL:ezekielsalomy93@gmail.com
+ADR:;;No. 4 Philip Street;Paradise Estate;Rumuohwa;Port Harcourt;Nigeria
+END:VCARD`;
+  const blob = new Blob([vcard], { type: 'text/vcard' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = "FamousVineMontessori.vcf";
+  link.click();
+}
+</script>
+<script>
+setInterval(() => {
+  const slides = document.querySelectorAll('.slide');
+  const active = document.querySelector('.slide.active');
+  let next = active.nextElementSibling || slides[0];
+  active.classList.remove('active');
+  next.classList.add('active');
+}, 3000);
+
+</script>
+<script>
+
+const menuBtn = document.getElementById('mobileMenuBtn');
+const navList = document.getElementById('navList');
+const navBtns = document.querySelectorAll('.nav-btn');
+
+// Toggle menu and "X" animation
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  navList.classList.toggle('show');
+});
+
+// Hide menu after selecting a section
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      menuBtn.classList.remove('active');
+      navList.classList.remove('show');
+    }
+  });
+});
+</script>
+
+
+
+<!--
+<script>
+    // --- ADD OR REMOVE IMAGES HERE ---
+    const galleryData = [
+        { img: "static/images/slide1.png", title: "Slide 1", note: "Description for image 1" },
+        { img: "static/images/slide2.png", title: "Slide 2", note: "Description for image 2" },
+        { img: "static/images/slide3.png", title: "Slide 3", note: "Description for image 3" },
+        { img: "static/images/slide4.png", title: "Slide 4", note: "Description for image 4" },
+        { img: "static/images/slide5.png", title: "Slide 5", note: "Description for image 5" }
+    ];
+
+    const gallery = document.getElementById('gallery');
+    const radius = 250; // Distance of images from center
+    
+    // Create cards dynamically
+    galleryData.forEach((data, index) => {
+        const angle = (360 / galleryData.length) * index;
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+        card.innerHTML = `<img src="${data.img}" alt="${data.title}"><h3>${data.title}</h3><p>${data.note}</p>`;
+        card.onclick = () => openModal(data);
+        gallery.appendChild(card);
+    });
+
+    // Rotation Logic
+    let currentRotation = 0;
+    setInterval(() => {
+        currentRotation -= 360 / galleryData.length;
+        gallery.style.transform = `rotateY(${currentRotation}deg)`;
+    }, 3000);
+
+    // Swipe/Drag Interaction
+    let isDragging = false;
+    let startX;
+    gallery.onpointerdown = (e) => { isDragging = true; startX = e.clientX; };
+    window.onpointermove = (e) => {
+        if (!isDragging) return;
+        currentRotation += (e.clientX - startX) * 0.5;
+        gallery.style.transform = `rotateY(${currentRotation}deg)`;
+        startX = e.clientX;
+    };
+    window.onpointerup = () => isDragging = false;
+
+    // Modal Functions
+    function openModal(data) {
+        document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal-img').src = data.img;
+        document.getElementById('modal-title').innerText = data.title;
+        document.getElementById('modal-desc').innerText = data.note;
+    }
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+</script>
+--->
+
+</body>
+</html>

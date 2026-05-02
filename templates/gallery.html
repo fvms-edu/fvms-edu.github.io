@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Famous Vine Montessori | ✨ Raising Seed of Honour</title>
+  <link rel="stylesheet" href="../static/css/fv.css"/>
+
+<!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+</head>
+<body2>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo"> 
+      <img src="../static/images/logo.webp" alt="FV logo">
+      <h1>🌱 FAMOUS VINE <span style="color:#ffb347;">MONTESSORI</span></h1>    
+      <strong>✨ Raising Seed of Honour ✨</strong>
+    </div>
+
+    <button class="menu-toggle" id="mobileMenuBtn" aria-label="Toggle Menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <ul class="nav-links" id="navList">
+      <li><a href="../index.html"><button><i class="fas fa-home"></i> Home</button></a></li>
+      <li><a href="../index.html#advert"><button><i class="fas fa-bullhorn"></i> Advert</button></a></li>
+      <li><a href="../index.html#projects"><button><i class="fas fa-flask"></i> Projects</button></a></li>
+      <li><a href="gallery.html"><button><i class="fas fa-images"></i> Gallery</button></a></li>
+      <li><a href="../index.html#media"><button><i class="fas fa-video"></i> Media</button></a></li>
+      <li><a href="../index.html#contact"><button><i class="fas fa-address-card"></i> Contact</button></a></li>
+    </ul> 
+    <div style="margin:-35px 0 -8px 0;" class="section-title"><i class="fas fa-camera-retro"></i> Our Memories Trove</div>
+</div>
+</header>
+       
+    <forra>
+        <div class="stage">
+            <div class="gallery" id="gallery" loading="lazy"></div>
+        </div>
+
+        <div id="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div style="text-align: center; color: white;">
+                <img id="modal-img" src="" alt="">
+                <h2 id="modal-title"></h2>
+                <p id="modal-desc"></p>
+            </div>
+        </div>
+
+        <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+          <span class="close-btn">&times;</span>
+          <img id="lightbox-img" src="" alt="Enlarged View">
+        </div>
+    </forra>
+
+<footer class="site-footer"> 
+        <div style="text-align:center; margin:-55px 0 5px 0; color:#666; font-size: 1.5em;">Click any image to enlarge</div>
+        <div class="fun-badge"><i class="fas fa-heart"></i> Saving our moments of laughter, learning, and friendship in time.</div>
+  <div class="footer-inner">
+    <p>&copy; <span id="currentYear"></span> Famous Vine Montessori School</p> 
+    
+    <p>
+      <a href="https://www.google.com/maps/search/?api=1&query=No.+4+Philip+Street,+Paradise+Estate,+Rumuohwa,+Eneka,+Port+Harcourt,+Nigeria" 
+         target="_blank" style="color:inherit; text-decoration:none;">
+         <i class="fas fa-map-marker-alt"></i> No. 4 Philip Street, Paradise Estate, Rumuohwa, Eneka, Port Harcourt, Rivers State, Nigeria
+      </a>
+    </p>
+
+    <p style="margin-top: 8px;">
+      <a href="mailto:ezekielsalomy93@gmail.com" style="color:inherit; text-decoration:none;">
+        <i class="fas fa-envelope"></i> ezekielsalomy93@gmail.com
+      </a> | 
+      <a href="tel:+2348134057765" style="color:inherit; text-decoration:none;">
+        <i class="fas fa-phone-alt"></i> +234 813 405 7765
+      </a>
+    </p>
+
+    <p style="margin-top: 8px;">
+       <span onclick="downloadVCard()" style="cursor:pointer; text-decoration:underline;">
+         <i class="fas fa-user-plus"></i> Save Contact
+       </span> | 
+       <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Visit+Famous+Vine+Montessori&details=School+Tour&location=Port+Harcourt" 
+          target="_blank" style="color:inherit; text-decoration:none;">
+          <i class="fas fa-calendar-alt"></i> <span id="timeDisplay">Schedule Visit</span>
+       </a>
+    </p>
+    <p style="margin-top: 8px; font-size:0.8rem;">🌈 Nurturing curious hearts & bright minds — Where every child blooms!</p>
+  </div>
+
+  <a href="https://fofem.github.io"><div class="signature"><img class="sign" src="../static/images/forra.webp"  alt="Forra Corporation Logo"/>Web Developer</div></a>
+</footer>
+
+ <script>
+  /* ===============================
+Set dynamic year in footer
+=============================== */
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+
+<script>
+
+
+    // --- ADD OR REMOVE IMAGES HERE ---
+    const galleryData = [
+        { img: "../static/images/fv001.webp", title: "Slide 1", note: " " },
+        { img: "../static/images/fv002.webp", title: "Slide 2", note: " " },
+        { img: "../static/images/fv003.webp", title: "Slide 3", note: " " },
+        { img: "../static/images/fv004.webp", title: "Slide 4", note: " " },
+        { img: "../static/images/fv005.webp", title: "Slide 5", note: " " },
+        { img: "../static/images/fv006.webp", title: "Slide 6", note: " " },
+        { img: "../static/images/fv007.webp", title: "Slide 7", note: " " },
+        { img: "../static/images/fv008.webp", title: "Slide 8", note: " " },
+        { img: "../static/images/fv009.webp", title: "Slide 9", note: " " },
+        { img: "../static/images/fv010.webp", title: "Slide 10", note: " " },
+        { img: "../static/images/fv011.webp", title: "Slide 11", note: " " },
+        { img: "../static/images/fv012.webp", title: "Slide 12", note: " " },
+        { img: "../static/images/fv013.webp", title: "Slide 13", note: " " },
+        { img: "../static/images/fv014.webp", title: "Slide 14", note: " " },
+        { img: "../static/images/fv015.webp", title: "Slide 15", note: " " },
+        { img: "../static/images/fv016.webp", title: "Slide 16", note: " " },
+        { img: "../static/images/fv017.webp", title: "Slide 17", note: " " },
+        { img: "../static/images/fv018.webp", title: "Slide 18", note: " " },
+        { img: "../static/images/fv019.webp", title: "Slide 19", note: " " },
+        { img: "../static/images/fv020.webp", title: "Slide 20", note: " " },
+        { img: "../static/images/fv021.webp", title: "Slide 21", note: " " },
+        { img: "../static/images/fv022.webp", title: "Slide 22", note: " " },
+        { img: "../static/images/fv023.webp", title: "Slide 23", note: " " },
+        { img: "../static/images/fv024.webp", title: "Slide 24", note: " " },
+        { img: "../static/images/fv025.webp", title: "Slide 25", note: " " },
+        { img: "../static/images/fv026.webp", title: "Slide 26", note: " " },
+        { img: "../static/images/fv027.webp", title: "Slide 27", note: " " },
+        { img: "../static/images/fv028.webp", title: "Slide 28", note: " " },
+        { img: "../static/images/fv029.webp", title: "Slide 29", note: " " },
+        { img: "../static/images/fv030.webp", title: "Slide 30", note: " " },
+
+        { img: "../static/images/fv032.webp", title: "Slide 32", note: " " },
+        { img: "../static/images/fv033.webp", title: "Slide 33", note: " " },
+        { img: "../static/images/fv034.webp", title: "Slide 34", note: " " },
+        { img: "../static/images/fv035.webp", title: "Slide 35", note: " " },
+        { img: "../static/images/fv036.webp", title: "Slide 36", note: " " },
+        { img: "../static/images/fv037.webp", title: "Slide 37", note: " " },
+        { img: "../static/images/fv038.webp", title: "Slide 38", note: " " },
+        { img: "../static/images/fv039.webp", title: "Slide 39", note: " " },
+        { img: "../static/images/fv040.webp", title: "Slide 40", note: " " },
+        { img: "../static/images/fv041.webp", title: "Slide 41", note: " " },
+        { img: "../static/images/fv042.webp", title: "Slide 42", note: " " },
+        { img: "../static/images/fv043.webp", title: "Slide 43", note: " " },
+        { img: "../static/images/fv044.webp", title: "Slide 44", note: " " },
+        { img: "../static/images/fv045.webp", title: "Slide 45", note: " " },
+        { img: "../static/images/fv046.webp", title: "Slide 46", note: " " },
+        { img: "../static/images/fv047.webp", title: "Slide 47", note: " " },
+        { img: "../static/images/fv048.webp", title: "Slide 48", note: " " },
+        { img: "../static/images/fv049.webp", title: "Slide 49", note: " " },
+        { img: "../static/images/fv050.webp", title: "Slide 50", note: " " },
+        { img: "../static/images/fv051.webp", title: "Slide 51", note: " " },
+        { img: "../static/images/fv052.webp", title: "Slide 52", note: " " },
+        { img: "../static/images/fv053.webp", title: "Slide 53", note: " " },
+        { img: "../static/images/fv054.webp", title: "Slide 54", note: " " },
+        { img: "../static/images/fv055.webp", title: "Slide 55", note: " " },
+        { img: "../static/images/fv056.webp", title: "Slide 56", note: " " },
+        { img: "../static/images/fv057.webp", title: "Slide 57", note: " " },
+        { img: "../static/images/fv058.webp", title: "Slide 58", note: " " },
+        { img: "../static/images/fv059.webp", title: "Slide 59", note: " " },
+        { img: "../static/images/fv060.webp", title: "Slide 60", note: " " },
+        { img: "../static/images/fv061.webp", title: "Slide 61", note: " " },
+        { img: "../static/images/fv062.webp", title: "Slide 62", note: " " },
+        { img: "../static/images/fv063.webp", title: "Slide 63", note: " " },
+        { img: "../static/images/fv064.webp", title: "Slide 64", note: " " },
+        { img: "../static/images/fv065.webp", title: "Slide 65", note: " " },
+        { img: "../static/images/fv066.webp", title: "Slide 66", note: " " },
+        { img: "../static/images/fv067.webp", title: "Slide 67", note: " " },
+        { img: "../static/images/fv068.webp", title: "Slide 68", note: " " },
+        { img: "../static/images/fv069.webp", title: "Slide 69", note: " " },
+        { img: "../static/images/fv070.webp", title: "Slide 70", note: " " },
+        { img: "../static/images/fv071.webp", title: "Slide 71", note: " " },
+        { img: "../static/images/fv072.webp", title: "Slide 72", note: " " },
+        { img: "../static/images/fv073.webp", title: "Slide 73", note: " " },
+        { img: "../static/images/fv074.webp", title: "Slide 74", note: " " },
+        { img: "../static/images/fv075.webp", title: "Slide 75", note: " " },
+        { img: "../static/images/fv076.webp", title: "Slide 76", note: " " },
+        { img: "../static/images/fv077.webp", title: "Slide 77", note: " " },
+        { img: "../static/images/fv078.webp", title: "Slide 78", note: " " },
+        { img: "../static/images/fv079.webp", title: "Slide 79", note: " " },
+        { img: "../static/images/fv080.webp", title: "Slide 80", note: " " },
+        { img: "../static/images/fv081.webp", title: "Slide 81", note: " " },
+        { img: "../static/images/fv082.webp", title: "Slide 82", note: " " },
+        { img: "../static/images/fv083.webp", title: "Slide 83", note: " " },
+        { img: "../static/images/fv084.webp", title: "Slide 84", note: " " },
+        { img: "../static/images/fv085.webp", title: "Slide 85", note: " " },
+        { img: "../static/images/fv086.webp", title: "Slide 86", note: " " },
+        { img: "../static/images/fv087.webp", title: "Slide 87", note: " " },
+        { img: "../static/images/fv088.webp", title: "Slide 88", note: " " },
+        { img: "../static/images/fv089.webp", title: "Slide 89", note: " " },
+        { img: "../static/images/fv090.webp", title: "Slide 90", note: " " },
+        { img: "../static/images/fv091.webp", title: "Slide 91", note: " " },
+        { img: "../static/images/fv092.webp", title: "Slide 92", note: " " },
+        { img: "../static/images/fv093.webp", title: "Slide 93", note: " " },
+        { img: "../static/images/fv094.webp", title: "Slide 94", note: " " },
+        { img: "../static/images/fv095.webp", title: "Slide 95", note: " " },
+        { img: "../static/images/fv096.webp", title: "Slide 96", note: " " },
+        { img: "../static/images/fv097.webp", title: "Slide 97", note: " " },
+        { img: "../static/images/fv098.webp", title: "Slide 98", note: " " },
+        { img: "../static/images/fv099.webp", title: "Slide 99", note: " " },
+        { img: "../static/images/fv100.webp", title: "Slide 100", note: " " },
+        { img: "../static/images/fv101.webp", title: "Slide 101", note: " " },
+        { img: "../static/images/fv102.webp", title: "Slide 102", note: " " },
+        { img: "../static/images/fv103.webp", title: "Slide 103", note: " " },
+        { img: "../static/images/fv104.webp", title: "Slide 104", note: " " },
+        { img: "../static/images/fv105.webp", title: "Slide 105", note: " " },
+        { img: "../static/images/fv106.webp", title: "Slide 106", note: " " },
+        { img: "../static/images/fv107.webp", title: "Slide 107", note: " " },
+        { img: "../static/images/fv108.webp", title: "Slide 108", note: " " },
+        { img: "../static/images/fv109.webp", title: "Slide 109", note: " " },
+        { img: "../static/images/fv110.webp", title: "Slide 110", note: " " },
+        { img: "../static/images/fv111.webp", title: "Slide 111", note: " " },
+        { img: "../static/images/fv112.webp", title: "Slide 112", note: " " },
+        { img: "../static/images/fv113.webp", title: "Slide 113", note: " " },
+        { img: "../static/images/fv114.webp", title: "Slide 114", note: " " },
+        { img: "../static/images/fv115.webp", title: "Slide 115", note: " " },
+        { img: "../static/images/fv116.webp", title: "Slide 116", note: " " },
+        { img: "../static/images/fv117.webp", title: "Slide 117", note: " " },
+        { img: "../static/images/fv118.webp", title: "Slide 118", note: " " },
+        { img: "../static/images/fv119.webp", title: "Slide 119", note: " " },
+        { img: "../static/images/fv120.webp", title: "Slide 120", note: " " },
+        { img: "../static/images/fv121.webp", title: "Slide 121", note: " " },
+        { img: "../static/images/fv122.webp", title: "Slide 122", note: " " },
+        { img: "../static/images/fv123.webp", title: "Slide 123", note: " " },
+        { img: "../static/images/fv124.webp", title: "Slide 124", note: " " },
+        { img: "../static/images/fv125.webp", title: "Slide 125", note: " " },
+        { img: "../static/images/fv126.webp", title: "Slide 126", note: " " },
+        { img: "../static/images/fv127.webp", title: "Slide 127", note: " " },
+        { img: "../static/images/fv128.webp", title: "Slide 128", note: " " },
+        { img: "../static/images/fv129.webp", title: "Slide 129", note: " " },
+        { img: "../static/images/fv130.webp", title: "Slide 130", note: " " },
+        { img: "../static/images/fv131.webp", title: "Slide 131", note: " " },
+        { img: "../static/images/fv132.webp", title: "Slide 132", note: " " },
+        { img: "../static/images/fv133.webp", title: "Slide 133", note: " " },
+        { img: "../static/images/fv134.webp", title: "Slide 134", note: " " },
+        { img: "../static/images/fv135.webp", title: "Slide 135", note: " " },
+        { img: "../static/images/fv136.webp", title: "Slide 136", note: " " },
+        { img: "../static/images/fv137.webp", title: "Slide 137", note: " " },
+        { img: "../static/images/fv138.webp", title: "Slide 138", note: " " },
+        { img: "../static/images/fv139.webp", title: "Slide 139", note: " " },
+        { img: "../static/images/fv140.webp", title: "Slide 140", note: " " },
+        { img: "../static/images/fv141.webp", title: "Slide 141", note: " " },
+        { img: "../static/images/fv142.webp", title: "Slide 142", note: " " },
+        { img: "../static/images/fv143.webp", title: "Slide 143", note: " " },
+        { img: "../static/images/fv144.webp", title: "Slide 144", note: " " },
+        { img: "../static/images/fv145.webp", title: "Slide 145", note: " " },
+        { img: "../static/images/fv146.webp", title: "Slide 146", note: " " },
+        { img: "../static/images/fv147.webp", title: "Slide 147", note: " " },
+        { img: "../static/images/fv148.webp", title: "Slide 148", note: " " },
+        { img: "../static/images/fv149.webp", title: "Slide 149", note: " " },
+        { img: "../static/images/fv150.webp", title: "Slide 150", note: " " },
+        { img: "../static/images/fv151.webp", title: "Slide 151", note: " " },
+        { img: "../static/images/fv152.webp", title: "Slide 152", note: " " },
+        { img: "../static/images/fv153.webp", title: "Slide 153", note: " " },
+        { img: "../static/images/fv154.webp", title: "Slide 154", note: " " },
+        { img: "../static/images/fv155.webp", title: "Slide 155", note: " " },
+        { img: "../static/images/fv156.webp", title: "Slide 156", note: " " },
+        { img: "../static/images/fv157.webp", title: "Slide 157", note: " " },
+        { img: "../static/images/fv158.webp", title: "Slide 158", note: " " }
+    ];
+
+    const gallery = document.getElementById('gallery');
+    const radius = 5900; // Distance of images from center- (Spacing of the cards. The larger the number of uploaded images the bigger the circle, so the bigger the number from 500{initial} to an upward in +1000. the same with the class called .stage {  perspective: } is should be rased much higher. its like you having to move back to see the cards in view. From the 1000px {default} to +100000px all for the 27 photos.)
+    
+    // Create cards dynamically
+    galleryData.forEach((data, index) => {
+        const angle = (360 / galleryData.length) * index;
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.transform = `rotateY(${angle}deg) translateZ(${radius}px)`;
+        card.innerHTML = `<img src="${data.img}" alt="${data.title}"><h3>${data.title}</h3><p>${data.note}</p>`;
+        card.onclick = () => openModal(data);
+        gallery.appendChild(card);
+    });
+
+    // Rotation Logic
+    let currentRotation = 0;
+    setInterval(() => {
+        currentRotation -= 360 / galleryData.length;
+        gallery.style.transform = `rotateY(${currentRotation}deg)`;
+    }, 3000);
+
+    // Swipe/Drag Interaction
+    let isDragging = false;
+    let startX;
+    gallery.onpointerdown = (e) => { isDragging = true; startX = e.clientX; };
+    window.onpointermove = (e) => {
+        if (!isDragging) return;
+        currentRotation += (e.clientX - startX) * 0.5;
+        gallery.style.transform = `rotateY(${currentRotation}deg)`;
+        startX = e.clientX;
+    };
+    window.onpointerup = () => isDragging = false;
+
+    // Modal Functions
+    function openModal(data) {
+        document.getElementById('modal').style.display = 'flex';
+        document.getElementById('modal-img').src = data.img;
+        document.getElementById('modal-title').innerText = data.title;
+        document.getElementById('modal-desc').innerText = data.note;
+    }
+    function closeModal() { document.getElementById('modal').style.display = 'none'; }
+</script>
+
+<script>
+
+const menuBtn = document.getElementById('mobileMenuBtn');
+const navList = document.getElementById('navList');
+const navBtns = document.querySelectorAll('.nav-btn');
+
+// Toggle menu and "X" animation
+menuBtn.addEventListener('click', () => {
+  menuBtn.classList.toggle('active');
+  navList.classList.toggle('show');
+});
+
+// Hide menu after selecting a section
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      menuBtn.classList.remove('active');
+      navList.classList.remove('show');
+    }
+  });
+});
+</script>
+
+</body2>
+</html>
