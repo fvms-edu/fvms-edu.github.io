@@ -82,13 +82,13 @@ GLOBAL STYLES
     .logo {
       display: flex;         /* Enables flexbox */
       align-items: center;   /* Vertically centers the logo and text */
-      gap: 15px;             /* Adds space between the image and text */
+      gap: 5px;             /* Adds space between the image and text */
       display: flex;
     }
 
     /* Optional: Ensure the image has a reasonable height */
     .logo img {
-      height: 40px;          /* Adjust height to match your design */
+      height: 80px;          /* Adjust height to match your design */
       width: auto;
     }
 
