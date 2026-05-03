@@ -18,15 +18,15 @@
     <div class="logo"> 
       <img src="static/images/logo.webp" alt="FV logo">
       <h1>🌱 FAMOUS VINE <span style="color:#ffb347;">MONTESSORI</span></h1>    
-      <strong>✨ Raising Seed of Honour ✨</strong>
+      
+      <button class="menu-toggle" id="mobileMenuBtn" aria-label="Toggle Menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
     </div>
-
-    <button class="menu-toggle" id="mobileMenuBtn" aria-label="Toggle Menu">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
-
+      <strong>✨ Raising Seed of Honour ✨</strong>
+      
     <ul class="nav-links" id="navList">
       <li><button class="nav-btn active" data-page="home"><i class="fas fa-home"></i> Home</button></li>
       <li><button class="nav-btn" data-page="advert"><i class="fas fa-bullhorn"></i> Advert</button></li>
@@ -219,6 +219,12 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
         <div class="fun-badge"><i class="fas fa-music"></i> Watch our performances, listen to our little voices!</div>
         <h3 style="margin:20px 0 0 0;"><i class="fas fa-video"></i> Fun Videos</h3>
         <div class="media-row">
+
+       <div class="media-box"><video controls <source src="static/downloads/media/clip002.mp4" type="video/mp4"></video><div class="media-caption">🎥 FVMS Broadcast: News Time– April 27, 2026</div></div>
+
+       <div class="media-box"><video controls <source src="static/downloads/media/clip001.mp4" type="video/mp4"></video><div class="media-caption"> 🤼🏽‍♂ Sport Day– March 2026 </div></div>
+         
+<!---
           <div class="media-box"><video controls poster="https://placehold.co/640x360/d4e3ca/558f44?text=School+Play" muted><source src="static/downloads/media/clip.mp4" type="video/mp4"></video><div class="media-caption">🎭 Cultural Day – Traditional Dances (Grade 2 & 3)</div></div>
 
           <div class="media-box"><video controls poster="https://placehold.co/640x360/eadbbe/ab7c40?text=Science+Fair" muted><source src="static/downloads/media/clip.mp4" type="video/mp4"></video><div class="media-caption">🔬 Science Fair: Volcano & Renewable Energy Models</div></div>
@@ -232,8 +238,9 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
           <div class="media-box"><div style="padding:20px; background:#fff1e0;"><i class="fas fa-podcast fa-2x"></i><p><strong>Kids' Climate Podcast</strong></p><audio controls src="static/downloads/audio/harvest2.mp3"></audio></div><div class="media-caption">🌍 Student-led discussion: How to protect our planet</div></div>
 
           <div class="media-box"><div style="padding:20px; background:#fff1e0;"><i class="fas fa-book fa-2x"></i><p><strong>Storytime with Ms. Esther</strong></p><audio controls src="static/downloads/audio/los1_01.mp3"></audio></div><div class="media-caption">📖 Nigerian folktale – The Tortoise and the Birds</div></div>
+--->      
         </div>
-        <div class="fun-badge" style="margin-top:20px;"><i class="fas fa-cloud-upload-alt"></i> Placeholder media ready for your uploads! (Admin can replace sources)</div>
+        <div class="fun-badge" style="margin-top:20px;"><i class="fas fa-cloud-upload-alt"></i> We learn and play and learn more.</div>
       </div>
     `,
     contact: `
