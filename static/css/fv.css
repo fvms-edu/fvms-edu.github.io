@@ -447,11 +447,11 @@ GLOBAL STYLES
     .media-box {
       flex: 1 1 280px;
       background: #fffaf0;
-      border-radius: 28px;
+      border-radius: 10px;
       overflow: hidden;
       border: 1px solid #ffe2b5;
     }
-    video, audio { width: 100%; display: block; border-radius: 20px; }
+    video, audio { width: 100%; display: block; border-radius: 5px; }
     .media-caption { padding: 14px; font-weight: 600; background: #fff3e0;}
 
 
