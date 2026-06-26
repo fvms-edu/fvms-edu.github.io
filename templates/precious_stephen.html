@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precious Stephen | Personal Portfolio</title>
+    <style>
+        :root {
+            --primary-deep: #4A154B;
+            --primary-light: #6B2D5C;
+            --accent-glow: #A352A5;
+            --bg-dark: #120813;
+            --bg-card: #251226;
+            --text-main: #F3E8F4;
+            --text-muted: #CCA9CD;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(37, 18, 38, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(163, 82, 165, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Hero Section */
+        header {
+            padding: 8rem 2rem 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .profile-wrapper img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            overflow: hidden;
+        }
+         .profile-wrapper {
+            width: 280px;
+            height: 280px;
+            background-color: #e0e0e0;
+            border: 4px solid #A352A5;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        .profile-wrapperimg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-glow);
+            object-fit: contain;
+            background: #3a1c3c;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: var(--accent-glow);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Main Layout Container */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Mission Card */
+        .mission-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(163, 82, 165, 0.15);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .mission-section h2 {
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .mission-text {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* Filter Controls */
+        .gallery-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--accent-glow);
+            color: var(--text-main);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-glow);
+            color: white;
+        }
+
+        /* Art Portfolio Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .art-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(163, 82, 165, 0.1);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-glow);
+        }
+
+        .art-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #321434, #542256);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .art-placeholder img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .art-info {
+            padding: 1.5rem;
+        }
+
+        .art-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+            color: var(--bg-dark);
+        }
+
+        .art-tag {
+            display: inline-block;
+            background: rgba(163, 82, 165, 0.2);
+            color: var(--text-main);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(163, 82, 165, 0.1);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+        }
+
+        .slide{
+            max-height: 100%;
+            min-width: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Precious<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#mission">Mission</a></li>
+                <li><a href="#gallery">Portfolio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <header id="about">
+        <div class="profile-wrapper">
+                <span><img src="../static/images/precious.png" loading="lazy" class="slide" alt="Precious Pix."></span>
+        </div>
+        <h1>Precious Stephen</h1>
+        <p class="subtitle">Student at Famous Vine Montessori School, Port Harcourt | Basic 2</p>
+    </header>
+
+    <main>
+        
+        <section id="mission" class="mission-section">
+            <h2>My Mission</h2>
+            <p class="mission-text">
+                "I am on a mission to make the world a brighter place through kindness, learning, and helping others every day. By growing together and supporting those around me, I hope to inspire positivity and make a meaningful difference in my community."
+            </p>
+        </section>
+
+        <section id="gallery">
+            <div class="gallery-controls">
+                <button class="filter-btn active" onclick="filterGallery('all')">All Drawings</button>
+                <button class="filter-btn" onclick="filterGallery('nature')">Nature</button>
+                <button class="filter-btn" onclick="filterGallery('animals')">Animals</button>
+                <button class="filter-btn" onclick="filterGallery('school')">School</button>
+            </div>
+
+            <div class="gallery-grid" id="artGrid">
+
+                <div class="art-card" data-category="nature">
+                    <div class="art-placeholder">
+                        <span><img src="../static/images/ps1.png" loading="lazy" class="slide" alt=" Pix."></span>
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">Forest Trees</h3>
+                        <span class="art-tag">Nature</span>
+                    </div>
+                </div>
+
+                <div class="art-card" data-category="animals">
+                    <div class="art-placeholder">
+                        <span><img src="../static/images/ps2.png" loading="lazy" class="slide" alt=" Pix."></span>
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">The Brave Puppy</h3>
+                        <span class="art-tag">Animals</span>
+                    </div>
+                </div>
+
+                <div class="art-card" data-category="school">
+                    <div class="art-placeholder">
+                        <span><img src="../static/images/ps3.png" loading="lazy" class="slide" alt=" Pix."></span>
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">Hair Braiding</h3>
+                        <span class="art-tag">My School Work</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Precious Stephen. Built with kindness and creativity.</p>
+
+         <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+
+    </footer>
+
+    <script>
+        function filterGallery(category) {
+            // Update active state on buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter the cards
+            const cards = document.querySelectorAll('.art-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

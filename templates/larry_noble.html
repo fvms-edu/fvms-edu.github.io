@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noble Larry | Personal Portfolio</title>
+    <style>
+        /* Base Styles & Red Theme */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fcfcfc;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #d32f2f; /* Brave Red */
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Profile Section */
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 2rem;
+            text-align: center;
+            border-top: 6px solid #d32f2f;
+            margin-bottom: 2rem;
+        }
+
+        .photo-placeholder {
+            width: 280px;
+            height: 280px;
+            background-color: #e0e0e0;
+            border: 4px solid #d32f2f;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-card h2 {
+            margin: 0 0 0.5rem 0;
+            color: #d32f2f;
+        }
+
+        .profile-card p {
+            font-size: 1.1rem;
+            color: #444;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Mission / Brave Section */
+        .mission-box {
+            background-color: #ffebee; /* Light Red tint */
+            border-left: 5px solid #d32f2f;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-bottom: 3rem;
+        }
+
+        .mission-box h3 {
+            margin-top: 0;
+            color: #c62828;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Gallery / Keepsakes Section */
+        .gallery-section h3 {
+            color: #222;
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .art-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.2s;
+            border: 1px solid #eee;            
+
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .art-placeholder {
+            height: 200px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-style: italic;
+            border-bottom: 1px solid #eee;
+            object-fit: scale-down;
+        }
+        .slide{
+            max-height: 100%;
+            min-width: auto;
+        }
+
+        .art-caption {
+            padding: 1rem;
+            font-weight: 800;
+            text-align: center;
+            background: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            background-color: #222;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+
+
+art-placeholder
+art-caption
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Noble Larry</h1>
+        <p>Brave, Strong, and Intelligent</p>
+    </header>
+
+    <div class="container">
+
+        <section class="profile-card">
+            <div class="photo-placeholder">
+                <span><img src="../static/images/noble.png" loading="lazy" class="slide" alt="Noble Pix."></span>
+            </div>
+            <h2>Welcome to My Portfolio</h2>
+            <p>Hey. My name is Noble Larry.<br> I'm a Basic 1 student of <strong>Famous Vine Montessori School.</strong></p>
+        </section>
+
+        <section class="mission-box">
+            <h3>🛡️ My Mission</h3>
+            <p>
+                I am currently a student in Basic One. I am learning important skills that will help me to be a great person in the future. 
+                <strong>I want to defend people who are weak and who cannot defend themselves.</strong> I hate when people are embarrassed, 
+                and I stand for what is right because I am brave, strong, and intelligent.
+            </p>
+            <p style="margin-bottom: 0; font-size: 0.95rem; color: #555;">
+                🏅 <em>Certifications: Graduated Nursery School & Basic One Primary Education.</em>
+            </p>
+        </section>
+
+        <section class="gallery-section">
+            <h3>🎨 My Class Keepsakes & Drawings</h3>
+            <div class="grid">
+                
+                <div class="art-card">
+                    <div class="art-placeholder"><img src="../static/images/pix3.png" loading="lazy" class="slide" alt=" Pix."></div>
+                    <div class="art-caption">My Favorite Classroom Drawing</div>
+                </div>
+
+                <div class="art-card">
+                    <div class="art-placeholder"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRompVS-A1IVm0eu65xEvqI27Vh4Nnm06HQ-zdb0r7OzA34sqEk8QDh-LU&s=10" loading="lazy" class="slide" alt=" Pix."></div>
+                    <div class="art-caption">Basic One Project Work</div>
+                </div>
+
+                <div class="art-card">
+                    <div class="art-placeholder"><img src="../static/images/pix2.png" loading="lazy" class="slide" alt=" Pix."></div>
+                    <div class="art-caption">School Keepsake Art</div>
+                </div>
+                
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Noble Larry. Built to be Brave.</p>
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+
+    </footer>
+
+</body>
+</html>

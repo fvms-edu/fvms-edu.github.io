@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omotola Babatunde | Future Educator & Artist</title>
+    <style>
+        :root {
+            --bg-main: #FFFFFF;
+            --bg-accent: #FFFDF0;
+            --brand-yellow: #FFDE4D;
+            --brand-dark: #222222;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--brand-yellow);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--brand-dark);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            background: var(--brand-yellow);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-dark);
+        }
+
+        /* Header Section */
+        header {
+            padding: 9rem 2rem 5rem 2rem;
+            background: linear-gradient(180deg, var(--bg-accent) 0%, var(--bg-main) 100%);
+            text-align: center;
+        }
+
+        .profile-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-pic {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid var(--brand-yellow);
+            object-fit: cover;
+            background: #EFEFEF;
+            box-shadow: var(--card-shadow);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: var(--brand-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .school-tag {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .school-tag strong {
+            color: var(--brand-dark);
+        }
+
+        /* Container Grid Layout */
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        section {
+            padding: 1rem 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--brand-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--brand-yellow);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        /* Mission Block */
+        .mission-box {
+            background: var(--bg-accent);
+            border-left: 6px solid var(--brand-yellow);
+            padding: 2rem;
+            border-radius: 0 12px 12px 0;
+            box-shadow: var(--card-shadow);
+        }
+
+        .mission-text {
+            font-size: 1.2rem;
+            color: var(--brand-dark);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* Future Teacher Feature */
+        .teacher-card {
+            background: var(--bg-main);
+            border: 2px solid #EFEFEF;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .teacher-icon {
+            font-size: 4rem;
+            background: var(--brand-yellow);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .teacher-info h3 {
+            font-size: 1.4rem;
+            color: var(--brand-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .teacher-info p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* Art Gallery Layout */
+        .gallery-filter {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #F5F5F5;
+            border: none;
+            color: var(--text-main);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--brand-yellow);
+            color: var(--brand-dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .art-card {
+            background: var(--bg-main);
+            border: 1px solid #EFEFEF;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .art-image-slot {
+            width: 100%;
+            height: 250px;
+            background: #FAFAFA;
+            border-bottom: 2px solid var(--brand-yellow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-align: center;
+            object-fit: fit;
+            overflow: hidden;
+        }
+
+        .art-image-slot span {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            color: #999999;
+        }
+
+        .art-image-slot img{
+            width: 100%;
+            height: 100%;
+        }
+
+        .art-details {
+            padding: 1.05rem;
+        }
+
+        .art-details h4 {
+            font-size: 1.15rem;
+            color: var(--brand-dark);
+            margin-bottom: 0.25rem;
+        }
+       
+        .art-category-tag {
+            display: inline-block;
+            background: var(--bg-accent);
+            border: 1px solid var(--brand-yellow);
+            color: var(--brand-dark);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--brand-dark);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            margin-top: 5rem;
+            font-size: 0.95rem;
+        }
+
+        footer p a {
+            color: var(--brand-yellow);
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .teacher-card { flex-direction: column; text-align: center; padding: 1.5rem; }
+            .nav-links { display: none; }
+        }
+
+         .slide{
+            max-height: 100%;
+            min-width: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Omo-T<span>Hub</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#mission">Mission</a></li>
+                <li><a href="#dream">My Dream</a></li>
+                <li><a href="#gallery">My Drawings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="about">
+        <div class="profile-container">
+            <img src="../static/images/omotola.png" alt="Omotola Babatunde" class="profile-pic">
+        </div>
+        <h1>Omotola Babatunde</h1>
+        <p class="school-tag">Basic 2 Student at <strong>Famous Vine Montessori School</strong>, Port Harcourt</p>
+    </header>
+
+    <div class="main-container">
+
+        <section id="mission">
+            <h2 class="section-title">My Mission</h2>
+            <div class="mission-box">
+                <p class="mission-text">
+                    "I believe that every small act of kindness and learning helps build a greater future. I am committed to supporting those around me and preparing to make things great in the future."
+                </p>
+            </div>
+        </section>
+
+        <section id="dream">
+            <h2 class="section-title">My Future Dream</h2>
+            <div class="teacher-card">
+                <div class="teacher-icon">✏️</div>
+                <div class="teacher-info">
+                    <h3>I Love to be a Teacher!</h3>
+                    <p>My big mission is to share knowledge, inspire young minds, and help make the future a bright and wonderful place for everyone. Every day at school, I learn new things so I can be an amazing educator one day.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <h2 class="section-title">My House Drawings</h2>
+            
+            <div class="gallery-filter">
+                <button class="filter-btn active" onclick="filterArt('all')">All Houses</button>
+                <button class="filter-btn" onclick="filterArt('modern')">Modern Homes</button>
+                <button class="filter-btn" onclick="filterArt('cottages')">Cozy Cottages</button>
+                <button class="filter-btn" onclick="filterArt('creative')">Creative Houses</button>
+            </div>
+
+            <div class="gallery-grid" id="artGrid">
+                
+                <div class="art-card" data-category="modern">
+                    <div class="art-image-slot">
+                        
+                        <span><img src="../static/images/ob1.png" loading="lazy" class="slide" alt=" Pix."></span>
+                    </div>
+                    <div class="art-details">
+                        <h4>🏠 The Glass Villa</h4>
+                        <span class="art-category-tag">Modern Home</span>
+                    </div>
+                </div>
+
+                <div class="art-card" data-category="cottages">
+                    <div class="art-image-slot">
+                        
+                        <span><img src="../static/images/ob2.png" loading="lazy" class="slide" alt=" Pix."></span>
+                    </div>
+                    <div class="art-details">
+                        <h4>🏡 The Cozy Cottage</h4>
+                        <span class="art-category-tag">Cozy Cottage</span>
+                    </div>
+                </div>
+
+                <div class="art-card" data-category="creative">
+                    <div class="art-image-slot">
+                        
+                        <span><img src="../static/images/ob3.png" loading="lazy" class="slide" alt=" Pix."></span>
+                    </div>
+                    <div class="art-details">
+                        <h4>🌳 The Secret Treehouse</h4>
+                        <span class="art-category-tag">Creative House</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Omotola Babatunde. Proudly learning at Famous Vine Montessori School.</p>
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+
+    </footer>
+
+    <script>
+        function filterArt(category) {
+            // Update active button color
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Show or hide project cards
+            const cards = document.querySelectorAll('.art-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

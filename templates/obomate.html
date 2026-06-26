@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obomate Osererebo | Portfolio</title>
+    <style>
+        /* Modern Industrial Luxe Theme */
+        :root {
+            --bg-dark: #0d1117;
+            --surface-metallic: #1c2128;
+            --neon-blue: #00f0ff;
+            --text-bright: #f0f6fc;
+            --text-muted: #8b949e;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --glow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-bright);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
+            background: rgba(13, 17, 23, 0.75);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-bright);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--neon-blue);
+            text-shadow: var(--glow);
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--neon-blue);
+            text-shadow: var(--glow);
+        }
+
+        /* Main Container Layout */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 span {
+            color: var(--neon-blue);
+            text-shadow: var(--glow);
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            box-shadow: var(--glow);
+        }
+
+        /* Grid System */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--neon-blue);
+            padding-left: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Glassmorphism Cards */
+        .card {
+            background: var(--surface-metallic);
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--neon-blue);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-glass);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            header { padding: 1.5rem 5%; }
+            nav { display: none; } /* Simplified for mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">OBO<span>MATE</span></div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="about">
+            <div style="margin-bottom: 1.5rem;">
+                <span class="badge">Basic 5 Academic Portfolio</span>
+            </div>
+            <h1>Hi, I'm <span>Obomate Osererebo</span></h1>
+            <strong>Famous Vine Montessori School</strong>, Port Harcourt
+            <p class="tagline">Welcome to my professional space. I am exploring technology, engineering concepts, and building foundations for the future.</p>
+        </section>
+
+        <h2 class="section-title" id="skills">Focus Areas</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">💡</div>
+                <h3>Logical Thinking</h3>
+                <p>Developing strong problem-solving skills and logical thinking frameworks to understand complex systems.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🖥️</div>
+                <h3>Tech Foundations</h3>
+                <p>Learning how software and tech architectures work, preparing for future development tracks.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🎙️</div>
+                <h3>Presentation</h3>
+                <p>Structuring ideas clearly, speaking confidently, and sharing knowledge effectively with peers.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="projects">My Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Portfolio Architecture</h3>
+                <p>A clean, vanilla HTML/CSS presentation build featuring a high-end, responsive industrial style layout.</p>
+            </div>
+            <div class="card">
+                <h3>Basic 5 Science Showcase</h3>
+                <p>An upcoming project summarizing key scientific principles and structures explored during this academic session.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Obomate Osererebo. Built with pure code.</p>
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+
+    </footer>
+
+</body>
+</html>
