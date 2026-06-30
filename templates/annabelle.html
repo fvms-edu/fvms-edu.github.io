@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Annabelle Stephen | Famous Vine Montessori School</title>
+    <!-- Font Awesome for cute icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Colorful & Child-Friendly Styles */
+        :root {
+            --primary-pink: #ff4d6d;
+            --secondary-pink: #ff758f;
+            --bright-red: #ff0a54;
+            --background-pink: #fff0f5;
+            --white: #ffffff;
+            --soft-yellow: #fff3b0;
+            --soft-blue: #e8f0fe;
+            --text-dark: #2d3748;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
+            background-color: var(--background-pink);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 50px;
+        }
+
+        /* Top Hero Header Banner */
+        header {
+            background: linear-gradient(135deg, var(--bright-red), var(--secondary-pink));
+            color: var(--white);
+            padding: 40px 20px;
+            border-bottom: 8px solid var(--bright-red);
+            text-align: center;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 8px 20px rgba(255, 10, 84, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            font-weight: bold;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background-color: var(--white);
+            color: var(--bright-red);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Interactive Profile Picture Section */
+        .profile-section {
+            text-align: center;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-container {
+            width: 270px;
+            height: 270px;
+            border-radius: 50%;
+            border: 6px solid var(--white);
+            background-color: var(--soft-blue);
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .profile-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Image Upload Button */
+        .upload-btn-wrapper {
+            margin-top: 15px;
+        }
+
+        .file-upload-btn {
+            background-color: var(--bright-red);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 10, 84, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .file-upload-btn:hover {
+            transform: scale(1.05);
+            background-color: #d90342;
+        }
+
+        .file-upload-btn input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        /* Content Grid */
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.1);
+            border: 4px solid #ffb3c1;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: var(--bright-red);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Magic Words Banner */
+        .magic-banner {
+            background-color: #ffb3c1;
+            color: var(--bright-red);
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: 3px dashed var(--primary-pink);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        /* Presentation Style Lists */
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            font-size: 1.15rem;
+            margin: 15px 0;
+            position: relative;
+            padding-left: 35px;
+        }
+
+        li i {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: var(--primary-pink);
+            font-size: 1.3rem;
+        }
+
+        /* Presentation Section (Pygmy Marmoset) */
+        .presentation-card {
+            border-color: #bc84ee; /* Cute Lavender boundary */
+            background: linear-gradient(to bottom right, #ffffff, #fbf7ff);
+        }
+
+        .presentation-card h2 {
+            color: #8a2be2;
+        }
+
+        .monkey-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .monkey-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .monkey-image-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            border: 5px solid #bc84ee;
+            height: 250px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .monkey-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .presentation-details h3 {
+            color: #6a1b9a;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .presentation-details p {
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+
+        /* Wonder Woman Feature */
+        .superhero-card {
+            background: linear-gradient(135deg, #fff3b0, #ffffff);
+            border-color: #ffd166;
+            text-align: center;
+        }
+
+        .superhero-card h2 {
+            color: #d4a373;
+            justify-content: center;
+        }
+        .pix {
+            justify-content: center;
+            overflow: scroll;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            grid-template-columns: 1fr 1fr;
+        }
+        .pix img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10%;
+            border: 6px solid var(--primary-pink );
+            background-color: var(--soft-blue);
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            object-fit: cover;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bright-red);
+            color: var(--white);
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+            font-size: 1rem;
+            border-radius: 20px 20px 0 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Mascot Banner -->
+    <header>
+        <h1>Dr. Annabelle Stephen's Clinic</h1>
+        <p>Keeping Kids Safe, Happy, and Healthy!</p>
+        <div class="badge-container">
+            <span class="badge"><i class="fa-solid fa-graduation-cap"></i> Nursery 2</span>
+            <span class="badge"><i class="fa-solid fa-school"></i> Famous Vine Montessori School</span>
+            <span class="badge"><i class="fa-solid fa-cake-candles"></i> 4 Years Old Today!</span>
+        </div>
+    </header>
+
+    <!-- Interactive Profile / Image Upload Area -->
+    <section class="profile-section">
+        <div class="profile-container">
+            <!-- Default cartoon doctor avatar (replaces with uploader) -->
+            <img id="avatar-preview" src="../static/images/annabelle.png" alt="Dr. Annabelle">
+        </div>
+        <div class="upload-btn-wrapper">
+            <button class="file-upload-btn">
+                <i class="fa-solid fa-camera"></i> Change to My Picture
+                <input type="file" id="image-loader" accept="image/*">
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Website Body -->
+    <div class="container">
+
+        <!-- Welcome Bio Card -->
+        <div class="card">
+            <h2><i class="fa-solid fa-heart-pulse"></i> Meet Dr. Annabelle!</h2>
+            <p style="font-size: 1.2rem;">Hello, welcome to my official clinic website! My name is <strong>Dr. Annabelle Stephen</strong>. I am 4 years old today, going to 5 years old! I study at Famous Vine Montessori School in Nursery 2. When I grow up, I am going to be a wonderful pediatric doctor.</p>
+            
+            <div class="magic-banner">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> "My Magic Words: Please and Thank You make everyone feel better!"
+            </div>
+        </div>
+
+        <!-- Special Science Presentation Card (New!) -->
+        <div class="card presentation-card">
+            <h2><i class="fa-solid fa-circle-info"></i> My Special Presentation!</h2>
+            <div class="monkey-box">
+                <div class="monkey-image-wrapper">
+                    <!-- High quality Pygmy Marmoset retrieved image -->
+                    <img src="../static/images/monkey0.png" alt="Pygmy Marmoset">
+                </div>
+                <div class="presentation-details">
+                    <h3>The Smallest Monkey in the World!</h3>
+                    <p>Did you know that the smallest monkey in the entire world is the <strong>Pygmy Marmoset</strong>? They are super tiny, cute, can fit right in your hand, and love to leap and play around safely in the trees!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Duties and Support Card -->
+        <div class="card">
+            <h2><i class="fa-solid fa-stethoscope"></i> How I Help Children</h2>
+            <!-- Default cartoon doctor avatar (replaces with uploader) -->
+            
+            <div class="pix">
+                <img src="../static/images/anny0.png" alt="Dr. Annabelle">
+                <img src="../static/images/anny1.png" alt="Dr. Annabelle">
+                <img src="../static/images/anny2.png" alt="Dr. Annabelle">
+            </div>
+           
+            <p style="font-size: 1.1rem; margin-bottom: 15px;">Being a caring doctor means doing lots of helpful jobs every single day:</p>
+            <ul>
+                <li><li><i class="fa-solid fa-user-nurse"></i> <strong>Seeing the Nurse & Doctor:</strong> I help kids take courageous trips to visit the nurse and doctor at the hospital so they stay healthy!</li>
+                <li><li><i class="fa-solid fa-face-smile-wink"></i> <strong>Playing Fine:</strong> I make sure all my friends run around safely and play wonderfully together.</li>
+                <li><li><i class="fa-solid fa-soap"></i> <strong>The Clean Team:</strong> I love to wash plates and clean up toys so sneaky germs stay far, far away!</li>
+            </ul>
+        </div>
+
+        <!-- Superhero Mode -->
+        <div class="card superhero-card">
+            <h2><i class="fa-solid fa-mask"></i> Wonder Woman Mode!</h2>
+            <p style="font-size: 1.2rem; font-weight: bold; color: var(--bright-red);">"Because I am 4 today, I also have magical Wonder Woman superhero powers..."</p>
+            <p style="font-size: 1.5rem; margin-top: 10px; color: #d4a373;"><i class="fa-solid fa-rocket"></i> I can fly high up to the rescue to help save children!</p>
+        </div>
+
+    </div>
+
+    <!-- Interactive JS to handle Picture Upload Preview -->
+    <script>
+        const imageLoader = document.getElementById('image-loader');
+        const avatarPreview = document.getElementById('avatar-preview');
+
+        imageLoader.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    avatarPreview.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Dr. Annabelle Stephen | Bright Pink, Red, & Pygmy Marmoset Power! 🐵💖</p>
+
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+    </footer>
+
+</body>
+</html>
