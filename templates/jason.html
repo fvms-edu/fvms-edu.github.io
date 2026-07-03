@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jason Oyabrade | The Cinematic Journey</title>
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #1f2833;
+            --text-main: #ffffff;
+            --text-muted: #c5a059; /* Prestige gold tone */
+            --accent-red: #e74c3c;
+        }
+
+        [data-theme="light-luxe"] {
+           --bg-color: #f0f1f5;
+            --card-bg: #c0cbd8;
+            --text-main: #000000;
+            --text-muted: #aa833c;
+            --accent-red: #ff3333;
+            --accent-glow: rgba(231, 76, 60, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            transition: background-color 0.3s ease;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
+        }
+
+        .profile-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .profile-subtitle {
+            font-size: 1.2rem;
+            color: var(--accent-red);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+
+        .quote-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-left: 4px solid var(--accent-red);
+            background-color: var(--card-bg);
+            font-style: italic;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .photo-placeholder {
+            width: 280px;
+            height: 280px;
+            background-color: #e0e0e0;
+            border: 4px solid var(--accent-red);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-red);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--accent-glow);
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 250px;
+            background-color: #2a2a2a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid var(--accent-red);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            background-color: rgba(255, 51, 51, 0.1);
+            color: var(--accent-red);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 51, 51, 0.3);
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-theme {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--text-muted);
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-theme:hover {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 20px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="profile-title">Jason Oyabrade</div>
+        <div class="profile-subtitle">Actor & Creative Visionary</div>
+        
+        <div class="photo-placeholder">
+            <span><img src="../static/images/jason.png" loading="lazy" class="slide" alt="Jason's Pix."></span>
+        </div>
+        <div class="quote-container">
+            "The future belongs to those who believe in the beauty of their dreams and take action to make them happen."
+        </div>
+
+        <div class="controls">
+            <button class="btn-theme" onclick="toggleTheme()">Toggle Aesthetic Look</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Cinematic Journey Section -->
+        <section id="journey">
+            <h2>My Cinematic Journey</h2>
+            <p style="color: var(--text-muted); margin-bottom: 20px;">
+                Driven by passion and an unwavering dedication to the craft of storytelling, my road to the screen is defined by continuous growth, character depth, and a commitment to authenticity. Transforming visions into reality, one frame at a time.
+            </p>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio">
+            <h2>The Portfolio</h2>
+            <div class="portfolio-grid">
+                
+                <!-- Card 1: Headshot Approachable -->
+                <div class="portfolio-card">
+                    <div class="image-placeholder">
+<!--
+                        <span>[ Headshot: Approachable / Friendly ]</span>
+-->                 
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Commercial & Leading Persona</div>
+                        <div class="card-desc">Warm, inviting, and highly expressive. Ideal for commercial features, modern dramas, and relatable protagonist roles.</div>
+                        <div class="skills-tags">
+                            <span class="tag">Expressive</span>
+                            <span class="tag">Leading Look</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Headshot Dramatic -->
+                <div class="portfolio-card">
+                    <div class="image-placeholder">
+<!--
+                        <span>[ Headshot: Serious / Dramatic ]</span>
+-->                 
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Intense & Character-Driven Focus</div>
+                        <div class="card-desc">Sharp, introspective tone highlighting emotional range, intensity, and deep character nuance for high-stakes narratives.</div>
+                        <div class="skills-tags">
+                            <span class="tag">Dramatic Range</span>
+                            <span class="tag">Intensity</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Skills & Action -->
+                <div class="portfolio-card">
+                    <div class="image-placeholder">
+<!--
+                        <span>[ Future Showreel / Video Clip ]</span>
+-->                 
+                    </div>
+                    <div class="card-content">
+                        <div class="card-title">Performance Core Skills</div>
+                        <div class="card-desc">Showcasing foundational dynamic action, vocal control, dialogue delivery, and spatial performance readiness.</div>
+                        <div class="skills-tags">
+                            <span class="tag">Screen Acting</span>
+                            <span class="tag">Dialogue</span>
+                            <span class="tag">Movement</span>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2026 Jason Oyabrade. All Rights Reserved.<br><br>
+
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'light-luxe') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'light-luxe');
+            }
+        }
+    </script>
+</body>
+</html>

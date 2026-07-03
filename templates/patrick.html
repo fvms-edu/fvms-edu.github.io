@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrick Barnabas | Official Website</title>
+    <style>
+        /* Color Palette: Modern Industrial Luxe with Gold Accents */
+        :root {
+            --bg-dark: #121212;
+            --surface-dark: #1e1e1e;
+            --gold-primary: #ffd700;
+            --gold-secondary: #c5a000;
+            --text-light: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--surface-dark);
+            border-bottom: 3px solid var(--gold-primary);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--gold-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .crest-box {
+            width: 120px;
+            height: 140px;
+            background-color: var(--surface-dark);
+            border: 4px solid var(--gold-primary);
+            border-radius: 10px 10px 60px 60px;
+            margin: 0 auto 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .crest-icon {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+        }
+
+        .crest-math {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-muted);
+            margin-top: -5px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--gold-primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .motto {
+            font-size: 1.8rem;
+            font-style: italic;
+            font-weight: bold;
+            color: var(--gold-primary);
+            background: rgba(255, 215, 0, 0.1);
+            display: inline-block;
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            border: 1px dashed var(--gold-primary);
+        }
+
+        /* Sections Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--gold-primary);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            border-left: 5px solid var(--gold-primary);
+            padding-left: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--surface-dark);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+        }
+
+        .card h3 {
+            color: var(--gold-primary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+        .photo-crest {
+            width: 250px;
+            height: 230px;
+            overflow: hidden;
+                   background-color: var(--surface-dark);
+            border: 4px solid var(--gold-primary);
+            border-radius: 60px;
+            margin: 0 auto 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .photo-crest img {
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        /* Utility classes */
+        .highlight {
+            color: var(--gold-primary);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="crest-box">
+                <div class="crest-icon">⚽</div>
+                <div class="crest-math">x ∶ y</div>
+                <div class="logo">B-Pat</div>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#about">About Me</a></li>
+                    <li><a href="#football">Football</a></li>
+                    <li><a href="#math">Math Champion</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Showcase Section -->
+    <section class="hero">
+        <!-- Classic Bold Crest with subtle Geometric hint for Math -->
+        <div class="photo-crest">
+            <span><img src="../static/images/patrick.png" loading="lazy" class="slide" alt="Olivia's Pix."></span>
+        </div>
+
+        <h1>Patrick Barnabas</h1>
+        <p class="subtitle">Primary 5 Student & Future Footballer</p>
+        <div class="motto">"Play for Victory"</div>
+    </section>
+
+    <!-- Main Content Sections -->
+    <main class="container">
+        
+        <!-- About Me Section -->
+        <section id="about" style="margin-bottom: 5rem;">
+            <h2 class="section-title">About Me</h2>
+            <div class="card">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                    Hello! My name is <span class="highlight">Patrick Barnabas</span>. I am 10 years old and a proud student at 
+                    <span class="highlight">Famous Vine Montessori School</span>.
+                </p>
+                <p style="color: var(--text-muted);">
+                    I love spending quality time with my friends, and whenever I go to a new place with many people, 
+                    my goal is always to bring everyone together and promote unity. Whether on the playground or in the classroom, 
+                    teamwork and community mean everything to me.
+                </p>
+            </div>
+        </section>
+
+        <!-- Football Section -->
+        <section id="football" style="margin-bottom: 5rem;">
+            <h2 class="section-title">Football Journey</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>The Dream</h3>
+                    <p>My ultimate goal is to become a professional footballer. I train hard, stay focused, and always hit the pitch with a mindset geared toward growth and team victory.</p>
+                </div>
+                <div class="card">
+                    <h3>Strategy & Play</h3>
+                    <p>Using tactical thinking and quick decision-making, I apply the principles of focus and discipline to play an excellent game every single time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Math Champion Section -->
+        <section id="math">
+            <h2 class="section-title">Math Champion Corner</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Passion for Mathematics</h3>
+                    <p>Math is my absolute favorite subject! I truly love teaching others and helping my peers master complex concepts so everyone can succeed together.</p>
+                </div>
+                <div class="card">
+                    <h3>Today's Topic: Proportion</h3>
+                    <p>Understanding <span class="highlight">Proportion</span> is all about seeing how things balance and relate to one another. Fun fact: Mastering proportions in class helps me understand spatial awareness and perfectly timed passes on the football field!</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Patrick Barnabas. Built to inspire unity, sportsmanship, and learning.</p>
+
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olivia's Future Doctor World</title>
+    <style>
+        :root {
+            --primary-red: #D2122E;
+            --dark-red: #8B0000;
+            --light-pink: #FFF0F2;
+            --white: #FFFFFF;
+            --dark-gray: #2B2B2B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-pink);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s;
+        }
+
+        nav ul a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 2rem;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Sections */
+        section {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            color: var(--dark-red);
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--primary-red);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--light-pink);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-red);
+        }
+
+        .card h3 {
+            color: var(--primary-red);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Medical Quiz Interactive Feature */
+        .quiz-container {
+            background: #fdfdfd;
+            border: 2px dashed var(--primary-red);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .quiz-btn {
+            background-color: var(--primary-red);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .quiz-btn:hover {
+            background-color: var(--dark-red);
+        }
+
+        #quiz-feedback {
+            margin-top: 1rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Contact Form */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: 2px solid var(--primary-red);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .photo-placeholder {
+            width: 260px;
+            height: 300px;
+            background-color: #e0e0e0;
+            border: 4px solid #fff;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 90%;
+            object-fit: cover;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">❤️ Dr. Olivia's Hub</div>
+        <ul>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#dream">My Dream</a></li>
+            <li><a href="#quiz">Medical Game</a></li>
+            <li><a href="#contact">Message Me</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero / Welcome Header -->
+    <header>
+        <div class="photo-placeholder">
+            <span><img src="../static/images/olivia.png" loading="lazy" class="slide" alt="Olivia's Pix."></span>
+        </div>
+        <h1>Welcome to My World!</h1>
+        <p>Hi, I am Olivia Kalaiyo Kalasisi Ibieye. Welcome to my personal space where education meets my big dream of healing the world!</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- About Me Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
+                Hello! I am a proud 10-year-old student currently studying in <strong>Primary Five</strong> at the wonderful <strong>Famous Vine Montessori School</strong>. I love learning new things every day!
+            </p>
+            <div class="profile-grid">
+                <div class="card">
+                    <h3>My Favorite Color</h3>
+                    <p><strong>Red!</strong> To me, red represents energy, courage, and the vital spark of health and life.</p>
+                </div>
+                <div class="card">
+                    <h3>My School</h3>
+                    <p>Famous Vine Montessori School, where I learn, grow, and build the foundation for my future career.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Future Dream Section -->
+        <section id="dream">
+            <h2>My Future Profession: Medical Doctor 🩺</h2>
+            <p style="margin-bottom: 1rem;">
+                Ever since I was young, I have wanted to become a <strong>Medical Doctor</strong>. I want to spend my life helping people feel better, curing illnesses, and bringing smiles back to families' faces.
+            </p>
+            <p>
+                To achieve this, I am working very hard in my classes, focusing on science, health education, and understanding how the human body works!
+            </p>
+        </section>
+
+        <!-- Interactive Medical Quiz Section -->
+        <section id="quiz">
+            <h2>Dr. Olivia's Quick Medical Quiz</h2>
+            <div class="quiz-container">
+                <p id="quiz-question"><strong>Question:</strong> What is the name of the organ that pumps blood all around your body?</p>
+                <div style="margin-top: 15px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <button class="quiz-btn" onclick="checkAnswer('Brain')">The Brain</button>
+                    <button class="quiz-btn" onclick="checkAnswer('Heart')">The Heart</button>
+                    <button class="quiz-btn" onclick="checkAnswer('Lungs')">The Lungs</button>
+                </div>
+                <p id="quiz-feedback"></p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Send Me an Encouraging Note!</h2>
+            <form onsubmit="handleSubmit(event)">
+                <input type="text" placeholder="Your Name" required>
+                <textarea rows="4" placeholder="Write a nice message to future Doctor Olivia..." required></textarea>
+                <button type="submit" class="quiz-btn" style="width: fit-content; align-self: flex-start;">Send Message</button>
+            </form>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Olivia Kalaiyo Kalasisi Ibieye. Future Medical Doctor. All Rights Reserved.</p>
+
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+    </footer>
+
+    <script>
+        // Simple function for the medical quiz
+        function checkAnswer(answer) {
+            const feedback = document.getElementById('quiz-feedback');
+            if (answer === 'Heart') {
+                feedback.innerHTML = "🎉 Correct! The heart pumps blood everywhere. You're an amazing assistant doctor!";
+                feedback.style.color = "green";
+            } else {
+                feedback.innerHTML = "❌ Not quite! Give it another try, future medical expert!";
+                feedback.style.color = "var(--primary-red)";
+            }
+        }
+
+        // Simple function for the form alert
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert("Thank you for your lovely message! Future Doctor Olivia will read it soon.");
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chimamanda Agbo | Future Nurse</title>
+    <style>
+        /* Bright Purple Theme Colors */
+        :root {
+            --primary-purple: #8A2BE2;
+            --light-purple: #F3E5F5;
+            --bright-magenta: #FF00FF;
+            --dark-purple: #4A148C;
+            --white: #FFFFFF;
+            --text-color: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-purple);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary-purple);
+            color: var(--white);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--bright-magenta);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px var(--dark-purple);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        nav {
+            background-color: var(--dark-purple);
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: var(--bright-magenta);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        /* Sections */
+        section {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 8px solid var(--primary-purple);
+        }
+
+        h2 {
+            color: var(--dark-purple);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Profile Layout */
+        .profile-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-purple);
+            background-color: #E0B0FF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: var(--dark-purple);
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 10px;
+            overflow: hidden;
+
+        }
+        .profile-photo  img {
+            width: 115%;
+            height: 115%;
+            object-fit: cover;
+        }
+        
+        .profile-text p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Cards for Grid Layouts 1*/
+        .grid-container-1 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .card-1 {
+            flex: 1;
+            min-width: 120px;
+        }
+        .card-2 {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .slide {
+            border-radius: 5%;
+            border: 2px solid var(--bright-magenta);
+            display: flex;
+            max-width: 100%;
+            object-fit: cover;
+            float: right;
+        }
+
+        /* Cards for Grid Layouts */
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 280px;
+            background-color: var(--light-purple);
+            border-radius: 10px;
+            padding: 20px;
+            border-top: 4px solid var(--bright-magenta);
+        }
+
+        .card h3 {
+            color: var(--dark-purple);
+            margin-bottom: 10px;
+        }
+
+        /* Kid's Corner & Tips */
+        .tip-list {
+            list-style-type: none;
+        }
+
+        .tip-list li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .tip-list li::before {
+            content: "💜";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-purple);
+            color: var(--white);
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Chimamanda Agbo's Website</h1>
+        <p>Welcome to my bright purple world of caring and helping!</p>
+    </header>
+
+    <nav>
+        <a href="#about">About Me</a>
+        <a href="#dream">My Dream</a>
+        <a href="#gallery">Care Corner</a>
+        <a href="#health">Kid's Health</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- About Me Section -->
+        <section id="about">
+            <h2>Greeting From Chimamanda</h2>
+            <div class="profile-container">
+                <div class="profile-photo">
+                    <img src="../static/images/chimamanda1.png" loading="lazy" alt="Chimamanda's Pix.">
+                </div>
+            
+                <div class="profile-text">
+                    <p><strong>Name:</strong> Chimamanda Agbo</p>
+                    <p><strong>Age:</strong> 7 Years Old</p>
+                    <p><strong>School:</strong> Famous Vine Montessori School</p>
+                    <p><strong>Class:</strong> Basic 1</p>
+                    <p style="margin-top: 15px; font-weight: bold; color: var(--primary-purple);">
+                        "My favorite color is purple, and I love to help people feel better!"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Nursing Dream Section -->
+        <section id="dream">            
+            <h2>My Dream: Becoming a Nurse</h2>                    
+
+            <div class="grid-container-1">
+                <div class="card-1">
+                    <img src="../static/images/chimamanda.png" loading="lazy" class="slide" alt="Chimamanda's Pix.">
+                </div>
+                <div class="card-2">
+                    <p style="font-size: 1.1rem; margin-bottom: 15px;">
+                        When I grow up, I want to be a professional nurse. Nurses are real-life superheroes who wear scrubs instead of capes! Here is how I want to help:
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid-container">
+                <div class="card">
+                    <h3>Helping People</h3>
+                    <p>I want to be right there by their side, making sure they feel safe, comfortable, and happy while they get better.</p>
+                </div>
+                <div class="card">
+                    <h3>Treating Illnesses</h3>
+                    <p>I want to help treat people when they are sick or hurt, giving them the right medicine and care to heal quickly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chimamanda's Heartfelt Gallery / Care Corner -->
+        <section id="gallery">
+            <h2>Chimamanda's Heartfelt Gallery</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 15px;">
+                This is a special place where I share stories and drawings about kindness, caring, and looking out for my friends at school.
+            </p>
+            <div class="grid-container">
+                <div class="card" style="background-color: #FFF0F5;">
+                    <h3>Inspiring Nurse Story</h3>
+                    <p><strong>Florence Nightingale:</strong> She was a very famous nurse who looked after soldiers a long time ago. She carried a lamp at night to check on them, showing how much she cared!</p>
+                </div>
+                <div class="card" style="background-color: #FFF0F5;">
+                    <h3>My School Playground Story</h3>
+                    <p>Whenever someone falls down or feels sad during playtime at Famous Vine Montessori School, I like to run over, check if they are okay, and help them find a teacher or give them a big smile to feel better.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kid's Health Corner -->
+        <section id="health">
+            <h2>Kid's Health Corner</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 15px;">
+                As a future nurse, here are some fun and easy health tips for all my schoolmates to stay strong and healthy:
+            </p>
+            <ul class="tip-list">
+                <li><strong>The Scrub-A-Dub Rule:</strong> Always wash your hands with soap and clean water for 20 seconds before eating and after playing!</li>
+                <li><strong>The Magic Water Filter:</strong> Drinking plenty of water every day helps your body run fast and gives you lots of energy.</li>
+                <li><strong>Human Body Fun Fact:</strong> Did you know your heart is a powerful muscle that pumps blood around your body all day and night? It never takes a break!</li>
+            </ul>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Chimamanda Agbo. Built with love and bright purple dreams.</p>
+
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+    </footer>
+
+</body>
+</html>
