@@ -440,9 +440,11 @@ GLOBAL STYLES
     .games {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-      gap: 10px;
+      gap: 28px;
       margin-top: 20px;
     }
+
+    
 
     .game-card {
       background: var(--card-shadow);
@@ -462,6 +464,18 @@ GLOBAL STYLES
       text-decoration: none; 
       margin-bottom:10px; 
       display: inline-block;
+    }
+    
+    @media (max-width: 720px) {
+      .games {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+        gap: 28px;
+        margin-top: 20px;
+      }
+      .game-btn {
+      font-size: 0.83rem;
+      }
     }
 
     /* video & audio row */
