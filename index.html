@@ -100,7 +100,8 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
     home: `
       <div class="section-card">
         <div class="section-title"><i class="fas fa-seedling"></i> Welcome to Famous Vine Montessori</div>
-        <div class="fun-badge hero-grid"><i class="fas fa-smile-wink"></i> Where learning feels like play!</div>
+        <a href="#games" onclick="setActivePage('games')" class="fun-badge hero-grid"><i class="fas fa-smile-wink"></i> Where learning feels like play! <strong style="background: var(--primary); color: white; padding: 15px 30px; border-radius:60px; text-decoration: none; display: inline-block;"> Visit Our Online Games</strong></a> 
+
 
         <div class="hero-grid">
           <div class="hero">
@@ -140,7 +141,7 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
     advert: `
       <div class="section-card">
         <div class="section-title"><i class="fas fa-megaphone"></i> Special Announcements</div>
-        <div class="fun-badge"><i class="fas fa-gift"></i> Early bird offer – 15% off first term!</div>
+        <div class="fun-badge"><i class="fas fa-gift"></i> Early bird offer – 15% off first term!</div> 
         <div class="grid-cards">
 
           <div class="child-card"><div class="card-media"><i class="fas fa-pen-nib"></i></div><div class="card-body"><h3>🎈 2026/27 Admissions</h3><p>Limited seats for Nursery & Primary. Register on or before <strong>First Term Resumption</strong> and enjoy discount in registration fee. Registration is ongoing.</p></div></div>
@@ -164,7 +165,8 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
     projects: `
       <div class="section-card">
         <div class="section-title"><i class="fas fa-lightbulb"></i> Young Seeds Projects</div>
-        <div class="fun-badge"><i class="fas fa-microscope"></i> Science • Art • Tech • Social Impact</div>
+        <div class="fun-badge"><i class="fas fa-microscope"></i> Science • Art • Tech • Social Impact</div>        <b><a href="#games" onclick="setActivePage('games')" class="fun-badge hero-grid"><i class="fas fa-smile-wink"></i>  Play and Learn</a></b>
+
         <div class="grid-cards">
 
 
@@ -186,6 +188,8 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
               •<a href="templates/patrick.html" > Patrick Barnabas</a>
               •<a href="templates/jason.html" > Jason Oyabrade</a>
               •<a href="templates/praise.html" > Praise Oyabrade</a>
+              •<a href="templates/amanda.html" > Amanda Prosper</a>
+              •<a href="templates/mirabel.html" > Mirabel Onumbu</a>
           
           </div></div>
 
@@ -252,7 +256,10 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
     media: `
       <div class="section-card">
         <div class="section-title"><i class="fas fa-film"></i> Videos & Audio from Our School</div>
-        <div class="fun-badge"><i class="fas fa-music"></i> Watch our performances, listen to our little voices!</div>
+        <div class="fun-badge"><i class="fas fa-music"></i> Watch our performances, listen to our little voices!</div>        
+
+        <b><a href="#games" onclick="setActivePage('games')" class="fun-badge hero-grid"><i class="fas fa-smile-wink"></i>  Play and Learn</a></b>
+
           <br>
 <!---
         <a href="#graduation2026" onclick="setActivePage('graduation2026')" btn style="background: var(--primary); color: white; padding: 15px 30px; border-radius:60px; text-decoration: none; display: inline-block;"><i class="fas fa-user-graduate"></i> 2026 Graduation Ceremony</a>
@@ -414,7 +421,6 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
           <div class="media-box"><div style="padding:20px; background:#fff1e0;"><i class="fas fa-book fa-2x"></i><p><strong>Storytime with Ms. Esther</strong></p><audio controls src="static/downloads/audio/los1_01.mp3"></audio></div><div class="media-caption">📖 Nigerian folktale – The Tortoise and the Birds</div></div>
 --->      
         </div>
-        <div class="fun-badge" style="margin-top:20px;"><i class="fas fa-cloud-upload-alt"></i> We learn and play and learn more.</div>
       </div>
     `,
     graduation2026: `
@@ -508,6 +514,110 @@ document.getElementById('currentYear').textContent = new Date().getFullYear();
 
       </div>
     `,
+    games: `
+      <div class="section-card">
+
+        <div class="section-title"><i class="fas fa-project-diagram"></i> Welcome to our Game Hub</div>
+        <h3 style="text-align:center;" >Here, we learn from playing.</h3>
+        <div class="games">
+
+            <div class="game-card">
+              <div class="card-body">
+                <h3><strong>My Adventure</strong></h3>
+                <a href="templates/games/adventure_2.html"> <strong class="game-btn">Game 2</strong></a>
+                <a href="templates/games/adventure_3.html"> <strong class="game-btn">Games 3</strong></a><hr>
+
+                <strong>About Game:</strong>
+                  <p>Step onto the ultimate interactive learning playground designed for early explorers. In this vibrant educational adventure, players journey through four developmental zones: Number Discovery, Dropping Shapes, Alphabet Association, and Phonics Words. Guided by an encouraging audio-assisted host, young minds unlock new milestones by matching patterns, catching falling geometric shapes into their correct homes, and spelling fundamental words to master their early learning curriculum.</p><br>
+
+                  <strong>Game Instruction:</strong>
+                    <p>1. Enter your name to wake up the playground items and begin your grand adventure.</p>
+                    <p>2. In Stage 1, identify the giant number shown on screen and click the matching choice.</p>
+                    <p>3. In Stage 2, guide the falling shapes safely to their designated home slots before they reset.</p>
+                    <p>4. In Stage 3 and 4, match standard alphabet letters with their mnemonics and sound out phonics words by selecting the proper text card.</p>
+                    <p>5. Advance through the stages sequentially or use the manual override button to cycle activities.</p>
+              </div>
+            </div>
+               
+            <div class="game-card">
+              <div class="card-body">
+                <h3><strong>Vocabulary Match Matrix</strong></h3>
+                <a href="templates/games/vocabulary_match_1.html"> <strong class="game-btn">Game 1</strong></a>
+                <a href="templates/games/vocabulary_match_2.html"> <strong class="game-btn">Game 2</strong></a>
+                <a href="templates/games/vocabulary_match_3.html"> <strong class="game-btn">Game 3</strong></a><hr>
+
+                <strong>About Game:</strong>
+                  <p>Conquer the ultimate test of lexical precision in a fast-paced word association game. Vocabulary Match Matrix challenges players to connect complex words with their correct definitions, synonyms, or contextual usage across interactive text cards. Featuring a fluid interface with variable difficulty, this game tests your memory, broadens your linguistic range, and rewards accurate rapid-fire associations before the timer expires.</p><br>
+
+                  <strong>Game Instruction:</strong>
+                    <p>1. Initiate the game round and choose your desired vocabulary difficulty or thematic word pack.</p>
+                    <p>2. Examine the target vocabulary words and the corresponding definitions or synonyms scattered across the screen.</p>
+                    <p>3. Click or tap a word, then select its matching definition card to form a successful pairing.</p>
+                    <p>4. Clear the active card grid efficiently to score bonus combo points and extend your remaining session time.</p>
+                    <p>5. Erroneous pairings freeze the selected cards briefly; clear the board completely to unlock advanced terminology levels.</p>
+              </div>
+            </div>
+               
+            <div class="game-card">
+              <div class="card-body">
+                <h3><strong>The Maths Quest</strong></h3>
+                <a href="templates/games/mathematics_1.html"> <strong class="game-btn">Game 1</strong></a>
+                <a href="templates/games/mathematics_2.html"> <strong class="game-btn">Game 2</strong></a>
+                <a href="templates/games/mathematics_3.html"> <strong class="game-btn">Game 3</strong></a><hr>
+
+                <strong>About Game:</strong>
+                <p>Embark on a progressive mathematical quest tailored for young academicians spanning from Nursery up to Basic 5. In this gamified academic portal, players solve dynamically generated arithmetic challenges, identify complex sequencing patterns, calculate geometric areas, and parse multi-step word problems. An integrated audio assistant helps break down tough operations, rewarding sharp minds with FVMS Stars and colored beads as they maintain hot streaks to level up their rank.</p><br>
+
+                <strong>Game Instruction:</strong>
+                  <p>1. Log in with your name and choose an appropriate academic starting tier from Level 1 to Level 5.</p>
+                  <p>2. Read or listen to the math query displayed in the primary display box.</p>
+                  <p>3. Analyze the multiple-choice options and click the button corresponding to the correct calculation.</p>
+                  <p>4. If you get stuck, click the hint toggle to receive a contextual breakdown of the mathematical process.</p>
+                  <p>5. Maintain a consecutive streak of 5 correct answers to automatically upgrade your rank to the next tier and earn bonus stars.</p>
+              </div>
+            </div>
+               
+            <div class="game-card">
+              <div class="card-body">
+                <h3><strong>Verbal Reasoning</strong></h3>
+                <a href="templates/games/verbal_reasoning_2.html"> <strong class="game-btn">Game 2</strong></a>
+                <a href="templates/games/verbal_reasoning_3.html"> <strong class="game-btn">Game 3</strong></a><hr>
+
+                <strong>About Game:</strong>
+                <p>Step into an intellectual training ground designed to sharpen your critical thinking and language analytics. In this puzzle matrix, players analyze complex word patterns, decipher logical analogies, untangle anagrams, and solve structured language puzzles. The game provides a dynamic test of cognitive agility, tracking your deductive accuracy and speed as you systematically break down verbal codes and relationships to maximize your mental potential.</p><br>
+
+                <strong>Game Instruction:</strong>
+                  <p>1. Launch the application and enter your profile identifier to begin the evaluation.</p>
+                  <p>2. Read the logical query or pattern sequence displayed in the central challenge pane.</p>
+                  <p>3. Evaluate the multiple choice answers or text entry fields based on structural logic and vocabulary rules.</p>
+                  <p>4. Select or input the option that logically completes the verbal analogy or pattern.</p>
+                  <p>5. Submit your answer to check your accuracy, unlock the next logical tier, and build your high score streak.</p>
+              </div>
+            </div>
+               
+            <div class="game-card">
+              <div class="card-body">
+                <h3><strong>Cell Jump: Reflex Grid Game</strong></h3>
+                <a href="templates/games/cell_jump.html"> <strong class="game-btn">Game 1</strong></a><hr>
+
+                <strong>About Game:</strong>
+                  <p>Test your reaction speeds in a futuristic grid matrix where time is your biggest enemy. Built for both solo players and competitive local groups, the game projects a high-energy pulse across a grid of varying dimensions. Players must tap into their pure motor reflexes to catch a rapidly shifting neon energy sphere as it teleports across coordinate sectors. With a built-in difficulty ramp that shaves off reaction time with every successful strike, this game pushes tactical precision to the absolute limit.</p><br>
+
+                  <strong>Game Instruction:</strong>
+                    <p>1. Configure your grid canvas by selecting the number of rows and columns in the setup menu.</p>
+                    <p>2. Choose your base speed time-limit slider and input the number of players participating.</p>
+                    <p>3. Tap the highlighted coordinate cell where the glowing yellow energy ball lands before the timer countdown runs out.</p>
+                    <p>4. A successful hit builds your score streak and dynamically speeds up the next round's countdown.</p>
+                    <p>5. Missing the target or letting the timer reach zero resets the active streak and automatically passes the turn to the next player.</p>              
+              </div>
+            </div>
+
+        </div>
+              <div class="fun-badge" style="margin-top:20px;"><i class="fas fa-cloud-upload-alt"></i> We learn and play and learn more.</div>
+
+      </div>
+      `,
+      
     contact: `
       <div class="section-card">
         <div class="section-title"><i class="fas fa-map-pin"></i> Reach Us & Get in Touch</div>
