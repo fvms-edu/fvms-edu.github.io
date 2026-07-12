@@ -439,8 +439,8 @@ GLOBAL STYLES
     
     .games {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 10px;
       margin-top: 20px;
     }
 
@@ -457,13 +457,12 @@ GLOBAL STYLES
     .game-btn {
       background: var(--primary); 
       color: white; 
-      padding: 5px 20px; 
+      padding: 3px 15px; 
       border-radius:60px; 
       text-decoration: none; 
       margin-bottom:10px; 
       display: inline-block;
     }
-
 
     /* video & audio row */
     .media-row {
