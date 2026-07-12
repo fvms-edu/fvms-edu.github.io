@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=2.0, minimum-scale=0.5">
+  <title>FVMS • Mathematics Game Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #1e3c2f 0%, #2a5a3a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', 'Poppins', 'Fredoka', system-ui, -apple-system, sans-serif;
+      padding: 1.5rem;
+      margin: 0;
+      position: relative;
+    }
+
+    /* playful montessori-inspired card */
+    .game-container {
+      max-width: 750px;
+      width: 100%;
+      background: #fef9e7;
+      background-image: radial-gradient(circle at 20% 30%, #fff8e7 5%, #fae7b3 95%);
+      border-radius: 4rem 4rem 3rem 3rem;
+      box-shadow: 0 30px 45px rgba(0, 0, 0, 0.4), inset 0 2px 8px rgba(255, 255, 200, 0.8);
+      padding: 2.5rem 2rem;
+      border: 4px solid #d49b3b;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* wooden badge */
+    .montessori-badge {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .montessori-badge span {
+      background: #b45f2a;
+      color: #ffefc0;
+      padding: 0.5rem 2.2rem;
+      border-radius: 3rem;
+      font-weight: bold;
+      font-size: 1.4rem;
+      letter-spacing: 2px;
+      box-shadow: 0 6px 0 #6d3a1a;
+      display: inline-block;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      color: #2d5e2c;
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 0 #f9e076;
+      word-break: break-word;
+    }
+
+    .stars-display {
+      background: #ffd966;
+      border-radius: 3rem;
+      padding: 0.6rem 1.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #3b2b0f;
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 8px 0 #c99f2c;
+      border: 2px solid #eba834;
+    }
+
+    .progress-section {
+      background: #efe0c6;
+      border-radius: 2rem;
+      padding: 1rem 1.4rem;
+      margin: 1.2rem 0 1.8rem;
+      box-shadow: inset 0 3px 10px rgba(0,0,0,0.2);
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      color: #2d4b1e;
+      margin-bottom: 0.3rem;
+    }
+
+    .progress-bar-bg {
+      background: #c7b28b;
+      height: 28px;
+      border-radius: 30px;
+      overflow: hidden;
+      border: 2px solid #6b4f28;
+    }
+
+    .progress-fill {
+      background: #f3b33d;
+      background: linear-gradient(90deg, #f9c74f, #f9844a);
+      width: 0%;
+      height: 100%;
+      border-radius: 30px;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 12px #f9a826;
+    }
+
+    .question-card {
+      background: #fffef2;
+      border: 3px dashed #b5651d;
+      border-radius: 3rem;
+      padding: 2rem 1.5rem;
+      margin: 1.2rem 0;
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: #2e3820;
+      text-align: center;
+      word-break: break-word;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .option-btn {
+      background: #fbe9c3;
+      border: 3px solid #aa6f3c;
+      border-radius: 2.5rem;
+      padding: 1rem 0.8rem;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #3f2e1c;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 5px 0 #8b5a2b;
+      background: #f5d78c;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #ffc857;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #8b5a2b;
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 #8b5a2b;
+    }
+
+    .option-btn.correct-glow {
+      background: #b0e57c;
+      border-color: #2d6a4f;
+      box-shadow: 0 0 18px #6f9;
+    }
+
+    .feedback-area {
+      background: #fef7e0;
+      border-radius: 2rem;
+      padding: 1.2rem;
+      margin: 1.3rem 0;
+      font-size: 1.3rem;
+      color: #3d3d1a;
+      border-left: 10px solid #e5a024;
+      min-height: 80px;
+      font-style: italic;
+      line-height: 1.5;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .control-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 0.8rem;
+    }
+
+    .btn {
+      background: #1f6930;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 0.9rem 1.8rem;
+      border-radius: 3rem;
+      cursor: pointer;
+      background: #2f7d3a;
+      box-shadow: 0 6px 0 #154f1a;
+      transition: 0.15s;
+      border: 2px solid #f7c56c;
+      letter-spacing: 0.8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #154f1a;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 #154f1a;
+      cursor: not-allowed;
+    }
+
+    .level-selector {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .level-chip {
+      background: #dfcba4;
+      padding: 0.5rem 1.2rem;
+      border-radius: 2rem;
+      font-weight: bold;
+      background: #e7b42c;
+      color: #2d2d2d;
+    }
+
+    input, select {
+      padding: 0.8rem 1.2rem;
+      border-radius: 2.5rem;
+      border: 2px solid #b58b4b;
+      font-size: 1.2rem;
+      background: #fffcf2;
+      margin: 0.5rem;
+      text-align: center;
+    }
+
+    .onboarding {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    @media (max-width: 500px) {
+      .game-container {
+        padding: 1.5rem 1rem;
+      }
+      .question-card {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="game-container" id="gameApp">
+  <div class="montessori-badge">
+          <a href="../../index.html?id=#games" style=" border: none; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; background: #fef3e0;"> Back to FVMS <i class="fas fa-project-diagram"></i> Game Hub</a>
+
+    <span>🌟 FVMS PORTAL 🌟</span>
+  </div>
+  <!-- dynamic content rendered by js -->
+  <div id="dynamicUI"></div>
+</div>
+
+<script>
+  (function() {
+    // ---- GAME STATE ----
+    const state = {
+      studentName: '',
+      currentLevel: 1,        // 1 to 5
+      stars: 0,
+      consecutiveCorrect: 0,
+      requiredStreak: 5,
+      currentQuestion: null,
+      correctAnswer: null,
+      options: [],
+      hintUsed: false,
+      attemptCount: 0,        // for current question
+      maxAttempts: 2,        // allow one retry after hint
+      gameActive: false,
+      onboardingComplete: false,
+      progressPercent: 0
+    };
+
+    // ---- UTILS ----
+    const levelNames = {
+      1: 'Nursery / Basic 1',
+      2: 'Basic 2',
+      3: 'Basic 3',
+      4: 'Basic 4',
+      5: 'Basic 5'
+    };
+
+    function updateProgress() {
+      let percent = (state.consecutiveCorrect / state.requiredStreak) * 100;
+      state.progressPercent = Math.min(100, percent);
+    }
+
+    function resetQuestionState() {
+      state.attemptCount = 0;
+      state.hintUsed = false;
+    }
+
+    function advanceLevel() {
+      if (state.currentLevel < 5) {
+        state.currentLevel++;
+        state.consecutiveCorrect = 0;
+        updateProgress();
+        return true;
+      } else {
+        // already max level
+        state.consecutiveCorrect = 0;
+        updateProgress();
+        return false;
+      }
+    }
+
+    // ---- QUESTION GENERATOR ----
+    function generateQuestion(level) {
+      let a, b, answer, questionText;
+      const levelNum = Number(level);
+      
+      // random helpers
+      const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+      
+      switch(levelNum) {
+        case 1: // simple addition/subtraction, counting
+          a = rand(1, 10);
+          b = rand(1, 10);
+          if (Math.random() < 0.5) {
+            answer = a + b;
+            questionText = `What is ${a} + ${b}?`;
+          } else {
+            // ensure non-negative
+            if (a < b) [a, b] = [b, a];
+            answer = a - b;
+            questionText = `What is ${a} - ${b}?`;
+          }
+          break;
+        case 2: // 2-digit addition/subtraction, basic patterns
+          a = rand(10, 50);
+          b = rand(5, 30);
+          if (Math.random() < 0.6) {
+            answer = a + b;
+            questionText = `Calculate: ${a} + ${b}`;
+          } else {
+            if (a < b) [a, b] = [b, a];
+            answer = a - b;
+            questionText = `Solve: ${a} - ${b}`;
+          }
+          break;
+        case 3: // multiplication/division tables
+          a = rand(2, 10);
+          b = rand(2, 10);
+          if (Math.random() < 0.6) {
+            answer = a * b;
+            questionText = `Multiply: ${a} × ${b}`;
+          } else {
+            answer = a * b;
+            questionText = `Division: ${answer} ÷ ${a} = ?`;
+            // answer becomes b
+            let tempAnswer = b;
+            questionText = `What is ${answer} ÷ ${a}?`;
+            answer = tempAnswer;
+          }
+          break;
+        case 4: // multi-step, simple fractions/word problems
+          if (Math.random() < 0.5) {
+            a = rand(3, 15);
+            b = rand(2, 8);
+            let c = rand(1, 5);
+            answer = a * b + c;
+            questionText = `Solve step by step: (${a} × ${b}) + ${c}`;
+          } else {
+            // fraction of a number
+            let numerator = rand(1, 3);
+            let denominator = rand(2, 4);
+            let whole = rand(10, 30);
+            answer = Math.round((whole * numerator) / denominator);
+            questionText = `What is ${numerator}/${denominator} of ${whole}?`;
+          }
+          break;
+        case 5: // advanced mental math, long division, geometry
+          if (Math.random() < 0.5) {
+            let divisor = rand(3, 9);
+            let quotient = rand(6, 15);
+            answer = quotient;
+            let dividend = divisor * quotient;
+            questionText = `Long division: ${dividend} ÷ ${divisor} = ?`;
+          } else {
+            // perimeter of rectangle
+            let length = rand(4, 15);
+            let width = rand(3, 10);
+            answer = 2 * (length + width);
+            questionText = `Geometry: Perimeter of rectangle with length ${length} and width ${width}?`;
+          }
+          break;
+        default: 
+          answer = 5; questionText = "2+3";
+      }
+      
+      return { questionText, answer };
+    }
+
+    function generateOptions(correctAns, level) {
+      let opts = new Set();
+      opts.add(correctAns);
+      const variation = level <= 2 ? 3 : (level === 3 ? 5 : 8);
+      while (opts.size < 4) {
+        let offset = Math.floor(Math.random() * variation * 2) - variation;
+        let wrong = correctAns + offset;
+        if (wrong !== correctAns && wrong >= 0 && !opts.has(wrong)) {
+          opts.add(wrong);
+        } else {
+          let randomAlt = correctAns + Math.floor(Math.random() * 7) + 1;
+          if (randomAlt >= 0) opts.add(randomAlt);
+        }
+      }
+      return shuffleArray([...opts]);
+    }
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function loadNewQuestion() {
+      resetQuestionState();
+      const { questionText, answer } = generateQuestion(state.currentLevel);
+      state.currentQuestion = questionText;
+      state.correctAnswer = answer;
+      state.options = generateOptions(answer, state.currentLevel);
+    }
+
+    // ---- FEEDBACK & TTS FRIENDLY MESSAGES ----
+    function speakFeedback(text) {
+      // intended for TTS: we keep text natural. Also update UI.
+      const feedbackDiv = document.getElementById('feedbackMessage');
+      if (feedbackDiv) {
+        feedbackDiv.innerText = text;
+      }
+      // Optional: if browser supports speech synthesis, we can trigger it.
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.95;
+        utterance.pitch = 1.1;
+        utterance.lang = 'en-US';
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function handleCorrect() {
+      state.stars += 10;
+      state.consecutiveCorrect++;
+      updateProgress();
+      
+      let levelUpMessage = '';
+      if (state.consecutiveCorrect >= state.requiredStreak) {
+        const oldLevel = state.currentLevel;
+        const advanced = advanceLevel();
+        if (advanced) {
+          levelUpMessage = ` 🎉 You advanced to Level ${state.currentLevel} (${levelNames[state.currentLevel]})! Amazing progress!`;
+        } else if (state.currentLevel === 5) {
+          levelUpMessage = ` 🌟 You're already at the highest level, Basic 5! Incredible mastery, ${state.studentName}!`;
+          state.consecutiveCorrect = 0; 
+          updateProgress();
+        }
+      }
+      
+      const name = state.studentName || 'friend';
+      speakFeedback(`Oh, ${name}! You've done great! That is absolutely correct. You have earned 10 FVMS Stars!${levelUpMessage}`);
+      
+      renderUI();
+      
+      // auto load next question after short delay? we'll let UI show but keep game active.
+    }
+
+    function handleIncorrectFirst() {
+      state.attemptCount = 1;
+      state.hintUsed = false;
+      const name = state.studentName || 'champion';
+      let hintText = generateHint();
+      speakFeedback(`Great effort, ${name}! The option you selected is not quite correct, but I know you can get it. Here's a hint: ${hintText} Try again!`);
+      renderUI();
+    }
+
+    function handleRepeatedIncorrect() {
+      const name = state.studentName || 'star learner';
+      let explanation = generateExplanation();
+      speakFeedback(`You worked so hard on this, ${name}! Don't worry, let's look at it together. The correct answer is ${state.correctAnswer} because ${explanation} Let's try a brand new one together!`);
+      // Reset streak on repeated failure after max attempts
+      state.consecutiveCorrect = 0;
+      updateProgress();
+      // load next question automatically
+      loadNewQuestion();
+      renderUI();
+    }
+
+    function generateHint() {
+      let ans = state.correctAnswer;
+      let q = state.currentQuestion;
+      if (q.includes('+')) return `Think about adding numbers step by step.`;
+      if (q.includes('-')) return `Try counting backwards or using small objects.`;
+      if (q.includes('×') || q.includes('multiply')) return `Remember your times tables: repeated addition.`;
+      if (q.includes('÷') || q.includes('division')) return `Division is sharing equally. How many groups?`;
+      if (q.includes('of') && q.includes('/')) return `Find one part first, then multiply.`;
+      if (q.includes('perimeter')) return `Perimeter is the sum of all sides: 2×(length+width).`;
+      return `Look closely at the numbers and take your time.`;
+    }
+
+    function generateExplanation() {
+      let ans = state.correctAnswer;
+      let q = state.currentQuestion;
+      if (q.includes('+')) return `we add the numbers together.`;
+      if (q.includes('-')) return `we subtract the smaller number from the larger.`;
+      if (q.includes('×')) return `multiplication gives us groups.`;
+      if (q.includes('÷')) return `dividing evenly gives that result.`;
+      return `careful calculation leads to ${ans}.`;
+    }
+
+    function submitAnswer(selectedValue) {
+      if (!state.gameActive || state.attemptCount >= state.maxAttempts) return;
+      
+      const selectedNum = Number(selectedValue);
+      
+      if (selectedNum === state.correctAnswer) {
+        // correct
+        handleCorrect();
+      } else {
+        // incorrect path
+        if (state.attemptCount === 0) {
+          handleIncorrectFirst();
+        } else {
+          // second failure (attemptCount will become 1, then this is second try)
+          state.attemptCount = 2;
+          handleRepeatedIncorrect();
+        }
+      }
+    }
+
+    // ---- RENDERING ----
+    const app = document.getElementById('dynamicUI');
+
+    function renderOnboarding() {
+      app.innerHTML = `
+        <div class="onboarding">
+          <h2>🌱 Welcome to FVMS!</h2>
+          <input type="text" id="studentNameInput" placeholder="Your name" value="${state.studentName}" autofocus>
+          <select id="levelSelect">
+            <option value="1" ${state.currentLevel==1?'selected':''}>Level 1 · Nursery/Basic 1</option>
+            <option value="2" ${state.currentLevel==2?'selected':''}>Level 2 · Basic 2</option>
+            <option value="3" ${state.currentLevel==3?'selected':''}>Level 3 · Basic 3</option>
+            <option value="4" ${state.currentLevel==4?'selected':''}>Level 4 · Basic 4</option>
+            <option value="5" ${state.currentLevel==5?'selected':''}>Level 5 · Basic 5</option>
+          </select>
+          <button class="btn" id="startGameBtn">✨ Start Playing ✨</button>
+        </div>
+      `;
+      document.getElementById('startGameBtn')?.addEventListener('click', () => {
+        const nameInput = document.getElementById('studentNameInput');
+        const levelSelect = document.getElementById('levelSelect');
+        const name = nameInput?.value.trim();
+        if (!name) {
+          alert('Please enter your name, little star!');
+          return;
+        }
+        state.studentName = name;
+        state.currentLevel = Number(levelSelect.value);
+        state.consecutiveCorrect = 0;
+        state.stars = 0;
+        state.gameActive = true;
+        state.onboardingComplete = true;
+        updateProgress();
+        loadNewQuestion();
+        renderGameUI();
+        speakFeedback(`Welcome ${state.studentName} to Famous Vine Montessori School game portal! I am so excited to play with you today. Let's begin with Level ${state.currentLevel}, ${levelNames[state.currentLevel]}.`);
+      });
+    }
+
+    function renderGameUI() {
+      if (!state.gameActive || !state.onboardingComplete) {
+        renderOnboarding();
+        return;
+      }
+      
+      const progressFillWidth = state.progressPercent;
+      const barVisual = '█'.repeat(Math.floor(progressFillWidth/10)) + '░'.repeat(10-Math.floor(progressFillWidth/10));
+      
+      let optionsHtml = '';
+      if (state.options && state.options.length) {
+        state.options.forEach(opt => {
+          optionsHtml += `<button class="option-btn" onclick="window.fvmsSubmit(${opt})">${opt}</button>`;
+        });
+      }
+      
+      const levelName = levelNames[state.currentLevel] || 'Unknown';
+      
+      app.innerHTML = `
+        <h2>🧮 ${state.studentName}'s Math Quest</h2>
+        <div class="stars-display">
+          ⭐ ${state.stars} FVMS Stars
+        </div>
+        <div class="level-chip">📚 ${levelName}</div>
+        
+        <div class="progress-section">
+          <div class="progress-label">
+            <span>Next level progress</span>
+            <span>${state.consecutiveCorrect}/${state.requiredStreak} correct</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-fill" style="width: ${progressFillWidth}%;"></div>
+          </div>
+          <div style="font-size:0.9rem; margin-top:0.3rem; color:#4b3b1c;">${barVisual} ${progressFillWidth}%</div>
+        </div>
+        
+        <div class="question-card">
+          ${state.currentQuestion || 'Loading...'}
+        </div>
+        
+        <div class="options-grid" id="optionsContainer">
+          ${optionsHtml}
+        </div>
+        
+        <div class="feedback-area" id="feedbackMessage">
+          🎤 Ready to listen! Choose an answer.
+        </div>
+        
+        <div class="control-buttons">
+          <button class="btn" id="newQuestionBtn">🔄 New Question</button>
+          <button class="btn" id="resetGameBtn">🏠 Restart</button>
+        </div>
+      `;
+      
+      document.getElementById('newQuestionBtn')?.addEventListener('click', () => {
+        if (state.gameActive) {
+          loadNewQuestion();
+          renderGameUI();
+          speakFeedback(`New challenge loaded, ${state.studentName}! Let's solve it.`);
+        }
+      });
+      
+      document.getElementById('resetGameBtn')?.addEventListener('click', () => {
+        state.gameActive = false;
+        state.onboardingComplete = false;
+        state.studentName = '';
+        state.stars = 0;
+        state.consecutiveCorrect = 0;
+        updateProgress();
+        renderOnboarding();
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+      });
+    }
+
+    function renderUI() {
+      if (!state.onboardingComplete || !state.gameActive) {
+        renderOnboarding();
+      } else {
+        renderGameUI();
+      }
+    }
+
+    // expose global submit function
+    window.fvmsSubmit = function(value) {
+      if (!state.gameActive) return;
+      // disable further clicks quickly handled by attempt logic
+      if (state.attemptCount >= state.maxAttempts) {
+        return;
+      }
+      submitAnswer(value);
+    };
+
+    // initial render
+    renderOnboarding();
+    
+    // cancel speech on page unload etc
+    window.addEventListener('beforeunload', () => {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+    });
+
+  })();
+</script>
+</body>
+</html>

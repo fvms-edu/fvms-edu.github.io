@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FVMS English Vocabulary Challenge</title>
+    <style>
+        :root {
+            --bg-color: #050f0a;
+            --glass-bg: rgba(10, 28, 18, 0.65);
+            --glass-border: rgba(34, 139, 87, 0.35);
+            --text-color: #e6f4ea;
+            --neon-emerald: #50fa7b;
+            --neon-sky: #8be9fd;
+            --neon-coral: #ff5555;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #0f331d 0%, var(--bg-color) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 12px var(--neon-emerald);
+            letter-spacing: 1px;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            color: var(--neon-sky);
+            font-weight: 600;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--neon-sky);
+            box-shadow: 0 0 15px rgba(139, 233, 253, 0.3);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #143d22, #0a2413);
+            border: 1px solid var(--neon-emerald);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(80, 250, 123, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--neon-emerald);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-emerald);
+            transform: translateY(-2px);
+        }
+
+        .btn-alt {
+            border-color: var(--neon-sky);
+            background: transparent;
+            margin-top: 15px;
+        }
+
+        .btn-alt:hover {
+            background: var(--neon-sky);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-sky);
+        }
+
+        .hud {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+        }
+
+        .hud span {
+            color: var(--neon-sky);
+        }
+
+        .host-bubble {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid var(--neon-emerald);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Match Grid Layout */
+        .match-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .column-title {
+            font-size: 1.1rem;
+            color: var(--neon-sky);
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .word-list, .definition-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .draggable-word {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--glass-border);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: grab;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+        }
+
+        .draggable-word:active {
+            cursor: grabbing;
+        }
+
+        .definition-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 10px;
+            min-height: 85px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .drop-zone {
+            margin-top: 10px;
+            border: 2px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s;
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--neon-sky);
+            background: rgba(139, 233, 253, 0.05);
+        }
+
+        .drop-zone .placed-word {
+            width: 100%;
+            background: #143d22;
+            color: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid var(--neon-emerald);
+        }
+
+        .review-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .review-item.pass { border-left: 4px solid var(--neon-emerald); }
+        .review-item.fail { border-left: 4px solid var(--neon-coral); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+              <a href="../../index.html?id=#games" style=" border: none; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; background: #fef3e0;"> Back to FVMS <i class="fas fa-project-diagram"></i> Game Hub</a>
+
+        <h1>FVMS English Challenge</h1>
+
+        <!-- SCREEN 1: ONBOARDING -->
+        <div id="screen-onboarding" class="screen active">
+            <div class="form-group">
+                <label for="student-name">Enter Your Name:</label>
+                <input type="text" id="student-name" placeholder="Type your name here..." autocomplete="off">
+            </div>
+            <button class="btn" id="btn-start">Enter English Arena</button>
+        </div>
+
+        <!-- SCREEN 2: CORE WORKSPACE -->
+        <div id="screen-game" class="screen">
+            <div class="hud">
+                <div>Pupil: <span id="hud-name">---</span></div>
+                <div>Stage: <span id="hud-stage">1</span></div>
+                <div>Attempts Remaining: <span id="hud-attempts">3</span></div>
+            </div>
+
+            <div class="host-bubble" id="host-bubble">
+                Setting up vocabulary portal...
+            </div>
+
+            <div class="match-columns">
+                <div>
+                    <div class="column-title">Words</div>
+                    <div class="word-list" id="word-list-container"></div>
+                </div>
+                <div>
+                    <div class="column-title">Definitions</div>
+                    <div class="definition-list" id="definition-list-container"></div>
+                </div>
+            </div>
+
+            <button class="btn" id="btn-submit-match">Verify Matches</button>
+            <div id="fallback-controls" style="display: none;">
+                <button class="btn" id="btn-replay">Replay Stage</button>
+                <button class="btn btn-alt" id="btn-next-stage">Move to Next Stage</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: COMPREHENSIVE ASSESSMENT -->
+        <div id="screen-review" class="screen">
+            <div class="host-bubble" id="review-host-bubble"></div>
+            <h2 style="margin-bottom: 20px; color: var(--neon-sky);">Performance Breakdown</h2>
+            <div id="review-items-container" style="margin-bottom: 25px;"></div>
+            <button class="btn" id="btn-continue-from-review">Next Challenge Set</button>
+        </div>
+    </div>
+
+    <script>
+        // Extensive Word Database Matrix
+        const dictionaryPool = [
+            { word: "Benevolent", def: "Well meaning, kindly, and expressing goodwill." },
+            { word: "Diligent", def: "Showing care and conscientiousness in one's work." },
+            { word: "Eloquent", def: "Fluent or persuasive in speaking or writing." },
+            { word: "Fragile", def: "Easily broken, damaged, delicate, or vulnerable." },
+            { word: "Gargantuan", def: "Enormously massive, huge, or colossal in size." },
+            { word: "Honest", def: "Free of deceit and untruthfulness; sincere." },
+            { word: "Insightful", def: "Having or showing an accurate and deep understanding." },
+            { word: "Jubilant", def: "Feeling or expressing great happiness and triumph." },
+            { word: "Luminous", def: "Full of or shedding light; bright or shining." },
+            { word: "Meticulous", def: "Showing great attention to detail; very careful." },
+            { word: "Novice", def: "A person new to or inexperienced in a field or situation." },
+            { word: "Ominous", def: "Giving the impression that something bad is going to happen." },
+            { word: "Prudent", def: "Acting with or showing care and thought for the future." },
+            { word: "Resilient", def: "Able to withstand or recover quickly from difficult conditions." },
+            { word: "Scrupulous", def: "Very concerned to avoid doing wrong; diligent." }
+        ];
+
+        let gameState = {
+            name: "",
+            stage: 1,
+            attemptsLeft: 3,
+            currentSet: [],
+            userSelections: {}, // defId -> word text
+            score: 0
+        };
+
+        const screens = {
+            onboarding: document.getElementById('screen-onboarding'),
+            game: document.getElementById('screen-game'),
+            review: document.getElementById('screen-review')
+        };
+
+        function hostSpeak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.95;
+                utterance.pitch = 1.02;
+                window.speechSynthesis.speak(utterance);
+            }
+            const activeBubble = document.querySelector('.screen.active .host-bubble');
+            if (activeBubble) activeBubble.innerHTML = text;
+        }
+
+        function getTimeSensitiveGreeting() {
+            const hour = new Date().getHours();
+            if (hour >= 5 && hour < 12) return "Good morning";
+            if (hour >= 12 && hour < 17) return "Good afternoon";
+            return "Good evening";
+        }
+
+        // Onboarding Init
+        document.getElementById('btn-start').addEventListener('click', () => {
+            const inputName = document.getElementById('student-name').value.trim();
+            if (!inputName) {
+                alert("Please introduce yourself by typing your name!");
+                return;
+            }
+            gameState.name = inputName;
+            document.getElementById('hud-name').innerText = gameState.name;
+
+            screens.onboarding.classList.remove('active');
+            screens.game.classList.add('active');
+
+            const greeting = getTimeSensitiveGreeting();
+            const welcomeMsg = `${greeting}, ${gameState.name}! Welcome to Famous Vine Montessori School game portal. You are about to engage in our English challenge! Let's explore some amazing words together.`;
+            hostSpeak(welcomeMsg);
+
+            setTimeout(loadVocabularyStage, 7000);
+        });
+
+        // Generate and Load Challenge Set
+        function loadVocabularyStage() {
+            gameState.attemptsLeft = 3;
+            gameState.userSelections = {};
+            document.getElementById('hud-attempts').innerText = gameState.attemptsLeft;
+            document.getElementById('btn-submit-match').style.display = "block";
+            document.getElementById('fallback-controls').style.display = "none";
+
+            // Shuffle pool and slice 5
+            const shuffled = [...dictionaryPool].sort(() => 0.5 - Math.random());
+            gameState.currentSet = shuffled.slice(0, 5);
+
+            renderMatchingWorkspace();
+            hostSpeak("Take a close look at the words on your left, and slide them carefully into their correct meanings on the right.");
+        }
+
+        function renderMatchingWorkspace() {
+            const wordsContainer = document.getElementById('word-list-container');
+            const defsContainer = document.getElementById('definition-list-container');
+            
+            wordsContainer.innerHTML = "";
+            defsContainer.innerHTML = "";
+
+            // Render Words (Left)
+            gameState.currentSet.forEach((item, index) => {
+                const wordEl = document.createElement('div');
+                wordEl.className = "draggable-word";
+                wordEl.draggable = true;
+                wordEl.innerText = item.word;
+                wordEl.id = `word-${index}`;
+                
+                wordEl.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.setData('text/plain', item.word);
+                    e.dataTransfer.setData('source-id', wordEl.id);
+                });
+                wordsContainer.appendChild(wordEl);
+            });
+
+            // Shuffle definitions for the Right Column
+            const shuffledDefs = [...gameState.currentSet].sort(() => 0.5 - Math.random());
+
+            // Render Definitions (Right)
+            shuffledDefs.forEach((item, index) => {
+                const defEl = document.createElement('div');
+                defEl.className = "definition-card";
+                defEl.innerHTML = `<div>${item.def}</div><div class="drop-zone" id="drop-${index}">Drop Word Here</div>`;
+                
+                const dropZone = defEl.querySelector('.drop-zone');
+
+                dropZone.addEventListener('dragover', (e) => e.preventDefault());
+                dropZone.addEventListener('dragenter', () => dropZone.classList.add('drag-over'));
+                dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+                
+                dropZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropZone.classList.remove('drag-over');
+                    const wordText = e.dataTransfer.getData('text/plain');
+                    const sourceId = e.dataTransfer.getData('source-id');
+
+                    // Store selection assignment mappings
+                    gameState.userSelections[item.word] = wordText; 
+                    dropZone.innerHTML = `<div class="placed-word">${wordText}</div>`;
+                    
+                    // Hide original drag word element block
+                    const srcEl = document.getElementById(sourceId);
+                    if (srcEl) srcEl.style.visibility = "hidden";
+                });
+
+                defsContainer.appendChild(defEl);
+            });
+        }
+
+        // Verify matches logic matrix execution
+        document.getElementById('btn-submit-match').addEventListener('click', () => {
+            let correctCount = 0;
+            gameState.currentSet.forEach(item => {
+                if (gameState.userSelections[item.word] === item.word) {
+                    correctCount++;
+                }
+            });
+
+            if (correctCount === 5) {
+                gameState.stage++;
+                document.getElementById('hud-stage').innerText = gameState.stage;
+                hostSpeak(`Incredible matching, ${gameState.name}! You matched all words perfectly! Let's advance right away to the next stage.`);
+                setTimeout(loadVocabularyStage, 5000);
+            } else {
+                gameState.attemptsLeft--;
+                document.getElementById('hud-attempts').innerText = gameState.attemptsLeft;
+
+                if (gameState.attemptsLeft > 0) {
+                    hostSpeak(`Wonderful effort, ${gameState.name}! You got ${correctCount} out of 5 matches correct. Don't look back, adjust your selections and try again!`);
+                    // Reset visibility blocks safely
+                    setTimeout(renderMatchingWorkspace, 4500);
+                } else {
+                    // Reveal Absolute Solutions Engine
+                    document.getElementById('btn-submit-match').style.display = "none";
+                    document.getElementById('fallback-controls').style.display = "block";
+
+                    let revealSpeech = `You worked extraordinarily hard, ${gameState.name}! Let's review the true mappings together to expand our horizons. `;
+                    gameState.currentSet.forEach(item => {
+                        revealSpeech += `"${item.word}" means ${item.def} `;
+                    });
+                    hostSpeak(revealSpeech);
+                    
+                    // Force text formatting transformations onto UI layout
+                    const defsContainer = document.getElementById('definition-list-container');
+                    defsContainer.innerHTML = "";
+                    gameState.currentSet.forEach(item => {
+                        const row = document.createElement('div');
+                        row.className = "definition-card";
+                        row.style.borderLeft = "4px solid var(--neon-emerald)";
+                        row.innerHTML = `<strong>${item.word}</strong>: ${item.def}`;
+                        defsContainer.appendChild(row);
+                    });
+                }
+            }
+        });
+
+        // Trigger Fallback Multi-choice Navigation
+        document.getElementById('btn-replay').addEventListener('click', loadVocabularyStage);
+        document.getElementById('btn-next-stage').addEventListener('click', () => {
+            triggerAssessmentSummary();
+        });
+
+        // Display summary evaluations block layout
+        function triggerAssessmentSummary() {
+            screens.game.classList.remove('active');
+            screens.review.classList.add('active');
+
+            const reviewContainer = document.getElementById('review-items-container');
+            reviewContainer.innerHTML = "";
+
+            let passedAll = true;
+            gameState.currentSet.forEach(item => {
+                const itemEl = document.createElement('div');
+                const userMatch = gameState.userSelections[item.word] || "No Word Selected";
+                const isCorrect = userMatch === item.word;
+
+                if (!isCorrect) passedAll = false;
+
+                itemEl.className = `review-item ${isCorrect ? 'pass' : 'fail'}`;
+                itemEl.innerHTML = `
+                    <strong>Word:</strong> ${item.word}<br>
+                    <strong>Your Match:</strong> <span style="color:${isCorrect ? 'var(--neon-emerald)' : 'var(--neon-coral)'}">${userMatch}</span><br>
+                    <strong>Correct Meaning:</strong> ${item.def}
+                `;
+                reviewContainer.appendChild(itemEl);
+            });
+
+            let commendationText = `Incredible work today, ${gameState.name}! I am deeply impressed by your intense concentration and determination to learn. `;
+            if (passedAll) {
+                commendationText += `Your score is absolutely spotless! Fantastic achievement! Let's proceed whenever you are ready.`;
+            } else {
+                commendationText += `Take a moment to look over your summary matches carefully below to learn where we can polish up. You are doing fantastic!`;
+            }
+            hostSpeak(commendationText);
+        }
+
+        document.getElementById('btn-continue-from-review').addEventListener('click', () => {
+            gameState.stage++;
+            document.getElementById('hud-stage').innerText = gameState.stage;
+            screens.review.classList.remove('active');
+            screens.game.classList.add('active');
+            loadVocabularyStage();
+        });
+    </script>
+</body>
+</html>

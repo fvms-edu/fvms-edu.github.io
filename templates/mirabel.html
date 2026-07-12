@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirabel's Magical Space</title>
+    <!-- Modern Geometric Sans-Serif Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #120c14;
+            --pink-primary: #ff7ebb;
+            --pink-glow: #ff2a8d;
+            --text-light: #f5f0f5;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 42, 141, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Ambient Glow Background */
+        .background-glow {
+            position: fixed;
+            top: -50px;
+            left: -50px;
+            width: calc(100vw + 100px);
+            height: calc(100vh + 100px);
+            background: radial-gradient(circle at 80% 20%, rgba(255, 42, 141, 0.15), transparent 50%),
+                        radial-gradient(circle at 10% 80%, rgba(255, 126, 187, 0.1), transparent 50%);
+            z-index: -2;
+        }
+
+        /* Twinkling Garden Canvas */
+        #garden-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-shadow: 0 0 10px rgba(255, 126, 187, 0.5);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: var(--pink-primary);
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        main {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Presentation Card - Modern Industrial Luxe Style */
+        .presentation-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            width: 100%;
+            position: relative;
+            transition: border-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .presentation-card:hover {
+            border-color: var(--pink-primary);
+            box-shadow: 0 20px 50px rgba(255, 42, 141, 0.2), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Decorative Quotation Mark */
+        .presentation-card::before {
+            content: "“";
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-size: 8rem;
+            color: rgba(255, 126, 187, 0.15);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .speech-content {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-align: justify;
+        }
+
+        .speech-content p {
+            margin-bottom: 20px;
+        }
+
+        .speech-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Highlight prominent terms */
+        .highlight {
+            color: var(--pink-primary);
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(255, 126, 187, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.85rem;
+            color: rgba(245, 240, 245, 0.4);
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Layout adjustments */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .presentation-card { padding: 30px 20px; }
+            .speech-content { font-size: 1.1rem; text-align: left; }
+        }
+
+        .photo-placeholder {
+            width: 250px;
+            height: 240px;
+            background-color: #e0e0e0;
+            border: 4px solid #ff7ebb;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 110%;
+            height: 120%;
+            object-fit: cover;
+        }
+
+        .profile-card p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="background-glow"></div>
+    <canvas id="garden-canvas"></canvas>
+
+    <header>
+        <h1>MIRABEL HOMACHI ONUMBU</h1>
+        <p>Welcome to My Awesom Pink Garden</p>
+    </header>
+
+    <section class="profile-card">
+        <div class="photo-placeholder">
+            <span><img src="../static/images/mirabel.png" loading="lazy" class="slide" alt="Mirabel Pix."></span>
+        </div>
+    <p>I am Mirabel Onumbu. I am 6 years old. I am in Transition Class, <br><strong>FAMOUS VINE MONTESSORI SCHOOL.</strong> 
+        <br><br>Please Enjoy<strong> My Presentation:</strong>!</p>
+    </section>
+
+    <main>
+        <div class="presentation-card">
+            <div class="speech-content">
+                <p>In a world full of pride, <span class="highlight">be the humility</span>.</p>
+                <p>In a world full of judgment, <span class="highlight">be the understanding</span>.</p>
+                <p>In a world full of mistakes, <span class="highlight">be the forgiveness</span>.</p>
+                <p>Let us not forget that we have the power to shape the little space around us. When darkness surrounds you, you have the power to <span class="highlight">be the light</span> that others need. Be the good that brings on some hope.</p>
+                <p>Your actions, your choices, and your heart can influence others if we all try to be the positive one. In a world full of negatives, we can all create a ripple effect of <span class="highlight">kindness, understanding, and peace</span>.</p>
+                <p style="text-align: center; font-weight: 400; margin-top: 30px; color: var(--pink-primary);">
+                    Keep shining, keep loving, and keep spreading good. Thanks.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 Mirabel Homachi Onumbu. Made with love and awe.<br><br>
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('garden-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let flowers = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Flower Constructor
+        class TwinklingFlower {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 8 + 6; // Flower core scale
+                this.petals = Math.random() > 0.5 ? 5 : 6;
+                this.alpha = Math.random();
+                this.twinkleSpeed = Math.random() * 0.02 + 0.01;
+                this.growing = true;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.globalAlpha = this.alpha;
+
+                // Draw Glowing Petals
+                ctx.fillStyle = `rgba(255, 126, 187, ${this.alpha * 0.7})`;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = '#ff2a8d';
+
+                for (let i = 0; i < this.petals; i++) {
+                    ctx.rotate((Math.PI * 2) / this.petals);
+                    ctx.beginPath();
+                    ctx.ellipse(0, this.size, this.size / 2, this.size, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                // Draw Flower Core Center
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size / 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#fff0f5';
+                ctx.shadowBlur = 5;
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            update() {
+                // Twinkle cycle logic
+                if (this.growing) {
+                    this.alpha += this.twinkleSpeed;
+                    if (this.alpha >= 1) this.growing = false;
+                } else {
+                    this.alpha -= this.twinkleSpeed;
+                    if (this.alpha <= 0.1) this.growing = true;
+                }
+            }
+        }
+
+        function initGarden() {
+            flowers = [];
+            const flowerCount = Math.floor((canvas.width * canvas.height) / 25000); // Dense but performance balanced
+            for (let i = 0; i < flowerCount; i++) {
+                flowers.push(new TwinklingFlower());
+            }
+        }
+
+        function animateGarden() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            flowers.forEach(flower => {
+                flower.update();
+                flower.draw();
+            });
+            requestAnimationFrame(animateGarden);
+        }
+
+        // Initialize and Run
+        initGarden();
+        animateGarden();
+
+        // Keep dynamic on structural window updates
+        window.addEventListener('resize', initGarden);
+    </script>
+</body>
+</html>

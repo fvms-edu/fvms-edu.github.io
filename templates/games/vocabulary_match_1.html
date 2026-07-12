@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Famous Vine Montessori School — English Vocabulary Match Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF3E7;
+    --wood:#7B4B27;
+    --wood-dark:#5B3618;
+    --paper:#FFFDF8;
+    --gold:#D4A017;
+    --ink:#3E2A18;
+    --violet:#6C5CE7;
+    --green:#4C9A6B;
+    --pink:#D97BA0;
+    --correct:#3F9142;
+    --wrong:#C2492E;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh;
+    background:
+      radial-gradient(circle at 12% 15%, rgba(212,160,23,0.10), transparent 42%),
+      radial-gradient(circle at 88% 85%, rgba(108,92,231,0.08), transparent 42%),
+      var(--cream);
+    font-family:'Nunito', sans-serif; color:var(--ink);
+    display:flex; align-items:flex-start; justify-content:center;
+    padding:24px;
+  }
+  #app{width:100%; max-width:720px;}
+  .card{
+    background:var(--paper); border-radius:22px; border:3px solid var(--wood);
+    box-shadow:0 10px 0 rgba(91,54,24,0.15), 0 20px 40px rgba(91,54,24,0.12);
+    padding:30px; position:relative; overflow:hidden;
+  }
+  .card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:10px;
+    background:repeating-linear-gradient(90deg, var(--gold) 0 18px, var(--pink) 18px 36px, var(--green) 36px 54px, var(--violet) 54px 72px);
+    opacity:0.9;
+  }
+  h1{font-family:'Baloo 2', sans-serif; font-size:1.4rem; color:var(--wood-dark); margin:10px 0 4px;}
+  .eyebrow{font-family:'Baloo 2', sans-serif; text-transform:uppercase; font-size:0.72rem; letter-spacing:1.5px; color:var(--wood); opacity:0.75; margin:0;}
+  p.lead{font-size:0.98rem; line-height:1.5; margin:10px 0 18px;}
+  label{display:block; font-family:'Baloo 2',sans-serif; font-weight:600; font-size:0.92rem; color:var(--wood-dark); margin:16px 0 6px;}
+  input[type=text]{
+    width:100%; padding:12px 14px; border-radius:12px; border:2px solid #E4D4BC;
+    background:#FFFDF9; font-family:'Nunito',sans-serif; font-size:1rem; color:var(--ink);
+  }
+  input[type=text]:focus{outline:3px solid rgba(212,160,23,0.4); border-color:var(--gold);}
+  button{font-family:'Baloo 2', sans-serif; font-weight:700; font-size:0.95rem; cursor:pointer; border:none; border-radius:14px; transition:transform 0.08s ease, box-shadow 0.15s ease;}
+  button:focus-visible{outline:3px solid var(--gold); outline-offset:2px;}
+  .btn-primary{width:100%; margin-top:22px; padding:14px; background:var(--wood); color:#fff; box-shadow:0 5px 0 var(--wood-dark);}
+  .btn-primary:hover{transform:translateY(-1px);}
+  .btn-primary:active{transform:translateY(3px); box-shadow:0 1px 0 var(--wood-dark);}
+  .btn-primary:disabled{opacity:0.4; cursor:not-allowed;}
+  .btn-secondary{padding:11px 16px; background:#fff; border:2px solid var(--wood); color:var(--wood-dark); box-shadow:0 4px 0 #E4D4BC;}
+  .btn-secondary:active{transform:translateY(2px); box-shadow:none;}
+  .btn-secondary:disabled{opacity:0.4; cursor:not-allowed;}
+  .topbar{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .voice-toggle{display:flex; align-items:center; gap:6px; background:transparent; border:2px solid #E4D4BC; padding:6px 10px; border-radius:999px; font-size:0.8rem; color:var(--wood);}
+  .voice-toggle.on{border-color:var(--green); color:var(--green); background:#EDF9F0;}
+  .finish-btn{background:transparent; border:2px solid var(--violet); color:var(--violet); padding:6px 12px; border-radius:999px; font-size:0.8rem;}
+  .stage-badge{display:inline-block; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:0.82rem; color:#fff; background:var(--violet); padding:5px 12px; border-radius:999px; margin-bottom:6px;}
+  .attempts-note{font-size:0.78rem; color:var(--wood); font-weight:700; margin-bottom:14px;}
+  .pool-label, .match-label{font-family:'Baloo 2',sans-serif; font-size:0.82rem; font-weight:700; color:var(--wood-dark); margin:4px 0 8px;}
+  .word-pool{display:flex; flex-wrap:wrap; gap:10px; padding:14px; background:#FFF9EE; border:2px dashed #E4C98A; border-radius:14px; margin-bottom:20px; min-height:56px;}
+  .word-chip{
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:0.95rem; color:var(--wood-dark);
+    background:#fff; border:2px solid var(--gold); border-radius:10px; padding:9px 14px; cursor:grab;
+    user-select:none;
+  }
+  .word-chip.selected{background:#FFF1CC; box-shadow:0 0 0 3px rgba(212,160,23,0.35);}
+  .word-chip:active{cursor:grabbing;}
+  .match-rows{display:flex; flex-direction:column; gap:12px; margin-bottom:20px;}
+  .match-row{display:grid; grid-template-columns:1fr 150px; gap:12px; align-items:stretch;}
+  @media (max-width:560px){ .match-row{grid-template-columns:1fr 120px;} }
+  .def-card{background:#FFFDF9; border:2px solid #E4D4BC; border-radius:12px; padding:12px 14px; font-size:0.9rem; line-height:1.4; display:flex; align-items:center;}
+  .drop-slot{
+    border:2px dashed #C9B48B; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    padding:8px; font-size:0.82rem; color:#A78B5E; text-align:center; min-height:52px; transition:background 0.15s ease;
+  }
+  .drop-slot.dragover{background:#FFF1CC; border-color:var(--gold);}
+  .drop-slot.filled{border-style:solid; background:#FFF9EE;}
+  .drop-slot .placed-chip{font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--wood-dark); cursor:pointer;}
+  .drop-slot.correct{border-color:var(--correct); background:#EAF7EB;}
+  .drop-slot.correct .placed-chip{color:var(--correct); cursor:default;}
+  .drop-slot.incorrect{border-color:var(--wrong); background:#FBEAE5;}
+  .def-card.correct{border-color:var(--correct);}
+  .feedback{font-size:0.95rem; line-height:1.55; background:#F4EEE0; border-left:5px solid var(--gold); border-radius:10px; padding:14px 16px; margin:10px 0 16px;}
+  .feedback.happy{border-left-color:var(--correct); background:#EEF8EF;}
+  .feedback.review{border-left-color:var(--wrong); background:#FBEFEA;}
+  .reveal-list{list-style:none; padding:0; margin:10px 0; font-size:0.9rem;}
+  .reveal-list li{padding:8px 0; border-bottom:1px dashed #E4D4BC;}
+  .reveal-list b{color:var(--wood-dark);}
+  .actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .actions button{flex:1; min-width:150px;}
+  .hidden{display:none !important;}
+  .summary-stat{display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed #E4D4BC; font-size:0.94rem;}
+  .summary-stat b{color:var(--wood-dark); font-family:'Baloo 2',sans-serif;}
+  .stage-log{background:#FFF9EE; border:2px solid #E4C98A; border-radius:12px; padding:12px 16px; margin:10px 0;}
+  footer.note{font-size:0.76rem; color:var(--wood); opacity:0.65; text-align:center; margin-top:16px;}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ONBOARDING -->
+  <div class="card" id="onboardScreen">
+          <a href="../../index.html?id=#games" style=" border: none; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; background: #fef3e0;"> Back to FVMS <i class="fas fa-project-diagram"></i> Game Hub</a>
+
+    <p class="eyebrow">Famous Vine Montessori School</p>
+    <h1>English Vocabulary Match Challenge</h1>
+    <p class="lead">Hello! I am your game host today. Before we explore some amazing words together, please tell me your name.</p>
+    <label for="nameInput">What is your name?</label>
+    <input type="text" id="nameInput" placeholder="Type your name here" maxlength="24">
+    <button class="btn-primary" id="startBtn" disabled>Start the Challenge</button>
+    <footer class="note">Match 5 words to their meanings. Drag a word onto its definition, or tap a word then tap a definition.</footer>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div class="card hidden" id="gameScreen">
+    <div class="topbar">
+      <button class="voice-toggle" id="voiceToggle" type="button">🔈 Voice: Off</button>
+      <button class="finish-btn" id="finishBtn" type="button">🏁 Finish &amp; See Summary</button>
+    </div>
+    <span class="stage-badge" id="stageBadge">Stage 1</span>
+    <div class="attempts-note" id="attemptsNote">Attempt 1 of 3</div>
+
+    <div id="introMsg" class="feedback hidden"></div>
+
+    <div class="pool-label">Word Bank — drag or tap a word</div>
+    <div class="word-pool" id="wordPool"></div>
+
+    <div class="match-label">Match each word to its meaning</div>
+    <div class="match-rows" id="matchRows"></div>
+
+    <div id="feedbackBox" class="feedback hidden"></div>
+    <div id="revealBox" class="hidden">
+      <ul class="reveal-list" id="revealList"></ul>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary hidden" id="checkBtn" type="button" style="margin-top:0;">Check My Matches</button>
+      <button class="btn-secondary hidden" id="replayBtn" type="button">Replay Stage</button>
+      <button class="btn-secondary hidden" id="nextStageBtn" type="button">Move to Next Stage</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY SCREEN -->
+  <div class="card hidden" id="summaryScreen">
+    <p class="eyebrow">Session Complete</p>
+    <h1 id="summaryHeading">Great Work!</h1>
+    <div id="summaryFeedback" class="feedback"></div>
+    <div class="summary-stat"><span>Stages played</span><b id="statStages">0</b></div>
+    <div class="summary-stat"><span>Words matched correctly (best attempts)</span><b id="statCorrect">0 / 0</b></div>
+    <div class="summary-stat"><span>Perfect stages (no review needed)</span><b id="statPerfect">0</b></div>
+    <div id="summaryReviewSection" class="hidden">
+      <p class="match-label" style="margin-top:16px;">Words to review together</p>
+      <div id="summaryStageLogs"></div>
+    </div>
+    <div class="actions" style="margin-top:18px;">
+      <button class="btn-primary" id="playAgainBtn" type="button" style="margin-top:0;">Play Again</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ---------- Vocabulary bank ---------- */
+const VOCAB = [
+  {word:"Brave", def:"Ready to face danger or pain without showing fear."},
+  {word:"Gigantic", def:"Extremely large in size."},
+  {word:"Whisper", def:"To speak very softly and quietly."},
+  {word:"Journey", def:"A trip from one place to another, often a long one."},
+  {word:"Curious", def:"Eager to learn or know more about something."},
+  {word:"Ancient", def:"Belonging to a time long, long ago."},
+  {word:"Fragile", def:"Easily broken or damaged."},
+  {word:"Generous", def:"Willing to give more of something than is expected."},
+  {word:"Enormous", def:"Very, very big in size or amount."},
+  {word:"Mimic", def:"To copy the way someone speaks or acts."},
+  {word:"Hesitate", def:"To pause because you are unsure about something."},
+  {word:"Glisten", def:"To shine with a soft, sparkling light."},
+  {word:"Stubborn", def:"Refusing to change your mind or give up easily."},
+  {word:"Vanish", def:"To disappear suddenly and completely."},
+  {word:"Cautious", def:"Being very careful to avoid danger or mistakes."},
+  {word:"Delighted", def:"Feeling very happy and pleased."},
+  {word:"Exhausted", def:"Feeling extremely tired."},
+  {word:"Familiar", def:"Well known to you, easy to recognize."},
+  {word:"Nimble", def:"Able to move quickly and lightly."},
+  {word:"Peculiar", def:"Strange or unusual in a noticeable way."},
+  {word:"Reluctant", def:"Not wanting to do something, unwilling."},
+  {word:"Sincere", def:"Honest and truly meaning what you say."},
+  {word:"Tremendous", def:"Very great in amount, size, or strength."},
+  {word:"Vivid", def:"Very bright, clear, or full of life."},
+  {word:"Wander", def:"To walk around slowly without a fixed direction."},
+  {word:"Ambitious", def:"Having a strong desire to succeed or achieve something."},
+  {word:"Cheerful", def:"Feeling or showing happiness and good spirits."},
+  {word:"Diligent", def:"Working hard and carefully at a task."},
+  {word:"Eager", def:"Very keen and excited to do something."},
+  {word:"Feeble", def:"Very weak, lacking strength."},
+  {word:"Gloomy", def:"Dark, dull, or lacking in hope or cheer."},
+  {word:"Harsh", def:"Rough, severe, or unpleasant."},
+  {word:"Jubilant", def:"Feeling great joy, especially after a success."},
+  {word:"Keen", def:"Having a strong interest or sharp feeling about something."},
+  {word:"Lively", def:"Full of energy and spirit."},
+  {word:"Mysterious", def:"Difficult to understand or explain, full of secrets."},
+  {word:"Nervous", def:"Feeling worried or uneasy about something."},
+  {word:"Obedient", def:"Willing to do what you are told."},
+  {word:"Patient", def:"Able to wait calmly without complaining."},
+  {word:"Rapid", def:"Happening very quickly."},
+  {word:"Silent", def:"Completely without sound; very quiet."},
+  {word:"Tiny", def:"Extremely small in size."},
+  {word:"Unique", def:"Being the only one of its kind."},
+  {word:"Vast", def:"Extremely large in area or amount."},
+  {word:"Wise", def:"Having good judgment based on experience and knowledge."}
+];
+
+/* ---------- Utility ---------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ---------- Voice ---------- */
+let voiceOn = false;
+function speak(text){
+  if(!voiceOn || !('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = 0.95; u.pitch = 1.05;
+  window.speechSynthesis.speak(u);
+}
+
+/* ---------- Greeting ---------- */
+function getGreetingPrefix(){
+  const h = new Date().getHours();
+  if(h >= 5 && h <= 11) return "Good morning";
+  if(h >= 12 && h <= 16) return "Good afternoon";
+  return "Good evening";
+}
+
+/* ---------- State ---------- */
+const MAX_ATTEMPTS = 3;
+const state = {
+  name: '',
+  stageNumber: 0,
+  attemptsThisStage: 0,
+  usedWords: new Set(),
+  currentSet: [],       // [{word, def, id}]
+  placements: {},       // defId -> wordId
+  lockedCorrect: new Set(), // defIds confirmed correct this stage
+  selectedWordId: null,
+  sessionLogs: [],      // {stageNumber, total, correct, perfectFirstTry, mismatches:[{word,def}]}
+  totalWords: 0,
+  totalCorrect: 0,
+  perfectStages: 0,
+  anyReviewNeeded: false
+};
+
+/* ---------- DOM refs ---------- */
+const onboardScreen = document.getElementById('onboardScreen');
+const gameScreen = document.getElementById('gameScreen');
+const summaryScreen = document.getElementById('summaryScreen');
+const nameInput = document.getElementById('nameInput');
+const startBtn = document.getElementById('startBtn');
+const voiceToggle = document.getElementById('voiceToggle');
+const finishBtn = document.getElementById('finishBtn');
+const stageBadge = document.getElementById('stageBadge');
+const attemptsNote = document.getElementById('attemptsNote');
+const introMsg = document.getElementById('introMsg');
+const wordPool = document.getElementById('wordPool');
+const matchRows = document.getElementById('matchRows');
+const feedbackBox = document.getElementById('feedbackBox');
+const revealBox = document.getElementById('revealBox');
+const revealList = document.getElementById('revealList');
+const checkBtn = document.getElementById('checkBtn');
+const replayBtn = document.getElementById('replayBtn');
+const nextStageBtn = document.getElementById('nextStageBtn');
+
+nameInput.addEventListener('input', () => {
+  startBtn.disabled = nameInput.value.trim().length === 0;
+});
+voiceToggle.addEventListener('click', () => {
+  voiceOn = !voiceOn;
+  voiceToggle.textContent = voiceOn ? '🔊 Voice: On' : '🔈 Voice: Off';
+  voiceToggle.classList.toggle('on', voiceOn);
+});
+finishBtn.addEventListener('click', showSummary);
+
+startBtn.addEventListener('click', () => {
+  state.name = nameInput.value.trim();
+  onboardScreen.classList.add('hidden');
+  gameScreen.classList.remove('hidden');
+  const greeting = `${getGreetingPrefix()}, ${state.name}! Welcome to Famous Vine Montessori School game portal. You are about to engage in our English challenge! Let's explore some amazing words together.`;
+  introMsg.textContent = greeting;
+  introMsg.className = 'feedback happy';
+  introMsg.classList.remove('hidden');
+  speak(greeting);
+  setTimeout(startNewStage, voiceOn ? 3400 : 300);
+});
+
+/* ---------- Stage setup ---------- */
+function pickWordsForStage(){
+  let available = VOCAB.filter(v => !state.usedWords.has(v.word));
+  if(available.length < 5){
+    state.usedWords.clear();
+    available = VOCAB.slice();
+  }
+  const chosen = shuffle(available).slice(0, 5);
+  chosen.forEach(c => state.usedWords.add(c.word));
+  return chosen.map((c, i) => ({ id: 'w' + state.stageNumber + '_' + i, word: c.word, def: c.def }));
+}
+
+function startNewStage(){
+  state.stageNumber += 1;
+  state.attemptsThisStage = 0;
+  state.currentSet = pickWordsForStage();
+  state.placements = {};
+  state.lockedCorrect = new Set();
+  state.selectedWordId = null;
+  renderStage();
+}
+
+function renderStage(){
+  introMsg.classList.add('hidden');
+  feedbackBox.classList.add('hidden');
+  revealBox.classList.add('hidden');
+  stageBadge.textContent = `Stage ${state.stageNumber}`;
+  attemptsNote.textContent = `Attempt ${state.attemptsThisStage + 1} of ${MAX_ATTEMPTS}`;
+  checkBtn.classList.remove('hidden');
+  replayBtn.classList.add('hidden');
+  nextStageBtn.classList.add('hidden');
+  checkBtn.disabled = true;
+
+  const defOrder = shuffle(state.currentSet.map(w => w.id));
+
+  wordPool.innerHTML = '';
+  state.currentSet.forEach(w => {
+    const chip = makeWordChip(w);
+    wordPool.appendChild(chip);
+  });
+
+  matchRows.innerHTML = '';
+  defOrder.forEach(defId => {
+    const item = state.currentSet.find(w => w.id === defId);
+    const row = document.createElement('div');
+    row.className = 'match-row';
+
+    const defCard = document.createElement('div');
+    defCard.className = 'def-card';
+    defCard.textContent = item.def;
+
+    const slot = document.createElement('div');
+    slot.className = 'drop-slot';
+    slot.dataset.defId = defId;
+    slot.textContent = 'Drop word here';
+    slot.addEventListener('dragover', e => { e.preventDefault(); slot.classList.add('dragover'); });
+    slot.addEventListener('dragleave', () => slot.classList.remove('dragover'));
+    slot.addEventListener('drop', e => {
+      e.preventDefault();
+      slot.classList.remove('dragover');
+      const wordId = e.dataTransfer.getData('text/plain');
+      placeWord(wordId, defId);
+    });
+    slot.addEventListener('click', () => {
+      if(slot.classList.contains('correct')) return;
+      if(state.placements[defId]){
+        returnWordToPool(defId);
+      } else if(state.selectedWordId){
+        placeWord(state.selectedWordId, defId);
+      }
+    });
+
+    row.appendChild(defCard);
+    row.appendChild(slot);
+    matchRows.appendChild(row);
+  });
+
+  updateCheckButtonState();
+}
+
+function makeWordChip(w){
+  const chip = document.createElement('div');
+  chip.className = 'word-chip';
+  chip.textContent = w.word;
+  chip.dataset.wordId = w.id;
+  chip.draggable = true;
+  chip.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', w.id);
+    chip.classList.add('selected');
+  });
+  chip.addEventListener('dragend', () => chip.classList.remove('selected'));
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.word-chip').forEach(c => c.classList.remove('selected'));
+    if(state.selectedWordId === w.id){
+      state.selectedWordId = null;
+    } else {
+      state.selectedWordId = w.id;
+      chip.classList.add('selected');
+    }
+  });
+  return chip;
+}
+
+function placeWord(wordId, defId){
+  if(!wordId) return;
+  // if this word already placed elsewhere, clear that slot first
+  for(const [dId, wId] of Object.entries(state.placements)){
+    if(wId === wordId && dId !== defId){
+      delete state.placements[dId];
+    }
+  }
+  // if target slot already occupied and locked correct, do nothing
+  const targetSlot = document.querySelector(`.drop-slot[data-def-id="${defId}"]`);
+  if(targetSlot && targetSlot.classList.contains('correct')) return;
+
+  state.placements[defId] = wordId;
+  state.selectedWordId = null;
+  refreshBoard();
+}
+
+function returnWordToPool(defId){
+  delete state.placements[defId];
+  state.selectedWordId = null;
+  refreshBoard();
+}
+
+function refreshBoard(){
+  const placedWordIds = new Set(Object.values(state.placements));
+  document.querySelectorAll('.word-chip').forEach(chip => {
+    const wId = chip.dataset.wordId;
+    chip.style.display = placedWordIds.has(wId) ? 'none' : '';
+    chip.classList.remove('selected');
+  });
+  document.querySelectorAll('.drop-slot').forEach(slot => {
+    const defId = slot.dataset.defId;
+    const wordId = state.placements[defId];
+    if(wordId){
+      const w = state.currentSet.find(x => x.id === wordId);
+      slot.innerHTML = '';
+      const chip = document.createElement('span');
+      chip.className = 'placed-chip';
+      chip.textContent = w.word;
+      slot.appendChild(chip);
+      slot.classList.add('filled');
+    } else if(!slot.classList.contains('correct')) {
+      slot.textContent = 'Drop word here';
+      slot.classList.remove('filled');
+    }
+  });
+  updateCheckButtonState();
+}
+
+function updateCheckButtonState(){
+  const filledCount = Object.keys(state.placements).length + state.lockedCorrect.size;
+  checkBtn.disabled = filledCount < state.currentSet.length;
+}
+
+/* ---------- Checking ---------- */
+checkBtn.addEventListener('click', evaluateMatches);
+
+function evaluateMatches(){
+  let correctCount = state.lockedCorrect.size;
+  const mismatchWordIds = [];
+
+  Object.entries(state.placements).forEach(([defId, wordId]) => {
+    const slot = document.querySelector(`.drop-slot[data-def-id="${defId}"]`);
+    if(defId === wordId){
+      correctCount++;
+      state.lockedCorrect.add(defId);
+      slot.classList.add('correct');
+      slot.classList.remove('incorrect');
+      delete state.placements[defId];
+    } else {
+      slot.classList.add('incorrect');
+      mismatchWordIds.push(wordId);
+    }
+  });
+
+  const total = state.currentSet.length;
+  state.attemptsThisStage += 1;
+
+  if(correctCount === total){
+    // PERFECT
+    state.totalWords += total;
+    state.totalCorrect += total;
+    const wasFirstTry = state.attemptsThisStage === 1;
+    if(wasFirstTry) state.perfectStages += 1;
+    state.sessionLogs.push({ stageNumber: state.stageNumber, total, correct: total, perfectFirstTry: wasFirstTry, mismatches: [] });
+
+    const msg = `Excellent work, ${state.name}! You matched all five words perfectly! Let's move straight on to a brand new set of words.`;
+    feedbackBox.textContent = msg;
+    feedbackBox.className = 'feedback happy';
+    feedbackBox.classList.remove('hidden');
+    speak(msg);
+    checkBtn.classList.add('hidden');
+    setTimeout(startNewStage, voiceOn ? 2600 : 1400);
+    return;
+  }
+
+  // not perfect this pass — clear incorrect placements after a brief highlight so the pool gets them back
+  setTimeout(() => {
+    mismatchWordIds.forEach(() => {});
+    Object.keys(state.placements).forEach(defId => {
+      const slot = document.querySelector(`.drop-slot[data-def-id="${defId}"]`);
+      slot.classList.remove('incorrect');
+    });
+    state.placements = {};
+    refreshBoard();
+  }, 900);
+
+  if(state.attemptsThisStage < MAX_ATTEMPTS){
+    attemptsNote.textContent = `Attempt ${state.attemptsThisStage + 1} of ${MAX_ATTEMPTS}`;
+    const msg = `Good effort, ${state.name}! You got ${correctCount} out of ${total} correct. Take another look and try again — I know you can find the rest.`;
+    feedbackBox.textContent = msg;
+    feedbackBox.className = 'feedback';
+    feedbackBox.classList.remove('hidden');
+    speak(msg);
+  } else {
+    // Step in: reveal full mapping
+    const remainingWords = state.currentSet.filter(w => !state.lockedCorrect.has(w.id));
+    revealList.innerHTML = '';
+    let spokenReveal = `You worked so hard on this one, ${state.name}! Don't worry, let's look at these words together. `;
+    remainingWords.forEach(w => {
+      const li = document.createElement('li');
+      li.innerHTML = `<b>${w.word}</b> — ${w.def}`;
+      revealList.appendChild(li);
+      spokenReveal += `${w.word} means: ${w.def}. `;
+    });
+    spokenReveal += `Now you know these words a little better, ${state.name}!`;
+
+    revealBox.classList.remove('hidden');
+    const msg = `You worked so hard on this one, ${state.name}! Don't worry, let's look at these words together.`;
+    feedbackBox.textContent = msg;
+    feedbackBox.className = 'feedback review';
+    feedbackBox.classList.remove('hidden');
+    speak(spokenReveal);
+
+    state.totalWords += total;
+    state.totalCorrect += correctCount;
+    state.anyReviewNeeded = true;
+    state.sessionLogs.push({
+      stageNumber: state.stageNumber, total, correct: correctCount, perfectFirstTry: false,
+      mismatches: remainingWords.map(w => ({ word: w.word, def: w.def }))
+    });
+
+    checkBtn.classList.add('hidden');
+    replayBtn.classList.remove('hidden');
+    nextStageBtn.classList.remove('hidden');
+  }
+}
+
+replayBtn.addEventListener('click', () => {
+  // remove this stage's log since we're retrying fresh, keep same words for reinforcement
+  state.sessionLogs.pop();
+  state.totalWords -= state.currentSet.length;
+  state.totalCorrect -= state.lockedCorrect.size;
+  state.attemptsThisStage = 0;
+  state.placements = {};
+  state.lockedCorrect = new Set();
+  renderStage();
+});
+
+nextStageBtn.addEventListener('click', startNewStage);
+
+/* ---------- Summary ---------- */
+function showSummary(){
+  gameScreen.classList.add('hidden');
+  onboardScreen.classList.add('hidden');
+  summaryScreen.classList.remove('hidden');
+
+  const heading = document.getElementById('summaryHeading');
+  const summaryFeedback = document.getElementById('summaryFeedback');
+  const statStages = document.getElementById('statStages');
+  const statCorrect = document.getElementById('statCorrect');
+  const statPerfect = document.getElementById('statPerfect');
+  const reviewSection = document.getElementById('summaryReviewSection');
+  const stageLogsEl = document.getElementById('summaryStageLogs');
+
+  statStages.textContent = state.sessionLogs.length;
+  statCorrect.textContent = `${state.totalCorrect} / ${state.totalWords}`;
+  statPerfect.textContent = state.perfectStages;
+
+  const accuracy = state.totalWords > 0 ? Math.round((state.totalCorrect / state.totalWords) * 100) : 0;
+
+  if(!state.anyReviewNeeded && state.sessionLogs.length > 0){
+    heading.textContent = `Amazing Job, ${state.name}!`;
+    const msg = `${state.name}, I am so proud of your hard work, your concentration, and your determination today! You matched every single word correctly across ${state.sessionLogs.length} stage${state.sessionLogs.length === 1 ? '' : 's'}. That is a fantastic vocabulary performance — keep exploring new words!`;
+    summaryFeedback.textContent = msg;
+    summaryFeedback.className = 'feedback happy';
+    speak(msg);
+    reviewSection.classList.add('hidden');
+  } else if(state.sessionLogs.length > 0) {
+    heading.textContent = `Well Done, ${state.name}!`;
+    const msg = `${state.name}, you showed real hard work, concentration, and determination in this session, and that matters more than a perfect score! You matched ${state.totalCorrect} out of ${state.totalWords} words correctly, which is ${accuracy} percent. Let's take a moment to review the words that need a little more practice.`;
+    summaryFeedback.textContent = msg;
+    summaryFeedback.className = 'feedback review';
+    speak(msg);
+
+    reviewSection.classList.remove('hidden');
+    stageLogsEl.innerHTML = '';
+    state.sessionLogs.filter(l => l.mismatches.length > 0).forEach(log => {
+      const box = document.createElement('div');
+      box.className = 'stage-log';
+      const title = document.createElement('div');
+      title.className = 'match-label';
+      title.textContent = `Stage ${log.stageNumber} — ${log.correct} of ${log.total} correct`;
+      box.appendChild(title);
+      const ul = document.createElement('ul');
+      ul.className = 'reveal-list';
+      log.mismatches.forEach(m => {
+        const li = document.createElement('li');
+        li.innerHTML = `<b>${m.word}</b> — ${m.def}`;
+        ul.appendChild(li);
+      });
+      box.appendChild(ul);
+      stageLogsEl.appendChild(box);
+    });
+  } else {
+    heading.textContent = `See You Soon, ${state.name}!`;
+    summaryFeedback.textContent = `${state.name}, thanks for stopping by! Come back any time you'd like to explore more amazing words.`;
+    summaryFeedback.className = 'feedback';
+    reviewSection.classList.add('hidden');
+  }
+}
+
+document.getElementById('playAgainBtn').addEventListener('click', () => {
+  state.stageNumber = 0;
+  state.usedWords.clear();
+  state.sessionLogs = [];
+  state.totalWords = 0;
+  state.totalCorrect = 0;
+  state.perfectStages = 0;
+  state.anyReviewNeeded = false;
+  summaryScreen.classList.add('hidden');
+  onboardScreen.classList.remove('hidden');
+  nameInput.value = '';
+  startBtn.disabled = true;
+});
+</script>
+</body>
+</html>

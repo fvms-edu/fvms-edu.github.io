@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amanda's Story World</title>
+    <style>
+        /* Setting up the cheerful pink and yellow theme */
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            background-color: #FFFDE7; /* Light gentle yellow */
+            color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #FF69B4; /* Hot Pink */
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-bottom: 8px solid #FFD700; /* Vibrant Gold/Yellow */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-shadow: 2px 2px #C71585;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .intro-box {
+            background-color: #FFFFFF;
+            border: 4px dashed #FF69B4;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .intro-box h2 {
+            color: #FF1493;
+            margin-top: 0;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .book-card {
+            background-color: #FFF9C4; /* Soft Yellow Card */
+            border: 3px solid #FF69B4;
+            border-radius: 12px;
+            padding: 15px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .book-card:hover {
+            transform: scale(1.03);
+        }
+
+        .book-card h3 {
+            color: #C71585;
+            margin-top: 0;
+            border-bottom: 2px solid #FF69B4;
+            padding-bottom: 5px;
+        }
+
+        .book-card p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #FFD700;
+            color: #333333;
+            font-weight: bold;
+            margin-top: 50px;
+            border-top: 5px solid #FF69B4;
+        }
+
+        .photo-placeholder {
+            width: 250px;
+            height: 240px;
+            background-color: #e0e0e0;
+            border: 4px solid #ff7ebb;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-weight: bold;
+            font-size: 0.9rem;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 110%;
+            height: 120%;
+            object-fit: cover;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Amanda's Story World 📚</h1>
+        <p>Welcome to my favorite place to share the books I love reading!</p>
+    </header>
+    <div class="photo-placeholder">
+        <span><img src="../static/images/amanda.png" loading="lazy" class="slide" alt="Amanda Pix."></span>
+    </div>
+    <div class="container">
+        <div class="intro-box">
+            <h2>Hello, Friend! 👋</h2>
+            <p>My name is Amanda Prosper. I am 8 years old and I am in Basic One, <strong>FAMOUS VINE MONTESSORI SCHOOL.</strong> My absolute favorite thing to do in class is <strong>read</strong>, and my favorite colors are pink and yellow!</p>
+        </div>
+
+        <h2 style="color: #FF1493; text-align: center; margin-bottom: 20px;">My Library Shelf</h2>
+        
+        <div class="book-grid">
+            <!-- Book 1 -->
+            <div class="book-card">
+                <h3>🦁 Wild Animal Adventures</h3>
+                <p><strong>My Review:</strong> I love reading about lions, elephants, and giant blue whales! This book tells stories about how brave animals survive in the wild jungles.</p>
+            </div>
+
+            <!-- Book 2 -->
+            <div class="book-card">
+                <h3>✨ The Magic Treehouse</h3>
+                <p><strong>My Review:</strong> A fun story about traveling through time to discover secret places. It makes me want to go on a big adventure!</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+       @ 2026 | Created with 💖 especially for Amanda Prosper<br><br>
+
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+
+    </footer>
+
+</body>
+</html>

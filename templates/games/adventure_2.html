@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=2.0, minimum-scale=0.5">
+  <title>Famous Vine Montessori • Interactive Learning Playground</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(145deg, #f9e7b3 0%, #ffcf8a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', 'Fredoka', 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+      padding: 20px;
+      margin: 0;
+    }
+    .playground {
+      max-width: 750px;
+      width: 100%;
+      background: rgba(255, 251, 235, 0.85);
+      backdrop-filter: blur(18px);
+      border-radius: 70px 70px 60px 60px;
+      box-shadow: 0 30px 50px rgba(180, 100, 30, 0.4), inset 0 2px 10px rgba(255,255,200,0.8);
+      padding: 30px 25px 35px;
+      border: 4px solid #ffb452;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    h1 {
+      font-size: 2.8rem;
+      color: #b45f2a;
+      text-shadow: 3px 3px 0 #ffe3a5;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      word-break: break-word;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .welcome-badge {
+      background: #ffd78b;
+      border-radius: 50px;
+      padding: 15px 20px;
+      font-size: 1.9rem;
+      font-weight: bold;
+      color: #623e1e;
+      margin: 10px 0 20px;
+      border: 3px dashed #ff9f4b;
+      background: #fff2d0;
+      box-shadow: 0 8px 0 #d68c42;
+    }
+    .stage-area {
+      background: #fef7e0;
+      border-radius: 80px;
+      padding: 25px 15px;
+      margin: 15px 0;
+      border: 4px solid #fba76f;
+      box-shadow: inset 0 -8px 0 #e09d6c, 0 20px 25px rgba(160, 100, 20, 0.35);
+    }
+    .giant-display {
+      font-size: 9rem;
+      font-weight: 800;
+      color: #c35e1f;
+      text-shadow: 6px 6px 0 #ffe3a0;
+      line-height: 1;
+      margin: 10px 0;
+      letter-spacing: 5px;
+      background: #fffaec;
+      border-radius: 50px;
+      display: inline-block;
+      padding: 0 35px;
+    }
+    .shape-visual {
+      font-size: 8rem;
+      filter: drop-shadow(0 15px 8px #bf7b4a);
+      margin: 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+    .choices {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 25px 0 10px;
+    }
+    .choice-btn {
+      background: #ffdbb5;
+      border: 5px solid #ff914d;
+      border-radius: 50px;
+      font-size: 3.5rem;
+      font-weight: bold;
+      padding: 15px 28px;
+      min-width: 110px;
+      background: #fff6e5;
+      box-shadow: 0 9px 0 #c16a2f, 0 10px 20px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: all 0.08s ease;
+      color: #4b2e1a;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .choice-btn:active {
+      transform: translateY(5px);
+      box-shadow: 0 4px 0 #c16a2f, 0 8px 12px rgba(0,0,0,0.2);
+      background: #ffe3b0;
+    }
+    .target-zone {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 25px;
+      margin: 20px 0 10px;
+      background: #fadbb0;
+      border-radius: 70px;
+      padding: 18px 15px;
+      border: 4px solid #c4672c;
+    }
+    .target-shape {
+      font-size: 4.2rem;
+      background: #fef3d3;
+      border-radius: 35px;
+      padding: 15px 25px;
+      border: 3px solid #cc7a42;
+      box-shadow: 0 6px 0 #aa5a2c;
+      cursor: pointer;
+      transition: 0.1s linear;
+      background: #ffeed5;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .target-shape:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0 #aa5a2c;
+    }
+    .feedback {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #6b3f1c;
+      background: #fef9e3;
+      border-radius: 40px;
+      padding: 12px 18px;
+      margin: 15px 0 5px;
+      min-height: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #ffb049;
+    }
+    button {
+      background: #ffa343;
+      border: none;
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 2px 2px 0 #b45f1a;
+      padding: 15px 30px;
+      border-radius: 60px;
+      cursor: pointer;
+      box-shadow: 0 10px 0 #b45c1a, 0 8px 18px rgba(0,0,0,0.25);
+      transition: 0.08s;
+      margin: 5px;
+      background: #f98e2e;
+      letter-spacing: 1px;
+      border: 2px solid #ffe3a3;
+    }
+    button:active {
+      transform: translateY(5px);
+      box-shadow: 0 4px 0 #b45c1a, 0 6px 12px rgba(0,0,0,0.2);
+    }
+    .name-input-area {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    input {
+      font-size: 2rem;
+      padding: 12px 20px;
+      border-radius: 50px;
+      border: 4px solid #f99e4c;
+      text-align: center;
+      background: #fff9ed;
+      font-weight: bold;
+      color: #572e14;
+      width: 80%;
+      max-width: 350px;
+      outline: none;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .falling-indicator {
+      background: #ffdd91;
+      border-radius: 30px;
+      padding: 10px;
+      font-size: 2rem;
+      margin: 5px 0;
+    }
+    @media (max-width: 500px) {
+      .giant-display { font-size: 6rem; }
+      .choice-btn { font-size: 2.8rem; padding: 10px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="playground" id="appContainer">
+      <a href="../../index.html?id=#games" style=" border: none; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; background: #fef3e0;"> Back to FVMS <i class="fas fa-project-diagram"></i> Game Hub</a>
+
+  <h1>🍎 Famous Vine Montessori 🧸</h1>
+  
+  <!-- Onboarding -->
+  <div id="onboardingSection">
+    <div style="font-size: 2.2rem; color:#623e1e; margin-bottom:10px;">✨ Let's meet you! ✨</div>
+    <div class="name-input-area">
+      <input type="text" id="childNameInput" placeholder="Your name" autocomplete="off" maxlength="20">
+      <button id="startAdventureBtn">🌟 Start Playing! 🌟</button>
+    </div>
+  </div>
+
+  <!-- Main game UI (hidden until name entered) -->
+  <div id="gameSection" class="hidden">
+    <div class="welcome-badge" id="welcomeMessage"></div>
+    
+    <div class="stage-area" id="stageContainer">
+      <!-- dynamic content: number, shape, alphabet, phonics -->
+      <div id="dynamicDisplay"></div>
+      <div id="choicesContainer" class="choices"></div>
+      <div id="targetZoneContainer" class="target-zone hidden"></div>
+      <div class="feedback" id="feedbackMessage">🌈 Let's play! 🌈</div>
+    </div>
+    
+    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+      <button id="nextStageManual" style="font-size:1.8rem; background:#d68c42;">⏩ Next adventure ⏩</button>
+    </div>
+    <div style="margin-top: 10px; color:#7b4a1e; font-weight: bold; font-size:1.4rem;" id="stageIndicator"></div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ---- TTS friendly speech function (uses Web Speech API, but also shows text)
+    function speakText(text) {
+      if (!window.speechSynthesis) return;
+      // Cancel any ongoing speech to avoid overlap
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 0.9;        // slightly slower for toddlers
+      utterance.pitch = 1.3;       // cheerful high pitch
+      utterance.volume = 1;
+      utterance.lang = 'en-US';
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // App state
+    let studentName = "";
+    let currentStage = 1;          // 1:Numbers, 2:Shapes, 3:Alphabets, 4:Phonics
+    let subStepIndex = 0;         // index within stage
+    
+    // Data definitions
+    const numbers = [1,2,3,4,5];
+    const shapeList = [
+      { name: "Triangle", symbol: "🔺", distractors: ["🟥", "🔵", "🟨"] },
+      { name: "Circle", symbol: "🟢", distractors: ["🔺", "🟦", "⭐"] },
+      { name: "Square", symbol: "🟦", distractors: ["🔺", "🟢", "❤️"] },
+      { name: "Rectangle", symbol: "🟨", distractors: ["🔺", "🟦", "🌟"] },
+      { name: "Prism", symbol: "💠", distractors: ["🔺", "🟢", "🟦"] }
+    ];
+    const alphabetLetters = ['A','B','C','D','E','F','G'];
+    const phonicsStages = [
+      { level: "two", words: ["AT", "IN", "GO", "AM"] },
+      { level: "three", words: ["CAT", "DOG", "SUN", "MAT"] },
+      { level: "four", words: ["BALL", "FROG", "JUMP", "KIND"] }
+    ];
+    
+    // current dynamic data
+    let currentNumberIndex = 0;
+    let currentShapeIndex = 0;
+    let currentLetterIndex = 0;
+    let currentPhonicsLevel = 0;   // 0:two-letter, 1:three-letter, 2:four-letter
+    let currentPhonicsWordIndex = 0;
+    
+    // For shape dropping: track if shape active
+    let shapeDropActive = false;
+    let currentShapeObj = null;
+
+    // DOM elements
+    const onboardingSection = document.getElementById('onboardingSection');
+    const gameSection = document.getElementById('gameSection');
+    const childNameInput = document.getElementById('childNameInput');
+    const startBtn = document.getElementById('startAdventureBtn');
+    const welcomeMessageDiv = document.getElementById('welcomeMessage');
+    const dynamicDisplay = document.getElementById('dynamicDisplay');
+    const choicesContainer = document.getElementById('choicesContainer');
+    const targetZoneContainer = document.getElementById('targetZoneContainer');
+    const feedbackMessage = document.getElementById('feedbackMessage');
+    const nextStageBtn = document.getElementById('nextStageManual');
+    const stageIndicator = document.getElementById('stageIndicator');
+
+    // Helper to update UI feedback and speak
+    function setFeedback(text, speak = true) {
+      feedbackMessage.textContent = text;
+      if (speak) speakText(text);
+    }
+
+    // Reset stage dependent UI
+    function clearDynamicAreas() {
+      dynamicDisplay.innerHTML = '';
+      choicesContainer.innerHTML = '';
+      targetZoneContainer.classList.add('hidden');
+      targetZoneContainer.innerHTML = '';
+      shapeDropActive = false;
+    }
+
+    // Update stage indicator text
+    function updateStageIndicator() {
+      let stageName = "";
+      if (currentStage === 1) stageName = "🔢 Number Discovery";
+      else if (currentStage === 2) stageName = "🔷 Dropping Shapes";
+      else if (currentStage === 3) stageName = "🔤 Alphabet Association";
+      else if (currentStage === 4) stageName = "🗣️ Phonics Words";
+      stageIndicator.textContent = `🌟 ${stageName} 🌟`;
+    }
+
+    // ---------- STAGE 1: Number Discovery ----------
+    function loadNumberStage() {
+      clearDynamicAreas();
+      updateStageIndicator();
+      if (currentNumberIndex >= numbers.length) {
+        // move to next stage automatically
+        currentStage = 2;
+        currentShapeIndex = 0;
+        loadShapeStage();
+        return;
+      }
+      const num = numbers[currentNumberIndex];
+      dynamicDisplay.innerHTML = `<div class="giant-display">${num}</div>`;
+      setFeedback(`Look! ${num}! What is this number?`, true);
+      
+      // Generate choices: correct number and two similar distractors
+      let options = [num];
+      let possible = [1,2,3,4,5,6,7];
+      // add distinct wrong numbers
+      while(options.length < 3) {
+        let r = possible[Math.floor(Math.random() * possible.length)];
+        if (!options.includes(r)) options.push(r);
+      }
+      // shuffle
+      options.sort(() => Math.random() - 0.5);
+      
+      choicesContainer.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('div');
+        btn.className = 'choice-btn';
+        btn.textContent = opt;
+        btn.addEventListener('click', (e) => handleNumberChoice(opt, num));
+        choicesContainer.appendChild(btn);
+      });
+    }
+
+    function handleNumberChoice(selected, correctNum) {
+      if (selected === correctNum) {
+        setFeedback(`Fantastic, ${studentName}! That is the number ${correctNum}! 🎉`, true);
+        currentNumberIndex++;
+        setTimeout(() => loadNumberStage(), 1800);
+      } else {
+        setFeedback(`Great try, ${studentName}! Let's count our fingers together and try one more time! ✋`, true);
+      }
+    }
+
+    // ---------- STAGE 2: Dropping Shape Target Match ----------
+    function loadShapeStage() {
+      clearDynamicAreas();
+      updateStageIndicator();
+      if (currentShapeIndex >= shapeList.length) {
+        // proceed to alphabet
+        currentStage = 3;
+        currentLetterIndex = 0;
+        loadAlphabetStage();
+        return;
+      }
+      currentShapeObj = shapeList[currentShapeIndex];
+      shapeDropActive = true;
+      
+      // Display falling shape concept
+      dynamicDisplay.innerHTML = `
+        <div class="shape-visual">
+          <span style="font-size:7rem;">${currentShapeObj.symbol}</span>
+        </div>
+        <div class="falling-indicator">⬇️ Here comes a ${currentShapeObj.name}! ⬇️</div>
+      `;
+      setFeedback(`Here comes a ${currentShapeObj.name}! Catch it in the right home!`, true);
+      
+      // Create target icons at bottom (correct + distractors)
+      targetZoneContainer.classList.remove('hidden');
+      targetZoneContainer.innerHTML = '';
+      
+      let targets = [
+        { name: currentShapeObj.name, symbol: currentShapeObj.symbol, correct: true }
+      ];
+      // add two unique distractors
+      let usedSymbols = [currentShapeObj.symbol];
+      const distCopy = [...currentShapeObj.distractors];
+      while(targets.length < 3 && distCopy.length > 0) {
+        let randDist = distCopy.splice(Math.floor(Math.random() * distCopy.length), 1)[0];
+        if (!usedSymbols.includes(randDist)) {
+          targets.push({ name: "distractor", symbol: randDist, correct: false });
+          usedSymbols.push(randDist);
+        }
+      }
+      // shuffle targets
+      targets.sort(() => Math.random() - 0.5);
+      
+      targets.forEach(t => {
+        const targetDiv = document.createElement('div');
+        targetDiv.className = 'target-shape';
+        targetDiv.innerHTML = `${t.symbol} <span style="font-size:1.8rem;">${t.correct ? '🏠' : '❓'}</span>`;
+        targetDiv.addEventListener('click', (e) => handleShapeTarget(t.correct, currentShapeObj.name));
+        targetZoneContainer.appendChild(targetDiv);
+      });
+    }
+
+    function handleShapeTarget(isCorrect, shapeName) {
+      if (!shapeDropActive) return;
+      shapeDropActive = false; // prevent double clicks
+      
+      if (isCorrect) {
+        setFeedback(`Hooray, ${studentName}! You caught it! The ${shapeName} landed safely in its home! You win this round! 🏆`, true);
+        currentShapeIndex++;
+        setTimeout(() => loadShapeStage(), 2000);
+      } else {
+        setFeedback(`Oops, that shape went to the wrong home! Let's look closely at its corners and guide the next one together! 🧐`, true);
+        // allow retry: re-enable shape drop active after short feedback? Better reset same shape.
+        setTimeout(() => {
+          if (currentStage === 2 && currentShapeIndex < shapeList.length) {
+            // reload same shape for retry
+            shapeDropActive = true;
+            loadShapeStage(); 
+          }
+        }, 1800);
+      }
+    }
+
+    // ---------- STAGE 3: Alphabet Association ----------
+    function loadAlphabetStage() {
+      clearDynamicAreas();
+      updateStageIndicator();
+      if (currentLetterIndex >= alphabetLetters.length) {
+        // move to phonics
+        currentStage = 4;
+        currentPhonicsLevel = 0;
+        currentPhonicsWordIndex = 0;
+        loadPhonicsStage();
+        return;
+      }
+      const letter = alphabetLetters[currentLetterIndex];
+      const mnemonic = getMnemonic(letter);
+      dynamicDisplay.innerHTML = `
+        <div class="giant-display" style="font-size:8rem;">${letter} ${letter.toLowerCase()}</div>
+        <div style="font-size:2.5rem; background:#ffedd7; border-radius:30px; padding:10px;">${mnemonic}</div>
+      `;
+      setFeedback(`${letter} is for ${mnemonic.split(' ')[2] || mnemonic}! Can you find the matching letter?`, true);
+      
+      // Create choices: correct letter and two wrong letters
+      let lettersPool = ['A','B','C','D','E','F','G'];
+      let options = [letter];
+      while(options.length < 3) {
+        let r = lettersPool[Math.floor(Math.random()*lettersPool.length)];
+        if (!options.includes(r)) options.push(r);
+      }
+      options.sort(() => Math.random()-0.5);
+      choicesContainer.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('div');
+        btn.className = 'choice-btn';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => handleLetterChoice(opt, letter));
+        choicesContainer.appendChild(btn);
+      });
+    }
+
+    function getMnemonic(letter) {
+      const map = {
+        'A': 'A is for Apple! 🍎', 'B': 'B is for Ball! ⚽', 'C': 'C is for Cat! 🐱',
+        'D': 'D is for Dog! 🐶', 'E': 'E is for Elephant! 🐘', 'F': 'F is for Fish! 🐟',
+        'G': 'G is for Goat! 🐐'
+      };
+      return map[letter] || `${letter} is for ${letter}!`;
+    }
+
+    function handleLetterChoice(selected, correctLetter) {
+      if (selected === correctLetter) {
+        setFeedback(`Wonderful, ${studentName}! That's the letter ${correctLetter}! 🌟`, true);
+        currentLetterIndex++;
+        setTimeout(() => loadAlphabetStage(), 1800);
+      } else {
+        setFeedback(`Nice try, ${studentName}! Let's look again. Find the letter ${correctLetter}! 🔍`, true);
+      }
+    }
+
+    // ---------- STAGE 4: Phonics & Vocabulary ----------
+    function loadPhonicsStage() {
+      clearDynamicAreas();
+      updateStageIndicator();
+      const levelData = phonicsStages[currentPhonicsLevel];
+      if (!levelData || currentPhonicsWordIndex >= levelData.words.length) {
+        // advance level or loop
+        if (currentPhonicsLevel < phonicsStages.length - 1) {
+          currentPhonicsLevel++;
+          currentPhonicsWordIndex = 0;
+          loadPhonicsStage();
+        } else {
+          // All done! restart celebration
+          setFeedback(`🎈 You finished all the words, ${studentName}! You're a superstar! 🎈`, true);
+          dynamicDisplay.innerHTML = `<div class="giant-display" style="font-size:5rem;">🏅✨🏅</div>`;
+          choicesContainer.innerHTML = '';
+          return;
+        }
+        return;
+      }
+      
+      const word = levelData.words[currentPhonicsWordIndex];
+      const spacedWord = word.split('').join('-');
+      dynamicDisplay.innerHTML = `
+        <div class="giant-display" style="font-size:7rem; letter-spacing:12px;">${word}</div>
+        <div style="font-size:3rem; background:#ffe1b3; border-radius:40px; padding:8px;">${spacedWord} says ${word}!</div>
+      `;
+      setFeedback(`${spacedWord} says ${word}! Can you find the word ${word}?`, true);
+      
+      // choices: correct word + distractors from same level or similar
+      let options = [word];
+      const sameLevelWords = levelData.words;
+      while(options.length < 3) {
+        let rand = sameLevelWords[Math.floor(Math.random()*sameLevelWords.length)];
+        if (!options.includes(rand)) options.push(rand);
+      }
+      options.sort(()=>Math.random()-0.5);
+      choicesContainer.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('div');
+        btn.className = 'choice-btn';
+        btn.style.fontSize = '2.5rem';
+        btn.textContent = opt;
+        btn.addEventListener('click', () => handlePhonicsChoice(opt, word));
+        choicesContainer.appendChild(btn);
+      });
+    }
+
+    function handlePhonicsChoice(selected, correctWord) {
+      if (selected === correctWord) {
+        setFeedback(`Yes, ${studentName}! ${correctWord.split('').join('-')} makes ${correctWord}! 📖`, true);
+        currentPhonicsWordIndex++;
+        setTimeout(() => loadPhonicsStage(), 2000);
+      } else {
+        setFeedback(`Almost, ${studentName}! Try to sound it out: ${correctWord.split('').join('-')} 🌈`, true);
+      }
+    }
+
+    // Manual next stage (for parent/teacher override)
+    function advanceToNextStage() {
+      if (currentStage === 1) {
+        currentStage = 2; currentShapeIndex = 0; loadShapeStage();
+      } else if (currentStage === 2) {
+        currentStage = 3; currentLetterIndex = 0; loadAlphabetStage();
+      } else if (currentStage === 3) {
+        currentStage = 4; currentPhonicsLevel = 0; currentPhonicsWordIndex = 0; loadPhonicsStage();
+      } else if (currentStage === 4) {
+        // loop back to numbers
+        currentStage = 1; currentNumberIndex = 0; loadNumberStage();
+      }
+    }
+
+    // Start adventure after name entry
+    function startGame() {
+      const name = childNameInput.value.trim();
+      if (name === "") {
+        alert("Please tell me your name, little star! 🌟");
+        return;
+      }
+      studentName = name;
+      onboardingSection.classList.add('hidden');
+      gameSection.classList.remove('hidden');
+      welcomeMessageDiv.textContent = `Welcome ${studentName} to your Famous Vine Montessori School playground! I am so happy to learn and play with you today. Let's start our grand adventure!`;
+      speakText(welcomeMessageDiv.textContent);
+      
+      // reset all indices
+      currentStage = 1;
+      currentNumberIndex = 0;
+      currentShapeIndex = 0;
+      currentLetterIndex = 0;
+      currentPhonicsLevel = 0;
+      currentPhonicsWordIndex = 0;
+      loadNumberStage();
+    }
+
+    // Event Listeners
+    startBtn.addEventListener('click', startGame);
+    childNameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') startGame();
+    });
+    nextStageBtn.addEventListener('click', advanceToNextStage);
+
+    // Initial UI
+    updateStageIndicator();
+    // Preload nothing in game section
+  })();
+</script>
+</body>
+</html>

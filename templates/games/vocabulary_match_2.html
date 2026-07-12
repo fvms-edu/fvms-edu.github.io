@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=2.0">
+  <title>FVMS • Vocabulary Match Challenge</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(145deg, #2b3a4f 0%, #1c2a38 100%);
+      font-family: 'Segoe UI', 'Fredoka', 'Poppins', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      margin: 0;
+    }
+    .game-container {
+      max-width: 950px;
+      width: 100%;
+      background: rgba(255, 248, 240, 0.9);
+      backdrop-filter: blur(18px);
+      background: #fef9e7;
+      border-radius: 3.5rem 3.5rem 3rem 3rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.5), inset 0 2px 8px rgba(255, 255, 200, 0.6);
+      padding: 2rem 2rem 2.5rem;
+      border: 2px solid #e7cfa2;
+      transition: all 0.2s ease;
+    }
+    .host-header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+    .school-badge {
+      font-size: 1rem;
+      letter-spacing: 2px;
+      color: #7b5e3b;
+      background: #f3e1c7;
+      display: inline-block;
+      padding: 0.4rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .greeting-box {
+      background: #e6d7bd;
+      border-radius: 60px 60px 60px 20px;
+      padding: 1rem 2rem;
+      margin: 0.8rem 0 1.2rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2d3e2b;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+      border-left: 6px solid #b9975b;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+    .player-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin: 1.5rem 0 1.2rem;
+    }
+    .words-panel, .defs-panel {
+      flex: 1 1 280px;
+      background: #fff7ed;
+      border-radius: 2.5rem;
+      padding: 1.3rem 1rem;
+      box-shadow: inset 0 0 0 2px #fadfad, 0 12px 18px rgba(0,0,0,0.2);
+    }
+    .panel-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #5b3c1c;
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+    .word-item, .def-item {
+      background: white;
+      margin: 0.7rem 0.4rem;
+      padding: 0.9rem 0.8rem;
+      border-radius: 28px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-align: center;
+      box-shadow: 0 5px 0 #d9b382, 0 6px 12px rgba(0,0,0,0.15);
+      transition: all 0.1s ease;
+      cursor: grab;
+      user-select: none;
+      border: 2px solid #f7d9aa;
+      color: #2d2d2d;
+      background: #fffbf2;
+    }
+    .def-item {
+      font-size: 0.95rem;
+      font-weight: 500;
+      padding: 0.8rem 0.6rem;
+      background: #fef5e6;
+      cursor: default;
+    }
+    .word-item.dragging {
+      opacity: 0.5;
+      transform: scale(0.96);
+      box-shadow: 0 3px 0 #b38b5b;
+      cursor: grabbing;
+    }
+    .def-item.drop-target {
+      background: #fbe9c3;
+      border: 2px dashed #b68b40;
+      box-shadow: 0 0 0 4px #ffe3a5;
+    }
+    .matched-word {
+      background: #c7e0b1;
+      border-color: #5a7d3a;
+      box-shadow: 0 4px 0 #5a7d3a;
+      color: #1e3b0c;
+      font-weight: 700;
+      cursor: default;
+      opacity: 0.9;
+    }
+    .def-matched {
+      background: #d4e7c5;
+      border-color: #4f6b34;
+      color: #1e3b0c;
+    }
+    .feedback-message {
+      background: #fff3d6;
+      border-radius: 2rem;
+      padding: 1rem 1.8rem;
+      margin: 1.2rem 0;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #3b4a2c;
+      text-align: center;
+      border-left: 8px solid #caa756;
+      background: #f7efdb;
+    }
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.3rem;
+    }
+    button {
+      background: #fae2b1;
+      border: none;
+      padding: 0.9rem 1.9rem;
+      border-radius: 3rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      letter-spacing: 0.8px;
+      color: #3b2f1a;
+      background: #ffd78b;
+      box-shadow: 0 6px 0 #b47c44, 0 8px 16px rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: 0.1s linear;
+      border: 2px solid #ffbb4a;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    button:active {
+      transform: translateY(3px);
+      box-shadow: 0 3px 0 #b47c44, 0 5px 10px rgba(0,0,0,0.25);
+    }
+    button:disabled {
+      opacity: 0.6;
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 #8b6b42;
+      pointer-events: none;
+    }
+    .name-input-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    input {
+      padding: 0.9rem 1.5rem;
+      border-radius: 3rem;
+      border: 2px solid #d6a868;
+      font-size: 1.2rem;
+      text-align: center;
+      outline: none;
+      background: #fffef5;
+      width: 260px;
+    }
+    .summary-screen {
+      background: #faf2e0;
+      border-radius: 2rem;
+      padding: 1.8rem;
+      margin: 1rem 0;
+    }
+    hr {
+      border: 1px solid #d4b17c;
+      margin: 1rem 0;
+    }
+    @media (max-width: 650px) {
+      .game-container {
+        padding: 1.5rem;
+      }
+      .greeting-box {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="game-container" id="gameApp">
+  <div class="host-header">
+          <a href="../../index.html?id=#games" style=" border: none; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; background: #fef3e0;"> Back to FVMS <i class="fas fa-project-diagram"></i> Game Hub</a>
+
+    <span class="school-badge">🌟 FVMS PORTAL 🌟</span>
+    <div id="greetingDisplay" class="greeting-box">✨ Welcome, explorer!</div>
+  </div>
+
+  <!-- Dynamic screen: onboarding or game -->
+  <div id="dynamicContent"></div>
+</div>
+
+<script>
+  (function() {
+    // ---- VAST DICTIONARY (extensive word bank) ----
+    const DICTIONARY = [
+      { word: "Jubilant", definition: "Feeling or showing great happiness" },
+      { word: "Melancholy", definition: "A deep, persistent sadness" },
+      { word: "Benevolent", definition: "Well-meaning and kindly" },
+      { word: "Ephemeral", definition: "Lasting for a very short time" },
+      { word: "Luminous", definition: "Giving off bright light" },
+      { word: "Resilient", definition: "Able to recover quickly" },
+      { word: "Frugal", definition: "Sparing with money or resources" },
+      { word: "Voracious", definition: "Wanting great quantities of food" },
+      { word: "Eloquent", definition: "Fluent and persuasive in speaking" },
+      { word: "Meticulous", definition: "Showing great attention to detail" },
+      { word: "Serene", definition: "Calm, peaceful, and untroubled" },
+      { word: "Vibrant", definition: "Full of energy and life" },
+      { word: "Diligent", definition: "Having careful persistent effort" },
+      { word: "Whimsical", definition: "Playfully quaint or fanciful" },
+      { word: "Tranquil", definition: "Free from disturbance; calm" }
+    ];
+
+    // ---- App State ----
+    const state = {
+      studentName: '',
+      timeGreeting: 'Good day',
+      currentSet: [],            // { word, definition, id }
+      shuffledDefs: [],
+      matchedPairs: new Map(),   // wordId -> defId (or wordId -> definition id)
+      attempts: 0,
+      maxAttempts: 3,
+      gameActive: false,
+      sessionHistory: [],        // track mismatches for summary
+      stageCompleted: 0,
+      onboardingComplete: false
+    };
+
+    // ---- Helpers ----
+    function getTimeBasedGreeting() {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 12) return "Good morning";
+      if (hour >= 12 && hour < 17) return "Good afternoon";
+      return "Good evening";
+    }
+
+    function selectRandomWords(count = 5) {
+      const shuffled = [...DICTIONARY].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, count).map((entry, idx) => ({
+        id: `w_${Date.now()}_${idx}_${Math.random()}`,
+        word: entry.word,
+        definition: entry.definition
+      }));
+    }
+
+    function shuffleArray(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+
+    function buildDefinitionItems(words) {
+      return shuffleArray(words.map(w => ({ id: `d_${w.id}`, definition: w.definition, wordId: w.id })));
+    }
+
+    // Reset stage but keep name
+    function loadNewStage() {
+      const newWords = selectRandomWords(5);
+      state.currentSet = newWords;
+      state.shuffledDefs = buildDefinitionItems(newWords);
+      state.matchedPairs.clear();
+      state.attempts = 0;
+      state.gameActive = true;
+      state.sessionHistory = []; // fresh per stage but we keep overall in session summary if needed (we'll track per stage)
+    }
+
+    // Check matches
+    function countCorrectMatches() {
+      let correct = 0;
+      for (let [wordId, defId] of state.matchedPairs.entries()) {
+        const wordObj = state.currentSet.find(w => w.id === wordId);
+        const defObj = state.shuffledDefs.find(d => d.id === defId);
+        if (wordObj && defObj && defObj.wordId === wordId) {
+          correct++;
+        }
+      }
+      return correct;
+    }
+
+    function allMatched() {
+      return state.matchedPairs.size === state.currentSet.length;
+    }
+
+    function getMismatchDetails() {
+      const details = [];
+      for (let [wordId, defId] of state.matchedPairs.entries()) {
+        const word = state.currentSet.find(w => w.id === wordId);
+        const defItem = state.shuffledDefs.find(d => d.id === defId);
+        if (word && defItem) {
+          const isCorrect = (defItem.wordId === wordId);
+          details.push({
+            word: word.word,
+            chosenDefinition: defItem.definition,
+            correctDefinition: word.definition,
+            isCorrect
+          });
+        }
+      }
+      return details;
+    }
+
+    // ---- UI Rendering ----
+    const appContainer = document.getElementById('dynamicContent');
+    const greetingDiv = document.getElementById('greetingDisplay');
+
+    function renderOnboarding() {
+      state.onboardingComplete = false;
+      state.studentName = '';
+      appContainer.innerHTML = `
+        <div class="name-input-area">
+          <label for="studentName" style="font-size:1.2rem; font-weight:500; color:#4b3a22;">✨ Enter your name to begin:</label>
+          <input type="text" id="studentNameInput" placeholder="Your name" autofocus />
+          <button id="startGameBtn">🚀 Enter the Challenge</button>
+        </div>
+      `;
+      document.getElementById('startGameBtn').addEventListener('click', () => {
+        const input = document.getElementById('studentNameInput');
+        const name = input.value.trim();
+        if (name === '') {
+          alert('Please tell me your name, brave learner!');
+          return;
+        }
+        state.studentName = name;
+        state.timeGreeting = getTimeBasedGreeting();
+        greetingDiv.textContent = `${state.timeGreeting}, ${state.studentName}! Welcome to Famous Vine Montessori School game portal. You are about to engage in our English challenge! Let's explore some amazing words together.`;
+        state.onboardingComplete = true;
+        loadNewStage();
+        renderGameScreen();
+      });
+    }
+
+    function renderGameScreen() {
+      if (!state.gameActive || state.currentSet.length === 0) {
+        loadNewStage();
+      }
+      const words = state.currentSet;
+      const defs = state.shuffledDefs;
+
+      let wordsHtml = '';
+      words.forEach(w => {
+        const matched = state.matchedPairs.has(w.id);
+        const matchClass = matched ? 'matched-word' : '';
+        wordsHtml += `<div class="word-item ${matchClass}" draggable="${!matched}" data-word-id="${w.id}" id="${w.id}">${w.word}</div>`;
+      });
+
+      let defsHtml = '';
+      defs.forEach(d => {
+        const isUsed = Array.from(state.matchedPairs.values()).includes(d.id);
+        const defClass = isUsed ? 'def-matched' : '';
+        defsHtml += `<div class="def-item ${defClass}" data-def-id="${d.id}" id="${d.id}">${d.definition}</div>`;
+      });
+
+      appContainer.innerHTML = `
+        <div class="player-area">
+          <div class="words-panel">
+            <div class="panel-title">📘 WORDS</div>
+            <div id="wordsContainer">${wordsHtml}</div>
+          </div>
+          <div class="defs-panel">
+            <div class="panel-title">📖 DEFINITIONS</div>
+            <div id="defsContainer">${defsHtml}</div>
+          </div>
+        </div>
+        <div class="feedback-message" id="hostMessage">🧩 Drag a word onto its correct definition!</div>
+        <div class="actions" id="actionButtons">
+          <button id="resetStageBtn">🔄 Reset Matches</button>
+        </div>
+      `;
+
+      attachDragDropEvents();
+      document.getElementById('resetStageBtn').addEventListener('click', () => {
+        state.matchedPairs.clear();
+        state.attempts = 0;
+        renderGameScreen();
+        updateHostMessage("Matches cleared. Try again, you've got this!");
+      });
+    }
+
+    function updateHostMessage(text) {
+      const msgDiv = document.getElementById('hostMessage');
+      if (msgDiv) msgDiv.textContent = text;
+    }
+
+    function attachDragDropEvents() {
+      const wordElements = document.querySelectorAll('.word-item[draggable="true"]');
+      const defElements = document.querySelectorAll('.def-item');
+
+      wordElements.forEach(wordEl => {
+        wordEl.addEventListener('dragstart', handleDragStart);
+        wordEl.addEventListener('dragend', handleDragEnd);
+      });
+
+      defElements.forEach(defEl => {
+        defEl.addEventListener('dragover', (e) => e.preventDefault());
+        defEl.addEventListener('drop', handleDrop);
+      });
+    }
+
+    function handleDragStart(e) {
+      const wordId = e.target.dataset.wordId;
+      if (!wordId || state.matchedPairs.has(wordId)) {
+        e.preventDefault();
+        return;
+      }
+      e.dataTransfer.setData('text/plain', wordId);
+      e.target.classList.add('dragging');
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      const defEl = e.target.closest('.def-item');
+      if (!defEl) return;
+      const defId = defEl.dataset.defId;
+      const wordId = e.dataTransfer.getData('text/plain');
+      if (!wordId || !defId) return;
+
+      // Check if def already matched
+      if (Array.from(state.matchedPairs.values()).includes(defId)) {
+        updateHostMessage("That definition is already matched! Pick another.");
+        return;
+      }
+      if (state.matchedPairs.has(wordId)) {
+        updateHostMessage("This word is already placed. Reset if you want to change.");
+        return;
+      }
+
+      // Perform match
+      state.matchedPairs.set(wordId, defId);
+      renderGameScreen();
+
+      // Check completion
+      if (allMatched()) {
+        const correctNow = countCorrectMatches();
+        state.attempts++;
+        if (correctNow === state.currentSet.length) {
+          // Perfect!
+          handlePerfectStage();
+        } else {
+          // Some incorrect but all matched
+          if (state.attempts >= state.maxAttempts) {
+            handleStuckIntervention();
+          } else {
+            updateHostMessage(`Good effort, ${state.studentName}! ${correctNow} out of ${state.currentSet.length} correct. Try adjusting and reset if needed.`);
+          }
+        }
+      } else {
+        updateHostMessage(`Keep matching! You've connected ${state.matchedPairs.size} of ${state.currentSet.length} pairs.`);
+      }
+    }
+
+    function handlePerfectStage() {
+      state.stageCompleted++;
+      updateHostMessage(`🌟 Brilliant, ${state.studentName}! All 5 correct! Moving to next stage...`);
+      state.gameActive = false;
+      setTimeout(() => {
+        loadNewStage();
+        renderGameScreen();
+        updateHostMessage(`New words await! Show them your skill, ${state.studentName}.`);
+      }, 1600);
+    }
+
+    function handleStuckIntervention() {
+      state.gameActive = false;
+      const details = getMismatchDetails();
+      let correctionHtml = '';
+      details.forEach(d => {
+        if (!d.isCorrect) {
+          correctionHtml += `<p><strong>${d.word}</strong> → you matched “${d.chosenDefinition}” <br> ✅ Correct meaning: <em>${d.correctDefinition}</em></p>`;
+        }
+      });
+      
+      appContainer.innerHTML = `
+        <div class="summary-screen">
+          <h2 style="color:#4b3a1e;">📚 Learning moment, ${state.studentName}!</h2>
+          <p>You gave it wonderful effort. Here are the correct mappings:</p>
+          <div style="background:#fff9ed; padding:1rem; border-radius:1.5rem; margin:1rem 0;">
+            ${state.currentSet.map(w => `<p><strong>${w.word}</strong>: ${w.definition}</p>`).join('')}
+          </div>
+          ${correctionHtml ? '<div style="margin-top:1rem;"><strong>🔍 Review your mismatches:</strong>'+correctionHtml+'</div>' : ''}
+          <div class="actions" style="margin-top:1.5rem;">
+            <button id="replayStageBtn">🔄 Replay Stage</button>
+            <button id="nextStageBtn">⏩ Move to Next Stage</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('replayStageBtn').addEventListener('click', ()=>{
+        state.attempts = 0;
+        state.matchedPairs.clear();
+        state.gameActive = true;
+        renderGameScreen();
+        updateHostMessage(`Let's try again, ${state.studentName}. You're growing!`);
+      });
+      document.getElementById('nextStageBtn').addEventListener('click', ()=>{
+        loadNewStage();
+        renderGameScreen();
+        updateHostMessage(`Fresh start! Believe in yourself, ${state.studentName}.`);
+      });
+    }
+
+    function renderSummaryEnd() {
+      // Comprehensive end summary (triggered manually or after stages)
+      const totalStages = state.stageCompleted;
+      appContainer.innerHTML = `
+        <div class="summary-screen">
+          <h2>🏆 Outstanding effort, ${state.studentName}!</h2>
+          <p>You completed stages with determination. Every word you explored builds your brilliant mind.</p>
+          <p style="font-size:1.3rem;">✨ Stages cleared: ${totalStages} ✨</p>
+          <p>Keep shining at Famous Vine Montessori School!</p>
+          <button id="restartGameBtn">🔁 Play Again</button>
+        </div>
+      `;
+      document.getElementById('restartGameBtn').addEventListener('click', ()=>{
+        state.stageCompleted = 0;
+        loadNewStage();
+        renderGameScreen();
+      });
+    }
+
+    // Additional: add a "finish session" button dynamically
+    function injectFinishButton() {
+      const actionDiv = document.getElementById('actionButtons');
+      if (actionDiv && !document.getElementById('finishSessionBtn')) {
+        const btn = document.createElement('button');
+        btn.id = 'finishSessionBtn';
+        btn.textContent = '🏁 End Session & Review';
+        btn.addEventListener('click', renderSummaryEnd);
+        actionDiv.appendChild(btn);
+      }
+    }
+
+    // Observe rendering to add finish button
+    const observer = new MutationObserver(() => {
+      if (document.getElementById('actionButtons') && state.gameActive) {
+        injectFinishButton();
+      }
+    });
+    observer.observe(document.getElementById('dynamicContent'), { childList: true, subtree: true });
+
+    // Initialize
+    greetingDiv.textContent = "🌟 Welcome to FVMS Vocabulary Challenge!";
+    renderOnboarding();
+  })();
+</script>
+</body>
+</html>

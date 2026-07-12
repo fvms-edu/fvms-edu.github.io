@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=2.0, minimum-scale=0.5">
+  <title>Famous Vine Montessori • Verbal Reasoning</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(145deg, #2e5b3e 0%, #1e3b28 100%);
+      font-family: 'Segoe UI', 'Quicksand', 'Fredoka', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      margin: 0;
+      color: #f7f3e8;
+    }
+    .game-container {
+      max-width: 750px;
+      width: 100%;
+      background: rgba(255, 248, 235, 0.1);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      background: #fcf5e8;
+      border-radius: 3.5rem 3.5rem 3rem 3rem;
+      box-shadow: 0 35px 60px rgba(0,0,0,0.5), inset 0 2px 8px rgba(255,255,200,0.6);
+      padding: 2rem 2rem 2.2rem;
+      border: 2px solid #f9eac3;
+      color: #2d4a32;
+      transition: all 0.2s ease;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-align: center;
+      color: #2d5a27;
+      text-shadow: 2px 2px 0 #fbe9b1;
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+      word-break: break-word;
+    }
+    .montessori-badge {
+      text-align: center;
+      font-style: italic;
+      font-weight: 500;
+      background: #fceeca;
+      display: inline-block;
+      padding: 0.3rem 2rem;
+      border-radius: 40px;
+      margin: 0 auto 1.5rem;
+      font-size: 1.1rem;
+      color: #3b5e2b;
+      border: 1px solid #cbb786;
+      letter-spacing: 0.5px;
+    }
+    .player-area {
+      background: #ebdcc8;
+      border-radius: 3rem;
+      padding: 1.5rem 1.8rem;
+      margin: 1.2rem 0;
+      box-shadow: inset 0 6px 12px rgba(90, 60, 20, 0.3);
+      border: 2px solid #cfb27c;
+    }
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: #f7efda;
+      border-radius: 2rem;
+      padding: 0.8rem 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      color: #2d4a1e;
+      gap: 10px;
+    }
+    .timer-box {
+      background: #2e4b2c;
+      color: #ffefc0;
+      padding: 0.4rem 1.2rem;
+      border-radius: 3rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 0 10px #ffd966;
+    }
+    .mode-indicator {
+      background: #b99e6b;
+      padding: 0.3rem 1.3rem;
+      border-radius: 20px;
+      color: #fefae0;
+      font-weight: bold;
+    }
+    .tray-title, .play-title {
+      font-weight: 700;
+      margin: 0.6rem 0 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.1rem;
+    }
+    .pool, .play-zone {
+      background: #f3e5cd;
+      border: 3px dashed #aa8b65;
+      border-radius: 2.5rem;
+      min-height: 70px;
+      padding: 0.8rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s;
+      background: #fff6e6;
+      box-shadow: inset 0 2px 8px rgba(99, 69, 19, 0.2);
+    }
+    .play-zone {
+      border: 3px solid #5f7e3a;
+      background: #e2f0d9;
+    }
+    .tile {
+      background: #fadf9e;
+      border-radius: 18px;
+      padding: 0.5rem 1rem;
+      font-weight: 800;
+      font-size: 1.8rem;
+      text-transform: lowercase;
+      box-shadow: 0 6px 0 #b47c48, 0 6px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: 0.1s linear;
+      user-select: none;
+      color: #2d3e1f;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 55px;
+      letter-spacing: 1px;
+      background: #ffdd99;
+    }
+    .sentence-tile {
+      font-size: 1.2rem;
+      padding: 0.4rem 1.2rem;
+      background: #dab46e;
+      color: #1e3312;
+      font-weight: 700;
+      text-transform: none;
+    }
+    .tile:active { transform: translateY(4px); box-shadow: 0 2px 0 #7a5c3a; }
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 1.3rem 0 0.8rem;
+    }
+    .btn {
+      background: #fee7b6;
+      border: none;
+      border-radius: 3rem;
+      padding: 0.8rem 1.6rem;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #2e4621;
+      background: #f9e2a6;
+      box-shadow: 0 5px 0 #bb8b5c, 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: 0.08s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid #ebc484;
+    }
+    .btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #8b6b4b; }
+    .submit-btn { background: #b3d96c; color: #1f3b14; font-weight: 800; }
+    .setup-screen input, .setup-screen select {
+      padding: 0.8rem;
+      border-radius: 2rem;
+      border: 2px solid #b4945a;
+      background: #fffbf0;
+      font-size: 1rem;
+      margin: 0.3rem 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .hidden { display: none !important; }
+    .feedback-message {
+      font-weight: 600;
+      margin: 0.5rem 0;
+      color: #2c4b1c;
+      background: #f7efcf;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+    }
+  </style>
+</head>
+<body>
+<div class="game-container" id="gameApp">
+        <a href="../../index.html?id=#games" style=" border: none; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; background: #fef3e0;"> Back to FVMS <i class="fas fa-project-diagram"></i> Game Hub</a>
+
+  <h1>🌿 Famous Vine Montessori</h1>
+  <div class="montessori-badge">✨ verbal reasoning game ✨</div>
+
+  <!-- SETUP SCREEN -->
+  <div id="setupScreen">
+    <div class="player-area">
+      <p style="font-weight:bold; margin-bottom:0.8rem;">Welcome to Famous Vine Montessori School game zone! Here you are going to play a verbal reasoning game.</p>
+      <label>Your Name <input type="text" id="playerNameInput" placeholder="e.g., Ethan"></label>
+      <label>Difficulty <select id="difficultySelect"><option value="easy">Easy</option><option value="difficult">Difficult</option><option value="advanced">Advanced</option><option value="adaptive" selected>Adaptive (default)</option></select></label>
+      <label>Thinking Time <select id="timeSelect"><option value="30">30 sec</option><option value="60">1 min</option><option value="120">2 min</option><option value="300">5 min</option><option value="adaptive" selected>Adaptive (auto progress)</option></select></label>
+      <p style="font-size:0.9rem; opacity:0.8;">If no time is selected, adaptive mode progresses automatically.</p>
+      <button class="btn submit-btn" id="startGameBtn" style="margin-top:1rem; width:100%;">🌱 Start Playing</button>
+    </div>
+  </div>
+
+  <!-- GAME PLAY SCREEN -->
+  <div id="playScreen" class="hidden">
+    <div class="stats">
+      <span>🧑‍🎓 <span id="displayName">Ethan</span></span>
+      <span class="mode-indicator" id="modeDisplay">🔤 Word Level</span>
+      <span>🔥 Streak: <span id="streakCounter">0</span></span>
+      <span class="timer-box" id="timerDisplay">⏳ 60s</span>
+    </div>
+    <div id="dynamicTrayArea">
+      <div class="tray-title">📥 Letter Tray (click to move)</div>
+      <div class="pool" id="letterPool"></div>
+      <div class="play-title">📝 Your Play Zone</div>
+      <div class="play-zone" id="playZone"></div>
+    </div>
+    <div class="button-group">
+      <button class="btn" id="hintBtn">💡 Hint (<span id="hintCount">3</span>)</button>
+      <button class="btn" id="shuffleBtn">🌀 Shuffle</button>
+      <button class="btn" id="clearBtn">↩️ Clear</button>
+      <button class="btn submit-btn" id="submitAnswerBtn">✅ Submit</button>
+    </div>
+    <div class="feedback-message" id="feedbackMsg">✨ Let's build something wonderful!</div>
+    <div style="display:flex; justify-content:space-between; margin-top:0.7rem;">
+      <span>🏆 Score: <span id="scoreDisplay">0</span></span>
+      <span>⚡ Speedster: <span id="speedsterDisplay">0</span></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- GAME STATE -----
+    const playerState = {
+      name: "Ethan",
+      difficulty: "adaptive",
+      timeSetting: "adaptive",
+      currentMode: "word", // word or sentence
+      streak: 0,
+      score: 0,
+      speedsterPoints: 0,
+      hintUses: 3,
+      timerSeconds: 60,
+      timerInterval: null,
+      remainingSeconds: 60,
+      poolItems: [],       // strings (letters or words)
+      playItems: [],
+      correctAnswer: null,
+      adaptiveLevel: 1,    // 1 easy, increments
+      roundActive: false,
+    };
+
+    // Word banks
+    const easyWords = ["sun", "moon", "rain", "leaf", "bird", "fish", "tree", "book"];
+    const mediumWords = ["garden", "planet", "silver", "forest", "orange", "bridge"];
+    const hardWords = ["monsoon", "crystal", "lantern", "horizon", "blossom"];
+    const advancedWords = ["labyrinth", "crescent", "meadow", "thunder", "fragment"];
+
+    const easySentences = [
+      { words: ["The", "sun", "is", "warm"], answer: "The sun is warm" },
+      { words: ["I", "see", "a", "bird"], answer: "I see a bird" }
+    ];
+    const mediumSentences = [
+      { words: ["shall", "sun", "soon", "shine", "The"], answer: "The sun shall soon shine" },
+      { words: ["We", "love", "the", "forest"], answer: "We love the forest" }
+    ];
+    const hardSentences = [
+      { words: ["The", "garden", "blooms", "in", "spring"], answer: "The garden blooms in spring" },
+      { words: ["A", "crystal", "lake", "shimmers"], answer: "A crystal lake shimmers" }
+    ];
+
+    // DOM elements
+    const setupScreen = document.getElementById('setupScreen');
+    const playScreen = document.getElementById('playScreen');
+    const playerNameInput = document.getElementById('playerNameInput');
+    const difficultySelect = document.getElementById('difficultySelect');
+    const timeSelect = document.getElementById('timeSelect');
+    const startBtn = document.getElementById('startGameBtn');
+    const displayNameSpan = document.getElementById('displayName');
+    const modeDisplay = document.getElementById('modeDisplay');
+    const streakSpan = document.getElementById('streakCounter');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const letterPoolDiv = document.getElementById('letterPool');
+    const playZoneDiv = document.getElementById('playZone');
+    const hintBtn = document.getElementById('hintBtn');
+    const hintCountSpan = document.getElementById('hintCount');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const submitBtn = document.getElementById('submitAnswerBtn');
+    const feedbackMsg = document.getElementById('feedbackMsg');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const speedsterDisplay = document.getElementById('speedsterDisplay');
+
+    // ----- UTILS -----
+    function stopTimer() {
+      if (playerState.timerInterval) {
+        clearInterval(playerState.timerInterval);
+        playerState.timerInterval = null;
+      }
+    }
+
+    function updateUIStats() {
+      streakSpan.textContent = playerState.streak;
+      scoreDisplay.textContent = playerState.score;
+      speedsterDisplay.textContent = playerState.speedsterPoints;
+      hintCountSpan.textContent = playerState.hintUses;
+      displayNameSpan.textContent = playerState.name;
+      modeDisplay.textContent = playerState.currentMode === 'word' ? '🔤 Word Level' : '📖 Sentence Level';
+      const mins = Math.floor(playerState.remainingSeconds / 60);
+      const secs = playerState.remainingSeconds % 60;
+      timerDisplay.textContent = `⏳ ${mins}:${secs.toString().padStart(2,'0')}`;
+    }
+
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Render pool & play zone
+    function renderZones() {
+      letterPoolDiv.innerHTML = '';
+      playZoneDiv.innerHTML = '';
+
+      playerState.poolItems.forEach((item, index) => {
+        const tile = document.createElement('div');
+        tile.className = `tile ${playerState.currentMode === 'sentence' ? 'sentence-tile' : ''}`;
+        tile.textContent = item;
+        tile.setAttribute('data-pool-index', index);
+        tile.addEventListener('click', (e) => moveFromPoolToPlay(index));
+        letterPoolDiv.appendChild(tile);
+      });
+
+      playerState.playItems.forEach((item, index) => {
+        const tile = document.createElement('div');
+        tile.className = `tile ${playerState.currentMode === 'sentence' ? 'sentence-tile' : ''}`;
+        tile.textContent = item;
+        tile.setAttribute('data-play-index', index);
+        tile.addEventListener('click', (e) => moveFromPlayToPool(index));
+        playZoneDiv.appendChild(tile);
+      });
+    }
+
+    function moveFromPoolToPlay(poolIndex) {
+      if (!playerState.roundActive || poolIndex >= playerState.poolItems.length) return;
+      const item = playerState.poolItems.splice(poolIndex, 1)[0];
+      playerState.playItems.push(item);
+      renderZones();
+    }
+
+    function moveFromPlayToPool(playIndex) {
+      if (!playerState.roundActive || playIndex >= playerState.playItems.length) return;
+      const item = playerState.playItems.splice(playIndex, 1)[0];
+      playerState.poolItems.push(item);
+      renderZones();
+    }
+
+    function clearPlayZone() {
+      if (!playerState.roundActive) return;
+      playerState.poolItems.push(...playerState.playItems);
+      playerState.playItems = [];
+      renderZones();
+    }
+
+    function shufflePool() {
+      if (!playerState.roundActive) return;
+      playerState.poolItems = shuffleArray([...playerState.poolItems]);
+      renderZones();
+    }
+
+    function useHint() {
+      if (!playerState.roundActive || playerState.hintUses <= 0) {
+        feedbackMsg.textContent = "❌ No hints left, " + playerState.name + "!";
+        return;
+      }
+      if (playerState.currentMode === 'word') {
+        const correctWord = playerState.correctAnswer;
+        const neededLetters = correctWord.split('');
+        const currentPlay = [...playerState.playItems];
+        for (let i = 0; i < neededLetters.length; i++) {
+          if (i >= currentPlay.length || currentPlay[i] !== neededLetters[i]) {
+            const nextLetter = neededLetters[i];
+            const poolIdx = playerState.poolItems.findIndex(l => l === nextLetter);
+            if (poolIdx !== -1) {
+              const moved = playerState.poolItems.splice(poolIdx,1)[0];
+              playerState.playItems.push(moved);
+              playerState.hintUses--;
+              renderZones();
+              feedbackMsg.textContent = `💡 Hint used! Next letter added.`;
+              return;
+            }
+          }
+        }
+        feedbackMsg.textContent = "✨ Already on track!";
+      } else {
+        const correctWords = playerState.correctAnswer.split(' ');
+        const currentPlayWords = [...playerState.playItems];
+        for (let i=0; i<correctWords.length; i++) {
+          if (i >= currentPlayWords.length || currentPlayWords[i] !== correctWords[i]) {
+            const neededWord = correctWords[i];
+            const poolIdx = playerState.poolItems.findIndex(w => w === neededWord);
+            if (poolIdx !== -1) {
+              const moved = playerState.poolItems.splice(poolIdx,1)[0];
+              playerState.playItems.push(moved);
+              playerState.hintUses--;
+              renderZones();
+              feedbackMsg.textContent = `💡 Next word placed!`;
+              return;
+            }
+          }
+        }
+        feedbackMsg.textContent = "🌟 Sentence already forming nicely.";
+      }
+    }
+
+    function checkAnswer() {
+      if (!playerState.roundActive) return;
+      let userAnswer = '';
+      if (playerState.currentMode === 'word') {
+        userAnswer = playerState.playItems.join('');
+      } else {
+        userAnswer = playerState.playItems.join(' ');
+      }
+      const correct = playerState.correctAnswer;
+      const isCorrect = (userAnswer === correct);
+
+      const timeUsed = playerState.remainingSeconds < (playerState.timerSeconds * 0.4); // speed bonus if >60% time remains
+      if (isCorrect) {
+        playerState.streak++;
+        let basePoints = playerState.currentMode==='word' ? 100 : 150;
+        let multiplier = Math.min(playerState.streak, 5);
+        let roundScore = basePoints * multiplier;
+        playerState.score += roundScore;
+
+        if (playerState.remainingSeconds > (playerState.timerSeconds * 0.55)) {
+          playerState.speedsterPoints += 20;
+          feedbackMsg.textContent = `⚡ Speedster! +20 bonus, ${playerState.name}!`;
+        } else {
+          feedbackMsg.textContent = `🎉 Correct, ${playerState.name}! +${roundScore} points!`;
+        }
+        stopTimer();
+        playerState.roundActive = false;
+        updateUIStats();
+        // Adaptive progression
+        if (playerState.difficulty === 'adaptive' || playerState.timeSetting === 'adaptive') {
+          if (playerState.streak % 2 === 0 && playerState.streak > 0) {
+            playerState.adaptiveLevel = Math.min(playerState.adaptiveLevel+1, 5);
+          }
+        }
+        setTimeout(() => nextRound(), 1000);
+      } else {
+        playerState.streak = 0;
+        feedbackMsg.textContent = `❌ Not quite, ${playerState.name}. Keep trying!`;
+        updateUIStats();
+      }
+    }
+
+    function generateRound() {
+      stopTimer();
+      playerState.playItems = [];
+      let diff = playerState.difficulty;
+      if (diff === 'adaptive') {
+        if (playerState.adaptiveLevel <= 2) diff = 'easy';
+        else if (playerState.adaptiveLevel === 3) diff = 'difficult';
+        else diff = 'advanced';
+      }
+
+      const wordModeProbability = diff === 'easy' ? 0.9 : (diff === 'difficult' ? 0.6 : 0.4);
+      const useWordMode = Math.random() < wordModeProbability;
+
+      if (useWordMode) {
+        playerState.currentMode = 'word';
+        let word = '';
+        if (diff === 'easy') word = easyWords[Math.floor(Math.random()*easyWords.length)];
+        else if (diff === 'difficult') word = [...mediumWords, ...hardWords][Math.floor(Math.random()*10)];
+        else word = advancedWords[Math.floor(Math.random()*advancedWords.length)];
+        playerState.correctAnswer = word.toLowerCase();
+        playerState.poolItems = shuffleArray(word.split(''));
+      } else {
+        playerState.currentMode = 'sentence';
+        let sentenceObj;
+        if (diff === 'easy') sentenceObj = easySentences[Math.floor(Math.random()*easySentences.length)];
+        else if (diff === 'difficult') sentenceObj = mediumSentences[Math.floor(Math.random()*mediumSentences.length)];
+        else sentenceObj = hardSentences[Math.floor(Math.random()*hardSentences.length)];
+        playerState.correctAnswer = sentenceObj.answer;
+        playerState.poolItems = shuffleArray([...sentenceObj.words]);
+      }
+
+      // Timer logic
+      let timeSec = 60;
+      if (playerState.timeSetting === 'adaptive') {
+        if (diff === 'easy') timeSec = 90;
+        else if (diff === 'difficult') timeSec = 50;
+        else timeSec = 35;
+      } else {
+        timeSec = parseInt(playerState.timeSetting, 10);
+      }
+      playerState.timerSeconds = timeSec;
+      playerState.remainingSeconds = timeSec;
+      playerState.roundActive = true;
+
+      if (playerState.currentMode === 'sentence') {
+        feedbackMsg.textContent = `${playerState.name}, this round focuses on Sentence Structure!`;
+      } else {
+        feedbackMsg.textContent = `🔤 Form a word, ${playerState.name}!`;
+      }
+      renderZones();
+      updateUIStats();
+      startCountdown();
+    }
+
+    function startCountdown() {
+      stopTimer();
+      playerState.timerInterval = setInterval(() => {
+        if (playerState.remainingSeconds <= 0) {
+          stopTimer();
+          playerState.roundActive = false;
+          playerState.streak = 0;
+          feedbackMsg.textContent = `⏰ Time's up, ${playerState.name}! Resetting streak.`;
+          updateUIStats();
+          setTimeout(() => nextRound(), 1400);
+          return;
+        }
+        playerState.remainingSeconds--;
+        updateUIStats();
+      }, 1000);
+    }
+
+    function nextRound() {
+      stopTimer();
+      if (playerState.difficulty === 'adaptive') {
+        // adaptive level already managed
+      }
+      generateRound();
+    }
+
+    function startGame() {
+      const name = playerNameInput.value.trim() || 'Explorer';
+      playerState.name = name;
+      playerState.difficulty = difficultySelect.value;
+      playerState.timeSetting = timeSelect.value;
+      playerState.streak = 0;
+      playerState.score = 0;
+      playerState.speedsterPoints = 0;
+      playerState.hintUses = 3;
+      playerState.adaptiveLevel = 1;
+      setupScreen.classList.add('hidden');
+      playScreen.classList.remove('hidden');
+      displayNameSpan.textContent = name;
+      nextRound();
+    }
+
+    // Event Listeners
+    startBtn.addEventListener('click', startGame);
+    submitBtn.addEventListener('click', checkAnswer);
+    hintBtn.addEventListener('click', useHint);
+    shuffleBtn.addEventListener('click', shufflePool);
+    clearBtn.addEventListener('click', clearPlayZone);
+
+    // initial render
+    updateUIStats();
+  })();
+</script>
+</body>
+</html>

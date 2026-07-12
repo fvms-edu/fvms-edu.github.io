@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FVMS Nursery School Playground</title>
+    <style>
+        :root {
+            --bg-dark: #040d06;
+            --glass-bg: rgba(8, 24, 14, 0.7);
+            --glass-border: rgba(57, 255, 20, 0.25);
+            --neon-green: #39ff14;
+            --neon-pink: #ff007f;
+            --neon-blue: #00f3ff;
+            --text-light: #e3f6e9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #0e2b16 0%, var(--bg-dark) 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .playground-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 2px solid var(--glass-border);
+            border-radius: 32px;
+            width: 100%;
+            max-width: 750px;
+            padding: 30px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(57, 255, 20, 0.05);
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0 0 12px var(--neon-green);
+        }
+
+        .screen {
+            display: none;
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Input Controls */
+        input[type="text"] {
+            width: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--glass-border);
+            border-radius: 20px;
+            color: #fff;
+            font-size: 1.5rem;
+            text-align: center;
+            outline: none;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+
+        /* Large Child-Friendly Buttons */
+        .btn-giant {
+            display: block;
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(135deg, #164624, #0b2412);
+            border: 2px solid var(--neon-green);
+            border-radius: 24px;
+            color: #fff;
+            font-size: 1.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(57, 255, 20, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-giant:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        /* Dashboard HUD */
+        .hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 25px;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .hud span {
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        /* Virtual Teacher Speech Bubble */
+        .teacher-bubble {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 6px solid var(--neon-blue);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Stage 1 & 3 & 4 Layouts: Massive Graphic Display */
+        .giant-display {
+            font-size: 7.5rem;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 25px var(--neon-blue);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .option-button {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .option-button:hover {
+            background: rgba(57, 255, 20, 0.1);
+            border-color: var(--neon-green);
+            transform: translateY(-4px);
+        }
+
+        /* Stage 2 Layout: Dynamic Dropping Physics Panel */
+        #physics-canvas-container {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            border: 2px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+            display: none;
+        }
+
+        .dropping-shape {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: top 0.05s linear;
+        }
+
+        .shape-circle { background: #ff5555; border-radius: 50%; }
+        .shape-square { background: #ffb86c; }
+        .shape-triangle {
+            width: 0; height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 60px solid #50fa7b;
+            background: transparent !important;
+        }
+
+        .target-shelf {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .target-icon {
+            padding: 15px 25px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--neon-blue);
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .target-icon:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="playground-card">
+              <a href="../../index.html?id=#games" style=" border: none; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; background: #fef3e0;"> Back to FVMS <i class="fas fa-project-diagram"></i> Game Hub</a>
+
+        <h1>FVMS Playground</h1>
+
+        <!-- SCREEN 1: TODDLER ONBOARDING -->
+        <div id="screen-onboarding" class="screen active">
+            <div style="text-align: center; margin-bottom: 25px; font-size: 1.4rem; color: var(--neon-blue);">
+                Hello Little Explorer! Tell Teacher Your Name:
+            </div>
+            <input type="text" id="child-name" placeholder="Type your name..." autocomplete="off">
+            <button class="btn-giant" id="btn-enter-playground">Let's Play!</button>
+        </div>
+
+        <!-- SCREEN 2: GAMEPLAY INTERFACE -->
+        <div id="screen-gameplay" class="screen">
+            <div class="hud">
+                <div>Explorer: <span id="hud-name">---</span></div>
+                <div>Activity: <span id="hud-activity">Numbers</span></div>
+            </div>
+
+            <div class="teacher-bubble" id="teacher-bubble">
+                Waking up the playground items...
+            </div>
+
+            <!-- Standard Display Area (Numbers / Alphabet / Phonics) -->
+            <div id="standard-display-area">
+                <div class="giant-display" id="main-graphic">1</div>
+                <div class="options-grid" id="options-box"></div>
+            </div>
+
+            <!-- Stage 2 Falling Shape Graphic Node -->
+            <div id="physics-canvas-container">
+                <div id="falling-element"></div>
+                <div class="target-shelf" id="target-shelf-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gameState = {
+            name: "",
+            currentStage: 1, // 1: Numbers, 2: Shapes, 3: Alphabet, 4: Phonics
+            subIndex: 0,
+            attempts: 0,
+            shapeDropInterval: null,
+            shapeTopPos: 0
+        };
+
+        // Curriculum Content Arrays
+        const stage1Numbers = [
+            { value: "1", word: "One", choices: ["1", "3", "2"] },
+            { value: "2", word: "Two", choices: ["5", "2", "4"] },
+            { value: "3", word: "Three", choices: ["3", "1", "6"] }
+        ];
+
+        const stage2Shapes = [
+            { type: "circle", label: "Circle" },
+            { type: "square", label: "Square" },
+            { type: "triangle", label: "Triangle" }
+        ];
+
+        const stage3Letters = [
+            { value: "A", chant: "A is for Apple!", choices: ["A", "B", "C"] },
+            { value: "B", chant: "B is for Ball!", choices: ["X", "O", "B"] },
+            { value: "C", chant: "C is for Cat!", choices: ["C", "M", "P"] }
+        ];
+
+        const stage4Phonics = [
+            { word: "AT", type: "two", read: "A-T says At!" },
+            { word: "GO", type: "two", read: "G-O says Go!" },
+            { word: "CAT", type: "three", read: "C-A-T makes Cat!" },
+            { word: "SUN", type: "three", read: "S-U-N makes Sun!" },
+            { word: "BALL", type: "four", read: "B-A-L-L makes Ball!" }
+        ];
+
+        const elements = {
+            onboardingScreen: document.getElementById('screen-onboarding'),
+            gameplayScreen: document.getElementById('screen-gameplay'),
+            inputName: document.getElementById('child-name'),
+            btnEnter: document.getElementById('btn-enter-playground'),
+            hudName: document.getElementById('hud-name'),
+            hudActivity: document.getElementById('hud-activity'),
+            teacherBubble: document.getElementById('teacher-bubble'),
+            standardArea: document.getElementById('standard-display-area'),
+            mainGraphic: document.getElementById('main-graphic'),
+            optionsBox: document.getElementById('options-box'),
+            physicsContainer: document.getElementById('physics-canvas-container'),
+            fallingElement: document.getElementById('falling-element'),
+            targetShelf: document.getElementById('target-shelf-container')
+        };
+
+        // Standard Text To Speech Action Loops
+        function teacherSpeak(text, callback) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.88; // Toddler conversational pacing
+                utterance.pitch = 1.15; // Friendly energetic cadence
+                if (callback) utterance.onend = callback;
+                window.speechSynthesis.speak(utterance);
+            }
+            elements.teacherBubble.innerText = text;
+        }
+
+        // Onboarding Interface Transitions
+        elements.btnEnter.addEventListener('click', () => {
+            const name = elements.inputName.value.trim();
+            if (!name) {
+                alert("Please enter your name to open the playground!");
+                return;
+            }
+            gameState.name = name;
+            elements.hudName.innerText = gameState.name;
+
+            elements.onboardingScreen.classList.remove('active');
+            elements.gameplayScreen.classList.add('active');
+
+            const welcomeText = `Welcome ${gameState.name} to your Famous Vine Montessori School playground! I am so happy to learn and play with you today. Let's start our grand adventure!`;
+            teacherSpeak(welcomeText, () => {
+                runCurriculumEngine();
+            });
+        });
+
+        // Main Controller Routine
+        function runCurriculumEngine() {
+            clearInterval(gameState.shapeDropInterval);
+            elements.standardArea.style.display = "block";
+            elements.physicsContainer.style.display = "none";
+
+            if (gameState.currentStage === 1) {
+                elements.hudActivity.innerText = "Numbers";
+                loadStage1Number();
+            } else if (gameState.currentStage === 2) {
+                elements.hudActivity.innerText = "Shapes Game";
+                loadStage2Shape();
+            } else if (gameState.currentStage === 3) {
+                elements.hudActivity.innerText = "Letters";
+                loadStage3Alphabet();
+            } else {
+                elements.hudActivity.innerText = "Phonics Words";
+                loadStage4Phonics();
+            }
+        }
+
+        // STAGE 1: Numbers Engine
+        function loadStage1Number() {
+            const data = stage1Numbers[gameState.subIndex];
+            elements.mainGraphic.innerText = data.value;
+            teacherSpeak(`Look! ${data.word}! What is this number?`);
+
+            elements.optionsBox.innerHTML = "";
+            data.choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = "option-button";
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    if (choice === data.value) {
+                        teacherSpeak(`Fantastic, ${gameState.name}! That is the number ${data.word}!`, () => {
+                            gameState.subIndex++;
+                            if (gameState.subIndex >= stage1Numbers.length) {
+                                gameState.currentStage = 2;
+                                gameState.subIndex = 0;
+                            }
+                            runCurriculumEngine();
+                        });
+                    } else {
+                        teacherSpeak(`Great try, ${gameState.name}! Let's count our fingers together and try one more time!`);
+                    }
+                };
+                elements.optionsBox.appendChild(btn);
+            });
+        }
+
+        // STAGE 2: Dropping Physics Engine
+        function loadStage2Shape() {
+            elements.standardArea.style.display = "none";
+            elements.physicsContainer.style.display = "block";
+
+            const currentShape = stage2Shapes[gameState.subIndex];
+            teacherSpeak(`Here comes a ${currentShape.label}!`);
+
+            // Setup Falling Element Attributes
+            elements.fallingElement.className = `dropping-shape shape-${currentShape.type}`;
+            gameState.shapeTopPos = 0;
+            elements.fallingElement.style.top = gameState.shapeTopPos + "px";
+
+            // Render Shelf Targets
+            elements.targetShelf.innerHTML = "";
+            stage2Shapes.forEach(shapeItem => {
+                const targetBtn = document.createElement('div');
+                targetBtn.className = "target-icon";
+                targetBtn.innerText = shapeItem.label;
+                targetBtn.onclick = () => {
+                    if (shapeItem.type === currentShape.type) {
+                        clearInterval(gameState.shapeDropInterval);
+                        teacherSpeak(`Hooray, ${gameState.name}! You caught it! The ${currentShape.label} landed safely in its home! You win this round!`, () => {
+                            gameState.subIndex++;
+                            if (gameState.subIndex >= stage2Shapes.length) {
+                                gameState.currentStage = 3;
+                                gameState.subIndex = 0;
+                            }
+                            runCurriculumEngine();
+                        });
+                    } else {
+                        teacherSpeak(`Oops, that shape went to the wrong home! Let's look closely at its corners and guide the next one together!`);
+                    }
+                };
+                elements.targetShelf.appendChild(targetBtn);
+            });
+
+            // Physics Frame Loop
+            gameState.shapeDropInterval = setInterval(() => {
+                gameState.shapeTopPos += 4;
+                elements.fallingElement.style.top = gameState.shapeTopPos + "px";
+
+                // Loop reset if it drops past target bounds
+                if (gameState.shapeTopPos > 210) {
+                    gameState.shapeTopPos = 0;
+                }
+            }, 40);
+        }
+
+        // STAGE 3: Alphabet Association
+        function loadStage3Alphabet() {
+            const data = stage3Letters[gameState.subIndex];
+            elements.mainGraphic.innerText = data.value;
+            teacherSpeak(data.chant + ` Find the letter ${data.value}!`);
+
+            elements.optionsBox.innerHTML = "";
+            data.choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = "option-button";
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    if (choice === data.value) {
+                        teacherSpeak(`Splendid, ${gameState.name}! You found the letter ${data.value}!`, () => {
+                            gameState.subIndex++;
+                            if (gameState.subIndex >= stage3Letters.length) {
+                                gameState.currentStage = 4;
+                                gameState.subIndex = 0;
+                            }
+                            runCurriculumEngine();
+                        });
+                    } else {
+                        teacherSpeak(`Let's match carefully, ${gameState.name}! Look for the matching lines!`);
+                    }
+                };
+                elements.optionsBox.appendChild(btn);
+            });
+        }
+
+        // STAGE 4: Phonics & Vocabulary Engine
+        function loadStage4Phonics() {
+            const data = stage4Phonics[gameState.subIndex];
+            elements.mainGraphic.innerText = data.word;
+            teacherSpeak(`Time for word phonics! ${data.read} Can you touch the word ${data.word}?`);
+
+            elements.optionsBox.innerHTML = "";
+            
+            // Build dual validation cards matching choice structures
+            const dummyWords = [data.word, "UP", "ME"].sort(() => 0.5 - Math.random());
+            
+            dummyWords.forEach(wordItem => {
+                const btn = document.createElement('button');
+                btn.className = "option-button";
+                btn.innerText = wordItem;
+                btn.onclick = () => {
+                    if (wordItem === data.word) {
+                        teacherSpeak(`Amazing reading, ${gameState.name}! That spells ${data.word}!`, () => {
+                            gameState.subIndex++;
+                            if (gameState.subIndex >= stage4Phonics.length) {
+                                // Full Loop Recycle Validation
+                                teacherSpeak(`Wow! You successfully completed all stages of the FVMS learning playground! Let's celebrate!`);
+                                gameState.currentStage = 1;
+                                gameState.subIndex = 0;
+                            }
+                            runCurriculumEngine();
+                        });
+                    } else {
+                        teacherSpeak(`Let's blend the sounds together, ${gameState.name}! Give it another try!`);
+                    }
+                };
+                elements.optionsBox.appendChild(btn);
+            });
+        }
+    </script>
+</body>
+</html>

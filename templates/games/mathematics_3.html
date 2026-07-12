@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FVMS Interactive Math Game Portal</title>
+    <style>
+        :root {
+            --bg-color: #0a140e;
+            --glass-bg: rgba(14, 34, 22, 0.6);
+            --glass-border: rgba(46, 117, 79, 0.4);
+            --text-color: #e2f0e7;
+            --neon-green: #39ff14;
+            --neon-blue: #00f3ff;
+            --neon-accent: #ff007f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #122c1d 0%, var(--bg-color) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Container Layout with Glassmorphism */
+        .game-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 650px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37),
+                        inset 0 0 20px rgba(57, 255, 20, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--neon-green);
+            letter-spacing: 1px;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: var(--neon-blue);
+            font-weight: 600;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        /* Action Buttons */
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, rgba(23, 61, 39, 0.8), rgba(11, 36, 21, 0.9));
+            border: 1px solid var(--neon-green);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-shadow: 0 0 5px var(--neon-green);
+            box-shadow: 0 4px 15px rgba(57, 255, 14, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            text-shadow: none;
+            box-shadow: 0 0 25px var(--neon-green);
+            transform: translateY(-2px);
+        }
+
+        /* HUD & Progress Status */
+        .hud-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hud-item {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .hud-item span {
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+        }
+
+        .progress-bar-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 6px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
+            box-shadow: 0 0 10px var(--neon-blue);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Dialogue Box for Host Voice */
+        .host-bubble {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid var(--neon-green);
+            padding: 20px;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 30px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        /* Options Grid */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .option-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 18px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.25s ease;
+        }
+
+        .option-card:hover {
+            background: rgba(0, 243, 255, 0.08);
+            border-color: var(--neon-blue);
+            transform: translateX(5px);
+        }
+
+        .option-prefix {
+            color: var(--neon-blue);
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Hint/Explanation Modal Panel */
+        .interactive-action-panel {
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .interactive-action-panel.active {
+            display: block;
+        }
+
+        .btn-secondary {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue);
+            box-shadow: 0 4px 15px rgba(0, 243, 255, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--neon-blue);
+            color: #000;
+            text-shadow: none;
+            box-shadow: 0 0 25px var(--neon-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+              <a href="../../index.html?id=#games" style=" border: none; text-decoration: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; background: #fef3e0;"> Back to FVMS <i class="fas fa-project-diagram"></i> Game Hub</a>
+
+        <h1>FVMS Math Game Portal</h1>
+
+        <!-- SCREEN 1: ONBOARDING -->
+        <div id="screen-onboarding" class="screen active">
+            <div class="form-group">
+                <label for="student-name">Enter Your Name:</label>
+                <input type="text" id="student-name" placeholder="Type your name here..." autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="start-level">Select Your Starting Level:</label>
+                <select id="start-level">
+                    <option value="1">Level 1: Nursery / Basic 1</option>
+                    <option value="2">Level 2: Basic 2</option>
+                    <option value="3">Level 3: Basic 3</option>
+                    <option value="4">Level 4: Basic 4</option>
+                    <option value="5">Level 5: Basic 5</option>
+                </select>
+            </div>
+            <button class="btn" id="btn-start">Enter Game Show</button>
+        </div>
+
+        <!-- SCREEN 2: MAIN GAME SHOW -->
+        <div id="screen-game" class="screen">
+            <!-- HUD Layout -->
+            <div class="hud-panel">
+                <div class="hud-item">Pupil: <span id="hud-name">---</span></div>
+                <div class="hud-item">Level: <span id="hud-level">1</span></div>
+                <div class="hud-item">Stars: <span id="hud-stars">0</span></div>
+            </div>
+
+            <!-- Progress Tracker -->
+            <div class="progress-bar-container">
+                <div class="progress-label">
+                    <span>Level Progress</span>
+                    <span id="progress-text">0%</span>
+                </div>
+                <div class="progress-bar-track">
+                    <div id="progress-fill" class="progress-bar-fill"></div>
+                </div>
+            </div>
+
+            <!-- Host Dynamic Output Bubble -->
+            <div class="host-bubble" id="host-speech-bubble">
+                Preparing your game layout...
+            </div>
+
+            <!-- Interactive Questions Layout -->
+            <div id="quiz-interaction-area">
+                <div class="options-grid" id="options-container">
+                    <!-- Cards are dynamically injected via Javascript -->
+                </div>
+            </div>
+
+            <!-- Contextual Actions Panel (Hints/Next Problem) -->
+            <div class="interactive-action-panel" id="action-panel">
+                <button class="btn btn-secondary" id="btn-action-primary">Request Hint</button>
+                <button class="btn" id="btn-action-next" style="display:none;">Next Question</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game State Variables
+        let gameState = {
+            name: "",
+            currentLevel: 1,
+            stars: 0,
+            consecutiveCorrect: 0,
+            targetToLevelUp: 5,
+            currentProblem: null,
+            attemptsCount: 0,
+            hintRequested: false
+        };
+
+        // DOM elements
+        const screens = {
+            onboarding: document.getElementById('screen-onboarding'),
+            game: document.getElementById('screen-game')
+        };
+        const elements = {
+            inputName: document.getElementById('student-name'),
+            selectLevel: document.getElementById('start-level'),
+            btnStart: document.getElementById('btn-start'),
+            hudName: document.getElementById('hud-name'),
+            hudLevel: document.getElementById('hud-level'),
+            hudStars: document.getElementById('hud-stars'),
+            progressText: document.getElementById('progress-text'),
+            progressFill: document.getElementById('progress-fill'),
+            hostBubble: document.getElementById('host-speech-bubble'),
+            optionsContainer: document.getElementById('options-container'),
+            actionPanel: document.getElementById('action-panel'),
+            btnActionPrimary: document.getElementById('btn-action-primary'),
+            btnActionNext: document.getElementById('btn-action-next')
+        };
+
+        // Text-to-Speech Core Integration
+        function hostSpeak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop ongoing speech patterns
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.95; // Clear pace for primary school kids
+                utterance.pitch = 1.05; // Friendly host tone
+                window.speechSynthesis.speak(utterance);
+            }
+            elements.hostBubble.innerHTML = text;
+        }
+
+        // Initialize Game Show
+        elements.btnStart.addEventListener('click', () => {
+            const enteredName = elements.inputName.value.trim();
+            if (!enteredName) {
+                alert("Please enter your name to start the game show!");
+                return;
+            }
+            gameState.name = enteredName;
+            gameState.currentLevel = parseInt(elements.selectLevel.value);
+            
+            // Swap display frame
+            screens.onboarding.classList.remove('active');
+            screens.game.classList.add('active');
+
+            // Set HUD values
+            elements.hudName.innerText = gameState.name;
+            elements.hudLevel.innerText = gameState.currentLevel;
+
+            // Welcome Greeting Trigger
+            const welcomeText = `Welcome ${gameState.name} to Famous Vine Montessori School game portal! I am so excited to play with you today. Let's begin with Level ${gameState.currentLevel}.`;
+            hostSpeak(welcomeText);
+
+            setTimeout(() => {
+                generateQuestion();
+            }, 5500);
+        });
+
+        // Math Question Generator Engine
+        function generateQuestion() {
+            gameState.attemptsCount = 0;
+            gameState.hintRequested = false;
+            elements.btnActionNext.style.display = "none";
+            elements.actionPanel.classList.remove('active');
+            
+            let num1, num2, questionText, answer, options = [], hint, explanation;
+            const lvl = gameState.currentLevel;
+
+            if (lvl === 1) {
+                num1 = Math.floor(Math.random() * 8) + 1;
+                num2 = Math.floor(Math.random() * 5) + 1;
+                const mode = Math.random() > 0.5 ? '+' : '-';
+                if (mode === '+') {
+                    answer = num1 + num2;
+                    questionText = `What is ${num1} plus ${num2}?`;
+                    hint = `Try counting forward from ${num1}. What is ${num2} more lines?`;
+                } else {
+                    if (num1 < num2) [num1, num2] = [num2, num1];
+                    answer = num1 - num2;
+                    questionText = `What is ${num1} take away ${num2}?`;
+                    hint = `Start at ${num1} and count backward ${num2} steps.`;
+                }
+                explanation = `${num1} items combined or subtracted with ${num2} equals ${answer}.`;
+            } 
+            else if (lvl === 2) {
+                num1 = Math.floor(Math.random() * 40) + 10;
+                num2 = Math.floor(Math.random() * 30) + 10;
+                answer = num1 + num2;
+                questionText = `What is ${num1} plus ${num2}?`;
+                hint = `Try adding the ones place first: ${num1 % 10} plus ${num2 % 10}, then move to the tens place.`;
+                explanation = `Adding units together gives ${ (num1%10)+(num2%10) } and tens gives ${ Math.floor(num1/10)+Math.floor(num2/10) }, making it total ${answer}.`;
+            } 
+            else if (lvl === 3) {
+                num1 = Math.floor(Math.random() * 7) + 2;
+                num2 = Math.floor(Math.random() * 8) + 1;
+                answer = num1 * num2;
+                questionText = `What is ${num1} multiplied by ${num2}?`;
+                hint = `This is the same as adding the number ${num1}, ${num2} times row by row.`;
+                explanation = `${num1} groups of ${num2} added together step by step gives ${answer}.`;
+            } 
+            else if (lvl === 4) {
+                num1 = Math.floor(Math.random() * 12) + 2;
+                num2 = Math.floor(Math.random() * 5) + 2;
+                let multiplier = Math.floor(Math.random() * 3) + 2;
+                answer = (num1 * multiplier) - num2;
+                questionText = `Solve this: Calculate ${num1} times ${multiplier}, then subtract ${num2}.`;
+                hint = `First find what ${num1} times ${multiplier} equals, then take away ${num2} from that total.`;
+                explanation = `${num1} times ${multiplier} is ${num1 * multiplier}. Taking away ${num2} from that brings us directly to ${answer}.`;
+            } 
+            else {
+                num1 = Math.floor(Math.random() * 60) + 40;
+                num2 = Math.floor(Math.random() * 15) + 5;
+                answer = num1 + num2;
+                questionText = `Mental Math Challenge! Quickly find the sum of ${num1} and ${num2}.`;
+                hint = `Round ${num1} up to the nearest ten to make it easier, then add the rest!`;
+                explanation = `Combining ${num1} and ${num2} step by step results completely in ${answer}.`;
+            }
+
+            // Create Multiple Choice Arrays safely
+            options.push(answer);
+            while (options.length < 4) {
+                let offset = (Math.floor(Math.random() * 5) + 1) * (Math.random() > 0.5 ? 1 : -1);
+                let wrongOpt = answer + offset;
+                if (wrongOpt >= 0 && !options.includes(wrongOpt)) {
+                    options.push(wrongOpt);
+                }
+            }
+            options.sort((a, b) => a - b);
+
+            gameState.currentProblem = {
+                question: questionText,
+                correctAnswer: answer,
+                options: options,
+                hint: hint,
+                explanation: explanation
+            };
+
+            updateProgressBar();
+            renderQuestion();
+        }
+
+        // Render Cards inside Viewport Grid
+        function renderQuestion() {
+            const prob = gameState.currentProblem;
+            hostSpeak(prob.question);
+
+            elements.optionsContainer.innerHTML = "";
+            const prefixes = ['A', 'B', 'C', 'D'];
+
+            prob.options.forEach((opt, index) => {
+                const card = document.createElement('div');
+                card.className = "option-card";
+                card.innerHTML = `<span class="option-prefix">${prefixes[index]}.</span> <span class="option-value">${opt}</span>`;
+                card.addEventListener('click', () => verifyAnswer(opt, card));
+                elements.optionsContainer.appendChild(card);
+            });
+        }
+
+        // Real-time HUD and Progress tracking calculations
+        function updateProgressBar() {
+            let percentage = (gameState.consecutiveCorrect / gameState.targetToLevelUp) * 100;
+            elements.progressText.innerText = `${percentage}%`;
+            elements.progressFill.style.width = `${percentage}%`;
+            elements.hudStars.innerText = gameState.stars;
+            elements.hudLevel.innerText = gameState.currentLevel;
+        }
+
+        // Evaluate Selected Core Matrix Option
+        function verifyAnswer(selectedVal, selectedCard) {
+            const prob = gameState.currentProblem;
+
+            // Prevent interacting after resolution choice
+            if (elements.btnActionNext.style.display === "block") return;
+
+            if (selectedVal === prob.correctAnswer) {
+                gameState.stars += 10;
+                gameState.consecutiveCorrect++;
+                updateProgressBar();
+
+                let successDialogue = `Oh, ${gameState.name}! You've done great! That is absolutely correct. You have earned 10 FVMS Stars!`;
+                
+                if (gameState.consecutiveCorrect >= gameState.targetToLevelUp) {
+                    if (gameState.currentLevel < 5) {
+                        gameState.currentLevel++;
+                        gameState.consecutiveCorrect = 0;
+                        successDialogue += ` Outstanding job! You have moved up to Level ${gameState.currentLevel}!`;
+                    } else {
+                        successDialogue += ` Brilliant! You have completely mastered all levels of our game show!`;
+                    }
+                }
+
+                hostSpeak(successDialogue);
+                advanceToNextSetup();
+            } else {
+                gameState.attemptsCount++;
+                gameState.consecutiveCorrect = 0; // Reset progression multiplier streak
+                updateProgressBar();
+                selectedCard.style.borderColor = "var(--neon-accent)";
+                selectedCard.style.background = "rgba(255, 0, 127, 0.1)";
+
+                if (gameState.attemptsCount === 1) {
+                    const failDialogue = `Great effort, ${gameState.name}! The option you selected is not quite correct, but I know you can get it. Would you like a hint to try again?`;
+                    hostSpeak(failDialogue);
+                    
+                    // Display alternative fallback dynamic action triggers
+                    elements.btnActionPrimary.innerText = "Request Hint";
+                    elements.btnActionPrimary.style.display = "inline-block";
+                    elements.btnActionNext.style.display = "none";
+                    elements.actionPanel.classList.add('active');
+
+                    elements.btnActionPrimary.onclick = () => {
+                        hostSpeak(prob.hint);
+                        elements.actionPanel.classList.remove('active');
+                    };
+                } else {
+                    // Trigger Safe Explanation Mode
+                    const rescueDialogue = `You worked so hard on this, ${gameState.name}! Don't worry, let's look at it together. The correct answer is ${prob.correctAnswer} because ${prob.explanation}. Let's try a brand new one together!`;
+                    hostSpeak(rescueDialogue);
+                    advanceToNextSetup();
+                }
+            }
+        }
+
+        function advanceToNextSetup() {
+            elements.btnActionPrimary.style.display = "none";
+            elements.btnActionNext.style.display = "inline-block";
+            elements.actionPanel.classList.add('active');
+            
+            elements.btnActionNext.onclick = () => {
+                generateQuestion();
+            };
+        }
+    </script>
+</body>
+</html>
