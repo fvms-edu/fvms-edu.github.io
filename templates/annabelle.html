@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -184,6 +183,89 @@
             text-align: center;
         }
 
+        /* Birthday Celebration Special Styles */
+        .birthday-card {
+            background: linear-gradient(135deg, #fff0f5, #ffffff);
+            border-color: var(--primary-pink);
+            text-align: center;
+        }
+
+        .birthday-card h2 {
+            justify-content: center;
+        }
+
+        .birthday-message {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: var(--soft-yellow);
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px dashed #ffd166;
+            margin-bottom: 25px;
+        }
+        
+        /* SLIDE */
+        .slider-container img{
+            height:100%;
+            min-width: 60%; 
+            display:block;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            border-radius: 20px; 
+        }
+
+        .slider-container { 
+            position: relative; 
+            max-width: 80%; 
+            min-height: 300px; 
+            overflow: hidden; 
+            border-radius: 20px; 
+            flex: 1;
+            padding: 1px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide { 
+          position: absolute; 
+          width: 100%; 
+          height: 100%; 
+          opacity: 0; 
+          transition: opacity 1s ease-in-out; 
+          object-fit: cover; 
+      }
+        
+        .slide.active { 
+          opacity: 1; 
+        }
+
+        .slider-container:hover {
+            transform: scale(1.08);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .video-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 5px solid var(--primary-pink);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            background-color: #000;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            max-height: 450px;
+            display: block;
+        }
+
         /* Presentation Style Lists */
         ul {
             list-style-type: none;
@@ -225,6 +307,13 @@
         @media (max-width: 600px) {
             .monkey-box {
                 grid-template-columns: 1fr;
+            }
+            .slider-container { 
+                max-width: 100%; 
+            }
+            .slider-container img{
+                object-fit: cover;
+
             }
         }
 
@@ -268,7 +357,6 @@
             justify-content: center;
             overflow: scroll;
             display: flex;
-            justify-content: center;
             align-items: center;
             position: relative;
             grid-template-columns: 1fr 1fr;
@@ -288,7 +376,7 @@
             object-fit: cover;
             transition: transform 0.2s, background-color 0.2s;
         }
-
+        
         /* Footer */
         footer {
             background-color: var(--bright-red);
@@ -330,6 +418,45 @@
 
     <!-- Main Website Body -->
     <div class="container">
+
+
+
+
+        <!-- Birthday Celebration & Media Section -->
+        <div class="card birthday-card">
+            <h2><i class="fa-solid fa-gift"></i> Happy 5th Birthday, Dr. Annabelle! <i class="fa-solid fa-cake-candles"></i></h2><h3>August 2, 2026</h3>
+            
+            <!-- Birthday Write-up -->
+            <div class="birthday-message">
+                <p><strong>Hip, Hip, Hooray! 🎉🎈</strong></p>
+                <p>Wishing a big, magical 5th Birthday to our favourite little doctor and superhero, <strong>Dr. Annabelle Stephen</strong>! Today we celebrate your bright smile, your kind heart, and all the giant hugs you share with everyone at Famous Vine Montessori School. May your special day be filled with sweet treats, endless laughter, fun adventures, and extra Wonder Woman powers! 💖✨</p>
+                <br>- FVMS Admin
+            </div>
+
+                <h3 style="color: var(--bright-red); margin-bottom: 15px;"><i class="fa-solid fa-images"></i> Birthday Memory Highlights<i class="fa-solid fa-film"></i></h3>
+
+            <div class="grid">
+                <!-- Birthday Photos Gallery -->
+                <div class="slider-container">
+                    <img src="../static/images/anny3.png" loading="lazy" class="slide active">
+                    <img src="../static/images/anny4.png" loading="lazy" class="slide" alt="Happy Anny">
+                    <img src="../static/images/anny5.png" loading="lazy" class="slide" alt="Happy Anny">
+                    <img src="../static/images/anny6.png" loading="lazy" class="slide" alt="Happy Anny">
+                    <img src="../static/images/anny7.png" loading="lazy" class="slide" alt="Happy Anny">                    
+                    <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=80" loading="lazy" class="slide" alt="Birthday Celebration Balloons">
+                </div>
+
+                <!-- Birthday Celebration Video -->
+                <div class="video-wrapper">
+                    <video controls poster="https://images.unsplash.com/photo-1558636508-e0db3814bd1d?auto=format&fit=crop&w=600&q=80">
+                        <source src="../static/downloads/media/anny.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+
+        </div>
+
 
         <!-- Welcome Bio Card -->
         <div class="card">
@@ -408,6 +535,18 @@
 
         <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
     </footer>
+
+
+<script>
+setInterval(() => {
+  const slides = document.querySelectorAll('.slide');
+  const active = document.querySelector('.slide.active');
+  let next = active.nextElementSibling || slides[0];
+  active.classList.remove('active');
+  next.classList.add('active');
+}, 3000);
+
+</script>
 
 </body>
 </html>
