@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dominion's Personal Website</title>
+    <style>
+        :root {
+            --primary-blue: #1e3d59;
+            --secondary-blue: #17b978;
+            --accent-blue: #438a5e;
+            --light-blue: #f1f8fc;
+            --card-blue: #e8f4f8;
+            --dark-text: #2b2d42;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-blue);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: var(--primary-blue);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            display: block;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #2b580c;
+            background-color: #2b58a0;
+        }
+
+        /* Hero / Main Section */
+        .hero {
+            background: linear-gradient(135deg, #1e3d59, #2b58a0);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Central Upload Section */
+        .portfolio-upload-area {
+            max-width: 600px;
+            margin: -2rem auto 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .photo-placeholder {
+            width: 250px;
+            height: 250px;
+            border: 3px dashed var(--primary-blue);
+            border-radius: 50%;
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-placeholder-text {
+            color: #777;
+            font-size: 0.9rem;
+            padding: 10px;
+        }
+
+        .custom-file-upload {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #122538;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* General Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        section h2 {
+            color: var(--primary-blue);
+            border-bottom: 3px solid var(--primary-blue);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        /* Image Grid / Placeholders */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background-color: var(--card-blue);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .img-placeholder {
+            max-height: 100vh;
+            max-width: 70vh; /* Adjust image width of bigger image */
+            border-radius: 8%;
+
+            background-color: #ccc;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .img-placeholder img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-blue);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#football">Aspirations</a></li>
+            <li><a href="#career">Career Path</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Hero Section -->
+    <header class="hero" id="home">
+        <h1>Welcome to Dominion's World!</h1>
+        <p>7 Years Old | Student at Famous Vine Montessori School</p>
+    </header>
+
+    <!-- Central Portfolio Upload Area -->
+    <div class="photo-placeholder">
+        <span><img src="../static/images/dominion.png" loading="lazy" alt="dominion Pix."></span>
+    </div>
+
+    <div class="container">
+
+        <!-- Footballer Section (Main Interest) -->
+        <section id="football">
+            
+            <div class="grid">
+                <div class="card">
+                    <h2>Footballer ⚽</h2>
+                    <div class="img-placeholder">
+                        <img id="profileImage" src="../static/images/dom.png" loading="lazy" alt="Dominion Training">
+                    </div>
+                    <h3>Training & Games</h3>
+                    <p>Dominion practicing drills and playing football.</p>
+
+                    <p>Dominion aspires to become a professional footballer when he grows up! Here is a showcase of his passion for the sport.</p>
+                </div>
+
+                <div class="card">
+                    <h2>Drawings 🎨</h2>
+
+                    <div class="img-placeholder">
+                        <img id="profileImage" src="../static/images/dom-0.png" loading="lazy" alt="Dominion Drawings">
+                    </div>
+                    <h3>Creative Artworks</h3>
+                    <p>A display of drawings created by Dominion.</p>
+
+                    <p>Dominion loves drawing creative artwork and loves helping people around him.</p>
+                </div>
+            </div>
+        </section>
+
+            <!-- Career Section -->
+            <section id="career">
+                
+                <div class="grid">
+                    
+                    <div class="card">
+                        <h2> Doctor 🩺</h2>
+                        <div class="img-placeholder">
+                            <img id="profileImage" src="../static/images/dom-1.png" loading="lazy" alt="Dominion Career Path: Doctor">
+                        </div>
+                        <h3>Medical & Health Care</h3>
+                        <p>Learning about medicine and helping people stay healthy.</p>
+
+                        <p>Helping Others by lending a helping hand. Exploring the world of medicine, caring for health, and saving lives. </p>
+                    </div>
+
+                    <div class="card">
+                        <h2> Lawyer ⚖️</h2>
+
+                        <div class="img-placeholder">
+                            <img id="profileImage" src="../static/images/dom-2.png" loading="lazy" alt="Dominion Career Path: Lawyer">
+                        </div>
+                        <h3>Justice & Advocacy</h3>
+                        <p>Exploring justice, defending fairness, and standing up for people's rights.</p>
+
+                        <p>Standing for fairness and helping resolve problems peacefully.</p>
+                    </div>
+                </div>
+
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Dominion's Personal Portfolio | Famous Vine Montessori School</p>
+
+
+
+        
+        <a href="../index.html?id=#projects"><button style="background: transparent; border: none; font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 1rem; padding: 10px 20px; border-radius: 60px; cursor: pointer; transition: all 0.2s ease; color: #2c5e2c; float: left; background: #fef3e0;"><i class="fas fa-images"></i> Back to FVMS <i class="fas fa-flask"></i> Projects Tab </button></a>
+    </footer>
+
+    <!-- JavaScript for File Upload Preview -->
+    <script>
+        function previewFile() {
+            const preview = document.getElementById('profileImage');
+            const fileInput = document.getElementById('imageUpload');
+            const placeholderText = document.getElementById('placeholderText');
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onloadend = function () {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                    placeholderText.style.display = 'none';
+                }
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+</body>
+</html>
